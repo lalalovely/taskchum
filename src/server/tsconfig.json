@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "ES2021",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "jsx": "react",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "../../dist",
+    "typeRoots": ["@types", "../../node_modules/@types"],
+    "types": ["react", "jest", "node"],
+    "baseUrl": "../../"
+  },
+  "include": ["../../src/server", "../../src/commons"],
+  "exclude": [
+    "**/__mocks__",
+    "**/*.test.ts",
+    "dist",
+    "node_modules",
+    "../client/*",
+    "../client/**/*"
+  ]
+}

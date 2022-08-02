@@ -1,0 +1,12 @@
+{
+  "API_URL": "http://localhost:3001",
+  "FIREBASE_CONFIG": {
+    "apiKey": "AIzaSyBq-JCoLjZMcJdMtROQOkxdZuQFOS3vwjM",
+    "authDomain": "task-manager-ec6a7.firebaseapp.com",
+    "projectId": "task-manager-ec6a7",
+    "storageBucket": "task-manager-ec6a7.appspot.com",
+    "messagingSenderId": "672908699858",
+    "appId": "1:672908699858:web:0b4d57346977398b0de50b",
+    "measurementId": "G-2S6JK07V1E"
+  }
+}
