@@ -49,7 +49,7 @@ export default function TaskArea() {
   return (
     <MainContainer>
       <Wrapper>
-        <Header />
+        <Header isTaskListEmpty={tasks?.length === 0} />
         <Main>
           <TaskList>{taskListElement}</TaskList>
           {isAdding ? (

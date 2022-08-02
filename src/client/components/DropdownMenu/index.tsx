@@ -9,11 +9,10 @@ type Props = {
   options: DropdownOption[];
   onSelect: (optionId: number) => void;
   onClose: () => void;
-  header?: React.ReactNode;
 };
 
 export default function DropdownMenu(props: Props) {
-  const { options, onSelect, onClose, header } = props;
+  const { options, onSelect, onClose } = props;
 
   const menuItems = options.map((option: DropdownOption) => {
     function handleSelect() {
@@ -22,7 +21,7 @@ export default function DropdownMenu(props: Props) {
     }
 
     return (
-      <MenuItem key={option.id} onClick={handleSelect}>
+      <MenuItem key={option.id} onClick={handleSelect} disabled={option.disabled}>
         {option.icon}
         <MenuItemLabel>{option.name}</MenuItemLabel>
       </MenuItem>
@@ -32,10 +31,7 @@ export default function DropdownMenu(props: Props) {
   return (
     <ClickAwayListener onClickAway={onClose}>
       <Container>
-        <Menu>
-          {header}
-          {menuItems}
-        </Menu>
+        <Menu>{menuItems}</Menu>
       </Container>
     </ClickAwayListener>
   );

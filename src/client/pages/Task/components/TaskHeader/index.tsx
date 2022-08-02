@@ -17,9 +17,9 @@ export default function TaskHeader() {
   const profileIcon = <MdOutlineManageAccounts size="20px" />;
   const settingsIcon = <MdOutlineSettings size="20px" />;
   const dropdownMenuOptions = [
-    { id: 1, name: 'Profile', icon: profileIcon },
-    { id: 2, name: 'Settings', icon: settingsIcon },
-    { id: 3, name: 'Logout', icon: logoutIcon },
+    { id: 1, name: 'Profile', icon: profileIcon, disabled: true },
+    { id: 2, name: 'Settings', icon: settingsIcon, disabled: true },
+    { id: 3, name: 'Logout', icon: logoutIcon, disabled: false },
   ];
 
   async function onLogOut() {

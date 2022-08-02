@@ -21,7 +21,9 @@ export const Menu = styled.div`
   transition: all 0.3s ease;
 `;
 
-export const MenuItem = styled.div`
+export const MenuItem = styled.button`
+  outline: none;
+  border: none;
   color: rgb(79, 43, 45);
   display: flex;
   align-items: center;
@@ -29,9 +31,22 @@ export const MenuItem = styled.div`
   font-size: 14px;
   cursor: pointer;
   z-index: 99;
+  width: 100%;
+  background-color: white;
 
-  &:hover {
+  &:disabled,
+  &:disabled:hover,
+  &:disabled:active,
+  &:disabled:hover:active {
+    color: #d4d4d4;
+    cursor: not-allowed;
+  }
+
+  &:enabled:hover,
+  &:enabled:active,
+  &:enabled:hover:active {
     background-color: #e9e9e9;
+    outline: none;
   }
 `;
 

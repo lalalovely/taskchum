@@ -12,7 +12,12 @@ import TaskModal from '../TaskModal';
 
 import { MainHeader, HeaderLabel, HeaderControls, MenuButton, DropContainer } from './styles';
 
-export default function Header() {
+type Props = {
+  isTaskListEmpty: boolean;
+};
+
+export default function Header(props: Props) {
+  const { isTaskListEmpty } = props;
   const user = useContext(UserContext);
   const queryClient = useQueryClient();
   const [openAddModal, setOpenAddModal] = useState<boolean>(false);
@@ -20,8 +25,8 @@ export default function Header() {
 
   const deleteIcon = <MdDeleteOutline size="20px" />;
   const dropdownMenuOptions = [
-    { id: 1, name: 'Delete finished tasks', icon: deleteIcon },
-    { id: 2, name: 'Delete all tasks', icon: deleteIcon },
+    { id: 1, name: 'Delete finished tasks', icon: deleteIcon, disabled: isTaskListEmpty },
+    { id: 2, name: 'Delete all tasks', icon: deleteIcon, disabled: isTaskListEmpty },
   ];
 
   function onSelectDropdown(optionId: number) {
