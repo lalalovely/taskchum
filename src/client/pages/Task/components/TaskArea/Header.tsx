@@ -1,13 +1,13 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { BiDotsVertical } from 'react-icons/bi';
 import { MdAdd, MdDeleteOutline } from 'react-icons/md';
 import { useMutation, useQueryClient } from 'react-query';
+import { useAuth } from 'src/client/contexts/AuthContext';
 
 import { Task } from '../../../../../commons/types/Task.type';
 import TaskApi from '../../../../api/TaskApi';
 import DropdownMenu from '../../../../components/DropdownMenu';
 import { showEvent } from '../../../../components/Toast';
-import { UserContext } from '../../../../contexts/UserContext';
 import TaskModal from '../TaskModal';
 
 import { MainHeader, HeaderLabel, HeaderControls, MenuButton, DropContainer } from './styles';
@@ -18,7 +18,7 @@ type Props = {
 
 export default function Header(props: Props) {
   const { isTaskListEmpty } = props;
-  const user = useContext(UserContext);
+  const { currentUser } = useAuth();
   const queryClient = useQueryClient();
   const [openAddModal, setOpenAddModal] = useState<boolean>(false);
   const [openDropdownMenu, setOpenDropdownMenu] = useState<boolean>(false);
@@ -44,9 +44,9 @@ export default function Header(props: Props) {
 
   function handleDelete(completed = false) {
     if (completed) {
-      deleteAllCompletedTasks(user.id);
+      deleteAllCompletedTasks(currentUser.id);
     } else {
-      deleteAllTasks(user.id);
+      deleteAllTasks(currentUser.id);
     }
   }
 

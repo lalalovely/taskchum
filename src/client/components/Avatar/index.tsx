@@ -20,9 +20,9 @@ export default function Avatar(props: Props) {
   return (
     <Container>
       <Button onClick={showUserMenu}>
-        {currentUser.photoUrl !== '' ? (
+        {currentUser.photoURL !== '' ? (
           <UserPhotoWrapper>
-            <UserPhoto alt="user" src={currentUser.photoUrl} />
+            <UserPhoto alt="user" src={currentUser.photoURL} />
           </UserPhotoWrapper>
         ) : (
           <UserInitialWrapper>

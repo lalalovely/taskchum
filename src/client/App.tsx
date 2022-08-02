@@ -9,8 +9,6 @@ import defaultTheme from '../client/themes/default';
 import { GlobalStyle } from './App.styles';
 import { ProtectedPage, Toast } from './components';
 import { useAuth, AuthProvider } from './contexts/AuthContext';
-import { UserContext } from './contexts/UserContext';
-//import useAuth from './hooks/useAuth';
 import { LoginPage, SignUpPage } from './pages/Auth';
 import LoadingPage from './pages/LoadingPage';
 import PageNotFound from './pages/PageNotFound';

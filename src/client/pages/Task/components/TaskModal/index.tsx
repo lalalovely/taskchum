@@ -1,5 +1,6 @@
 import React, { Ref, useContext, useRef, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
+import { useAuth } from 'src/client/contexts/AuthContext';
 
 import { Task } from '../../../../../commons/types/Task.type';
 import TaskApi from '../../../../api/TaskApi';
@@ -7,7 +8,6 @@ import { Dialog, Modal } from '../../../../components';
 import { DialogType } from '../../../../components/Dialog';
 import { ModalSize } from '../../../../components/Modal';
 import { showEvent } from '../../../../components/Toast';
-import { UserContext } from '../../../../contexts/UserContext';
 import TaskForm from '../TaskForm';
 
 import { ModalTitle } from './styles';
@@ -22,7 +22,7 @@ type Props = {
 export default function TaskModal(props: Props) {
   const { isOpen, task, isNew, onClose } = props;
   const queryClient = useQueryClient();
-  const user = useContext(UserContext);
+  const { currentUser } = useAuth();
   const [taskData, setTaskData] = useState<Task>(task);
   const [isDiscarding, setIsDiscarding] = useState(false);
 

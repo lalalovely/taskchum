@@ -6,16 +6,16 @@ async function createUser(params: User): Promise<User> {
     ...params,
   } as unknown as User;
 
-  const userRef = await firestore.doc(`users/${params.id}`);
+  const userRef = firestore.doc(`users/${params.id}`);
   const snapshot = await userRef.get();
   if (!snapshot.exists) {
-    userRef.set({ name: params.name, email: params.email });
+    userRef.set({ name: params.name, email: params.email, photoURL: params.photoURL });
   }
   return user;
 }
 
 async function getUser(userId: string): Promise<User | null> {
-  const userRef = await firestore.doc(`users/${userId}`);
+  const userRef = firestore.doc(`users/${userId}`);
   const snapshot = await userRef.get();
   if (snapshot.exists) {
     const data = snapshot.data();
@@ -23,6 +23,7 @@ async function getUser(userId: string): Promise<User | null> {
       id: userId,
       name: data?.name,
       email: data?.email,
+      photoURL: data?.photoURL,
     } as User;
   }
   return null;

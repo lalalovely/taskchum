@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 
 import { useMutation, useQueryClient } from 'react-query';
 import TextareaAutosize from 'react-textarea-autosize';
@@ -9,7 +9,6 @@ import TaskApi from '../../../../api/TaskApi';
 import { Button, Dialog } from '../../../../components';
 import { DialogType } from '../../../../components/Dialog';
 import { showEvent } from '../../../../components/Toast';
-import { UserContext } from '../../../../contexts/UserContext';
 
 import {
   Container,
