@@ -1,6 +1,13 @@
 import React from 'react';
 import { useAuth } from 'src/client/contexts/AuthContext';
-import { Button, Container, UserAvatar, UserInitial } from './styles';
+import {
+  Button,
+  Container,
+  UserInitial,
+  UserInitialWrapper,
+  UserPhoto,
+  UserPhotoWrapper,
+} from './styles';
 
 type Props = {
   showUserMenu: () => void;
@@ -9,12 +16,19 @@ type Props = {
 export default function Avatar(props: Props) {
   const { showUserMenu } = props;
   const { currentUser } = useAuth();
+
   return (
     <Container>
-      <Button aria-expanded="true" aria-haspopup="menu" role="button" onClick={showUserMenu}>
-        <UserAvatar>
-          <UserInitial aria-hidden="true">{currentUser?.name.slice(0, 1)}</UserInitial>
-        </UserAvatar>
+      <Button onClick={showUserMenu}>
+        {currentUser.photoUrl !== '' ? (
+          <UserPhotoWrapper>
+            <UserPhoto alt="user" src={currentUser.photoUrl} />
+          </UserPhotoWrapper>
+        ) : (
+          <UserInitialWrapper>
+            <UserInitial>{currentUser?.name.slice(0, 1)}</UserInitial>
+          </UserInitialWrapper>
+        )}
       </Button>
     </Container>
   );

@@ -2,6 +2,9 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Button = styled.button`
@@ -18,22 +21,33 @@ export const Button = styled.button`
   user-select: none;
 `;
 
-export const UserAvatar = styled.span`
-  line-height: 100%;
+export const UserInitialWrapper = styled.span`
   display: flex;
-  align-items: center;
-  justify-content: center;
   border-radius: 50%;
-  background-color: ${(props) => props.theme.colors.primary};
   width: 40px;
   height: 40px;
   font-size: 25px;
   font-weight: 500;
+  line-height: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: ${(props) => props.theme.colors.primary};
 `;
 
 export const UserInitial = styled.span`
-  letter-spacing: 0.01rem;
   fill: #fff;
   color: #fff;
   text-transform: uppercase;
+`;
+
+export const UserPhotoWrapper = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const UserPhoto = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 `;

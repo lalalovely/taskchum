@@ -55,6 +55,7 @@ export function AuthProvider(props: AuthProviderProps) {
           id: userDetails.user.uid,
           name: userDetails.user.displayName ?? '',
           email: userDetails.user.email ?? '',
+          photoUrl: userDetails.user.photoURL ?? '',
         });
         setCurrentUser(newUser);
       }
