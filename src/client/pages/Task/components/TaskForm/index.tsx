@@ -2,6 +2,7 @@ import React, { ChangeEvent, FormEvent, useContext, useEffect, useState } from '
 
 import { useMutation, useQueryClient } from 'react-query';
 import TextareaAutosize from 'react-textarea-autosize';
+import { useAuth } from 'src/client/contexts/AuthContext';
 
 import { Task } from '../../../../../commons/types/Task.type';
 import TaskApi from '../../../../api/TaskApi';
@@ -30,7 +31,7 @@ type Props = {
 
 export default function TaskForm(props: Props) {
   const { taskData, onClose } = props;
-  const user = useContext(UserContext);
+  const { currentUser } = useAuth();
   const queryClient = useQueryClient();
   let taskNameRef: HTMLInputElement | null = null;
   const [name, setName] = useState<string>(taskData.name);
@@ -93,14 +94,8 @@ export default function TaskForm(props: Props) {
       showEvent("There's an error in adding the task", 'error');
     },
     onSuccess: async () => {
-      console.log('ADD SUCCESSFUL YEY!!!');
       await queryClient.refetchQueries('tasks');
       showEvent('Task is successfully added', 'success');
-      //queryClient.invalidateQueries("tasks");
-      // queryClient.invalidateQueries("tasks").then(() => {
-      //   console.log("REFETCH SUCCESSFUL!!!");
-      //   showEvent("Task is successfully added", "success");
-      // });
     },
   });
 
@@ -108,7 +103,7 @@ export default function TaskForm(props: Props) {
     createTask({
       name: name.trim(),
       description: description.trim(),
-      userId: user.id,
+      userId: currentUser.id,
     });
   }
 
@@ -182,7 +177,6 @@ export default function TaskForm(props: Props) {
               </TextAreaContainer>
             </InputFieldWrapper>
           </InputFields>
-          {/* {dateCreated} */}
         </FormFieldsWrapper>
         <FormActionsWrapper>
           <FormActions>

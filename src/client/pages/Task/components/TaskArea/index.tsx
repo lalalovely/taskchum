@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useAuth } from 'src/client/contexts/AuthContext';
 
@@ -49,8 +49,8 @@ export default function TaskArea() {
   return (
     <MainContainer>
       <Wrapper>
-        <Header isTaskListEmpty={tasks?.length === 0} />
         <Main>
+          <Header isTaskListEmpty={tasks?.length === 0} />
           <TaskList>{taskListElement}</TaskList>
           {isAdding ? (
             <AddForm>{displayAddTaskForm}</AddForm>
