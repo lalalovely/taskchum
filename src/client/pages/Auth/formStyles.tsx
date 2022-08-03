@@ -1,118 +1,16 @@
 import styled from 'styled-components';
 
 export const FormContainer = styled.div`
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: rgb(196 196 196) 0px 1px 0px;
-  padding: 8px 18px 20px;
-  width: 350px;
-  border: 1px solid #e5e5e5;
-  margin-top: 10px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-export const ButtonContainer = styled.div`
-  margin-top: 18px;
-`;
-
-export const GoogleLoginButton = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  border-radius: 4px;
-  cursor: pointer;
-  box-shadow: rgb(0 0 0 / 20%) 0px 2px 2px;
-  opacity: 0.9;
-  font-size: 14px;
-  padding: 12px;
-  min-width: 70px;
-  background-color: white;
-  color: rgb(119, 119, 119);
-  font-weight: bold;
-  letter-spacing: 0.02em;
-  width: 100%;
-  border: 1px solid rgb(238, 238, 238);
-
-  &:active {
-    transform: scale(0.98);
-    //box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
-  }
-`;
-
-export const FormContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-export const FormHeader = styled.h2`
-  font-size: 20px;
-  margin: 8px 0;
-  text-align: center;
-  line-height: 1.1;
-`;
-
-export const Divider = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 10px 0px 0px;
-  width: 100%;
-`;
-
-export const Label = styled.div`
-  color: rgb(196, 196, 196);
-  font-weight: 700;
-  text-transform: uppercase;
-  font-size: 12px;
-  margin: 15px 0 10px;
-`;
-
-export const GoogleIcon = styled.img`
-  width: 18px;
-  margin-right: 8px;
-`;
-
-export const GoogleLogin = styled.div`
-  user-select: none;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  white-space: nowrap;
-  height: 36px;
-  border-radius: 4px;
-  color: rgb(17, 17, 17);
-  font-size: 14px;
-  line-height: 1;
-  padding-left: 12px;
-  padding-right: 12px;
-  font-weight: 500;
-  background: white;
-  border: 1px solid ${(props) => props.theme.colors.border};
-  width: 100%;
-  box-shadow: rgb(15 15 15 / 5%) 0px 1px 2px;
-  margin-bottom: 4px;
-
-  &:active {
-    transform: scale(0.98);
-    box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
-  }
+  padding: 25px 40px;
+  background-color: #ffffff;
+  border-radius: 3px;
+  box-shadow: rgb(0 0 0 / 10%) 0 0 10px;
 `;
 
 export const FormMain = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  //max-width: 320px;
-`;
-
-export const FormWrapper = styled.div`
   width: 100%;
 `;
 
@@ -120,78 +18,138 @@ export const Form = styled.form`
   width: 100%;
 `;
 
-export const LineBreak = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  width: 100%;
-  height: 42px;
-  flex: 0 0 auto;
+export const FormHeader = styled.h1`
+  font-size: 16px;
+  letter-spacing: -0.01em;
+  line-height: 28px;
+  text-align: center;
+  color: #5e6c84;
 `;
 
-export const Line = styled.div`
-  width: 42%;
+export const FormFooter = styled.div`
+  margin-top: 20px;
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: center;
+  color: rgba(55, 53, 47, 0.65);
+`;
+
+export const FormSeparator = styled.hr`
+  display: block;
+  margin: 1em 0;
+  margin-top: 25px;
+  padding: 0;
   height: 1px;
-  background-color: #e5e5e5;
+  border: 0;
+  border-top: 1px solid hsl(0, 0%, 80%);
 `;
 
-export const InputField = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  font-size: 15px;
-  line-height: 26px;
-  padding: 4px 10px;
-  position: relative;
-  border-radius: 3px;
-  box-shadow: rgb(15 15 15 / 10%) 0px 0px 0px 1px inset;
-  background: ${(props) => props.theme.colors.input};
-  border-color: ${(props) => props.theme.colors.border};
-  cursor: text;
-  margin-top: 4px;
-  margin-bottom: 8px;
+export const Label = styled.div`
+  margin: 15px 0 10px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: rgb(196, 196, 196);
 `;
 
 export const Input = styled.input`
-  border-radius: 4px;
-  background-color: rgb(239, 239, 239);
-  font-size: 14px;
-  padding: 12px 10px;
-  box-shadow: none;
-  border: none;
-  color: rgb(85, 85, 85);
+  padding: 0.5em;
+  height: 44px;
   width: 100%;
-  box-sizing: border-box;
+  max-width: 400px;
+  font-size: 14px;
+  background-color: #fafbfc;
+  border: 1px solid #dfe1e6;
+  border-radius: 3px;
   outline: none;
+  transition: background-color 0.2s ease-in-out 0s, border-color 0.2s ease-in-out 0s;
+
+  &:focus {
+    border: 1px solid ${(props) => props.theme.colors.primaryLight};
+  }
 `;
 
 export const ActionButton = styled.button`
-  margin-top: 28px;
-  border: none;
-  margin-bottom: 12px;
-  width: 100%;
-  user-select: none;
-  cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  white-space: nowrap;
   height: 36px;
-  border-radius: 4px;
-  color: #fff; //rgb(235, 87, 87);
-  font-size: 14px;
-  line-height: 1;
+  width: 100%;
+  margin-bottom: 12px;
+  margin-top: 28px;
   padding-left: 12px;
   padding-right: 12px;
+  font-size: 14px;
   font-weight: 500;
+  line-height: 1;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  color: #fff;
   background: ${(props) => props.theme.colors.primary}; //rgb(253, 245, 242);
   box-shadow: rgb(15 15 15 / 10%) 0px 1px 2px, rgb(235 87 87 / 30%) 0px 0px 0px 1px inset;
 
   &:hover {
-    background-color: ${(props) => props.theme.colors.primaryDark};
     color: ${(props) => props.theme.colors.btnPrimaryHoverTint};
+    background-color: ${(props) => props.theme.colors.primaryDark};
   }
+
+  &:active {
+    transform: scale(0.98);
+  }
+`;
+
+export const LoginMethodsContainer = styled.div`
+  width: 100%;
+`;
+
+export const LoginMethodSeparator = styled.div`
+  margin-bottom: 16px;
+  margin-top: 16px;
+  font-size: 12px;
+  text-align: center;
+`;
+
+export const GoogleLabel = styled.span`
+  display: inline-block;
+  padding: 3px;
+  height: 32px;
+  vertical-align: middle;
+  font-size: 14px;
+  font-family: inherit;
+  font-weight: bold;
+  line-height: 32px;
+  color: #505f79;
+`;
+
+export const GoogleIcon = styled.img`
+  display: inline-block;
+  margin-right: 10px;
+  height: 18px;
+  width: 18px;
+  border-radius: 1px;
+  vertical-align: middle;
+`;
+
+export const GoogleButton = styled.div`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  padding-top: 0;
+  height: 39px;
+  width: 100%;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  background: #fff;
+  color: #505f79;
+  cursor: pointer;
+  box-shadow: rgb(0 0 0 / 20%) 1px 1px 5px 0;
+  border-color: transparent;
+  border-radius: 3px;
+  transition: background-color 0.2s ease-in-out 0s, border-color 0.2s ease-in-out 0s;
 
   &:active {
     transform: scale(0.98);
@@ -199,21 +157,7 @@ export const ActionButton = styled.button`
   }
 `;
 
-export const SignUpWrapper = styled.div`
-  color: rgba(55, 53, 47, 0.65);
-  font-size: 14px;
-  line-height: 1.6;
-  margin-top: 8px;
-  text-align: center;
-`;
-
-export const SignUp = styled.a`
-  display: inline;
-  text-decoration: underline;
-  user-select: none;
-  cursor: pointer;
-`;
-
 export const ErrorMessage = styled.p`
+  font-size: 12px;
   color: red;
 `;

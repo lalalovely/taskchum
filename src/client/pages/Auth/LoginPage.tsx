@@ -1,29 +1,27 @@
-import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import React, { useEffect } from 'react';
-import { useQueryClient } from 'react-query';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from 'src/client/contexts/AuthContext';
 
-import UserApi from '../../api/UserApi';
 import googleIcon from '../../assets/images/google-icon.svg';
 import { useForm } from '../../hooks/useForm';
-import googleProvider, { auth } from '../../services/FirebaseService';
 
 import {
   FormContainer,
   FormHeader,
   FormMain,
   Form,
-  Line,
+  FormSeparator,
+  FormFooter,
   Input,
-  ActionButton,
-  GoogleLoginButton,
-  Divider,
   Label,
-  GoogleIcon,
+  ActionButton,
   ErrorMessage,
+  LoginMethodsContainer,
+  LoginMethodSeparator,
+  GoogleButton,
+  GoogleIcon,
 } from './formStyles';
-import { PageContainer, Main, Option, LogoText } from './styles';
+import { PageContainer, Section, Main, LogoText } from './styles';
 
 interface LoginInfo {
   email: string;
@@ -32,7 +30,6 @@ interface LoginInfo {
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
   const { logIn, googleSignIn, currentUser } = useAuth();
 
   useEffect(() => {
@@ -84,63 +81,42 @@ export default function LoginPage() {
     }
   }
 
-  const onLogInWithGoogle = async () => {
-    try {
-      // await signInWithPopup(auth, googleProvider).then((result) => {
-      //   const credential = GoogleAuthProvider.credentialFromResult(result);
-      //   const token = credential?.accessToken;
-      // });
-      const result = await signInWithPopup(auth, googleProvider);
-      const user = await queryClient.fetchQuery(result.user.uid, () =>
-        UserApi.getUser(result.user.uid),
-      );
-      navigate('/', { replace: true });
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  function FormDivider() {
-    return (
-      <Divider>
-        <Line />
-        <div style={{ color: 'rgb(196, 196, 196)' }}>or</div>
-        <Line />
-      </Divider>
-    );
-  }
-
   return (
     <PageContainer>
-      <Main>
-        <LogoText>taskchum</LogoText>
-        <FormContainer>
-          <FormHeader>Login</FormHeader>
-          <FormMain>
-            <GoogleLoginButton onClick={onGoogleSignIn}>
-              <GoogleIcon alt="googleIcon" src={googleIcon} />
-              Continue with Google
-            </GoogleLoginButton>
-            <FormDivider />
-            <Form onSubmit={handleSubmit}>
-              <Label>Email</Label>
-              <Input
-                placeholder="example@mail.com"
-                value={user.email || ''}
-                onChange={handleChange('email')}
-              ></Input>
-              {errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
-              <Label>Password</Label>
-              <Input placeholder="" type="password" onChange={handleChange('password')}></Input>
-              {errors.password && <ErrorMessage>{errors.password}</ErrorMessage>}
-              <ActionButton type="submit">Login</ActionButton>
-            </Form>
-          </FormMain>
-        </FormContainer>
-        <Option>
-          No account yet? <Link to="/signup">Sign up</Link>
-        </Option>
-      </Main>
+      <LogoText>taskchum</LogoText>
+      <Section>
+        <Main>
+          <FormContainer>
+            <FormHeader>Login</FormHeader>
+            <FormMain>
+              <Form onSubmit={handleSubmit}>
+                <Label>Email</Label>
+                <Input
+                  placeholder="example@mail.com"
+                  value={user.email || ''}
+                  onChange={handleChange('email')}
+                ></Input>
+                {errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
+                <Label>Password</Label>
+                <Input placeholder="" type="password" onChange={handleChange('password')}></Input>
+                {errors.password && <ErrorMessage>{errors.password}</ErrorMessage>}
+                <ActionButton type="submit">Login</ActionButton>
+              </Form>
+              <LoginMethodsContainer>
+                <LoginMethodSeparator>OR</LoginMethodSeparator>
+                <GoogleButton onClick={onGoogleSignIn}>
+                  <GoogleIcon alt="googleIcon" src={googleIcon} />
+                  Continue with Google
+                </GoogleButton>
+              </LoginMethodsContainer>
+            </FormMain>
+            <FormSeparator />
+            <FormFooter>
+              No account yet? <Link to="/signup">Sign up</Link>
+            </FormFooter>
+          </FormContainer>
+        </Main>
+      </Section>
     </PageContainer>
   );
 }

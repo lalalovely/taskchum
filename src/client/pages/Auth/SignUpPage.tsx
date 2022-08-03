@@ -1,36 +1,22 @@
-import { createUserWithEmailAndPassword, signOut } from 'firebase/auth';
-import React, { useRef, useState } from 'react';
-import { useMutation } from 'react-query';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from 'src/client/contexts/AuthContext';
 
-import { User } from '../../../commons/types/User.type';
-import UserApi from '../../api/UserApi';
-import { NavBar } from '../../components';
 import { useForm } from '../../hooks/useForm';
-import { auth } from '../../services/FirebaseService';
-
-import { SignupForm } from './components/Form';
 
 import {
   FormContainer,
-  FormContent,
   FormHeader,
   FormMain,
-  GoogleLogin,
-  FormWrapper,
   Form,
-  LineBreak,
-  Line,
-  InputField,
+  FormSeparator,
+  FormFooter,
   Input,
-  ActionButton,
-  Divider,
   Label,
+  ActionButton,
   ErrorMessage,
 } from './formStyles';
-
-import { PageContainer, MainWrapper, Main, Option, LogoText } from './styles';
+import { PageContainer, Section, Main, LogoText } from './styles';
 
 interface SignUpInfo {
   name: string;
@@ -40,7 +26,7 @@ interface SignUpInfo {
 
 export default function SignUpPage() {
   const navigate = useNavigate();
-  const { signUp, currentUser } = useAuth();
+  const { signUp } = useAuth();
 
   const {
     handleSubmit,
@@ -88,48 +74,41 @@ export default function SignUpPage() {
 
   return (
     <PageContainer>
-      <Main>
-        <LogoText>taskchum</LogoText>
-
-        <FormContainer>
-          <FormHeader>Sign up</FormHeader>
-          <FormMain>
-            <Form onSubmit={handleSubmit}>
-              <Label>Name</Label>
-              <Input placeholder="" value={user.name || ''} onChange={handleChange('name')} />
-              {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
-              <Label>Email</Label>
-              <Input
-                placeholder="example@mail.com"
-                value={user.email || ''}
-                onChange={handleChange('email')}
-              ></Input>
-              {errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
-              <Label>Password</Label>
-              <Input
-                placeholder=""
-                type="password"
-                value={user.password || ''}
-                onChange={handleChange('password')}
-              ></Input>
-              {errors.password && <ErrorMessage>{errors.password}</ErrorMessage>}
-              {/* <Label>Confirm Password</Label>
-              <Input
-                placeholder=""
-                value={user.confirmPassword || ""}
-                onChange={handleChange("confirmPassword")}
-              ></Input>
-              {errors.confirmPassword && (
-                <ErrorMessage>{errors.confirmPassword}</ErrorMessage>
-              )} */}
-              <ActionButton type="submit">Sign up</ActionButton>
-            </Form>
-          </FormMain>
-        </FormContainer>
-        <Option>
-          Already have an account? <Link to="/login">Login</Link>
-        </Option>
-      </Main>
+      <LogoText>taskchum</LogoText>
+      <Section>
+        <Main>
+          <FormContainer>
+            <FormHeader>Sign up</FormHeader>
+            <FormMain>
+              <Form onSubmit={handleSubmit}>
+                <Label>Name</Label>
+                <Input placeholder="" value={user.name || ''} onChange={handleChange('name')} />
+                {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
+                <Label>Email</Label>
+                <Input
+                  placeholder="example@mail.com"
+                  value={user.email || ''}
+                  onChange={handleChange('email')}
+                ></Input>
+                {errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
+                <Label>Password</Label>
+                <Input
+                  placeholder=""
+                  type="password"
+                  value={user.password || ''}
+                  onChange={handleChange('password')}
+                ></Input>
+                {errors.password && <ErrorMessage>{errors.password}</ErrorMessage>}
+                <ActionButton type="submit">Sign up</ActionButton>
+              </Form>
+            </FormMain>
+            <FormSeparator />
+            <FormFooter>
+              Already have an account? <Link to="/login">Login</Link>
+            </FormFooter>
+          </FormContainer>
+        </Main>
+      </Section>
     </PageContainer>
   );
 }
