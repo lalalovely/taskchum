@@ -1,5 +1,3 @@
-import { nextTick } from 'process';
-
 import { NextFunction, Request, Response, Router } from 'express';
 
 import HttpStatus from 'http-status-codes';
@@ -80,16 +78,8 @@ async function deleteTasks(req: Request, res: Response, next: NextFunction) {
   try {
     const userId = req.query.userId as string;
     const isDone = (req.query.isDone + '').toLowerCase() === 'true';
-
-    console.log(`USER=${userId} and ISDONE=${isDone}`);
-
-    if (userId !== '') {
-      if (isDone) {
-        await TaskModel.deleteCompletedTasks(userId);
-      } else {
-        await TaskModel.deleteAllTasksByUserId(userId);
-      }
-    }
+    const deleteSuccess = await TaskModel.deleteTasks(userId, isDone);
+    return res.json(deleteSuccess);
   } catch (e) {
     console.error(e);
     next(e);

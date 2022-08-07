@@ -65,20 +65,51 @@ async function getTasksByUserId(userId: string): Promise<Task[]> {
   );
 }
 
-async function deleteAllTasksByUserId(userId: string): Promise<void> {
-  const collectionRef = await firestore.collection('tasks').where('userId', '==', userId).get();
+async function deleteTasks(userId: string, isDone: boolean): Promise<boolean> {
+  const batchSize = 100;
+  const collectionRef = firestore.collection('tasks');
 
-  await Promise.all(collectionRef.docs.map((doc) => doc.ref.delete()));
+  let query = collectionRef.where('userId', '==', userId);
+  if (isDone) {
+    query = query.where('isDone', '==', true);
+  }
+  query = query.limit(batchSize);
+
+  const deleteResult = new Promise((resolve, reject) => {
+    deleteQueryBatch(query, resolve).catch(reject);
+  });
+
+  return deleteResult
+    .then(() => {
+      return true;
+    })
+    .catch(() => {
+      return false;
+    });
 }
 
-async function deleteCompletedTasks(userId: string): Promise<void> {
-  const collectionRef = await firestore
-    .collection('tasks')
-    .where('userId', '==', userId)
-    .where('isDone', '==', true)
-    .get();
+async function deleteQueryBatch(query: FirebaseFirestore.Query, resolve: any): Promise<void> {
+  const snapshot = await query.get();
 
-  await Promise.all(collectionRef.docs.map((doc) => doc.ref.delete()));
+  const batchSize = snapshot.size;
+  if (batchSize === 0) {
+    // When there are no documents left, we are done
+    resolve();
+    return;
+  }
+
+  // Delete documents in a batch
+  const batch = firestore.batch();
+  snapshot.docs.forEach((doc) => {
+    batch.delete(doc.ref);
+  });
+  await batch.commit();
+
+  // Recurse on the next process tick, to avoid
+  // exploding the stack.
+  process.nextTick(() => {
+    deleteQueryBatch(query, resolve);
+  });
 }
 
 export default {
@@ -87,6 +118,5 @@ export default {
   updateTask,
   getTasks,
   getTasksByUserId,
-  deleteCompletedTasks,
-  deleteAllTasksByUserId,
+  deleteTasks,
 };
