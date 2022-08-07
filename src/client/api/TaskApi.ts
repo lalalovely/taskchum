@@ -34,12 +34,14 @@ async function deleteTask(id: string): Promise<string> {
   return id;
 }
 
-async function deleteAllTasks(userId: string): Promise<void> {
-  await ApiClient.delete(`${url}?userId=${userId}`);
+async function deleteAllTasks(userId: string): Promise<boolean> {
+  const res = await ApiClient.delete(`${url}?userId=${userId}`);
+  return res.data;
 }
 
-async function deleteAllCompletedTasks(userId: string): Promise<void> {
-  await ApiClient.delete(`${url}?userId=${userId}&isDone=true`);
+async function deleteAllCompletedTasks(userId: string): Promise<boolean> {
+  const res = await ApiClient.delete(`${url}?userId=${userId}&isDone=true`);
+  return res.data;
 }
 
 export default {
