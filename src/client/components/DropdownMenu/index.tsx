@@ -17,7 +17,6 @@ export default function DropdownMenu(props: Props) {
   const menuItems = options.map((option: DropdownOption) => {
     function handleSelect() {
       onSelect(option.id);
-      onClose();
     }
 
     return (
