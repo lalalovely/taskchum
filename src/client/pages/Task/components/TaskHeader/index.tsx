@@ -29,7 +29,7 @@ export default function TaskHeader() {
 
   function onSelectDropdown(optionId: number) {
     switch (optionId) {
-      case dropdownMenuOptions[0].id:
+      case dropdownMenuOptions[2].id:
         onLogOut();
         break;
       default:
