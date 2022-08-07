@@ -93,8 +93,9 @@ export default function TaskForm(props: Props) {
       showEvent("There's an error in adding the task", 'error');
     },
     onSuccess: async () => {
-      await queryClient.refetchQueries('tasks');
-      showEvent('Task is successfully added', 'success');
+      await queryClient.invalidateQueries('tasks').then(() => {
+        showEvent('Task is successfully added', 'success');
+      });
     },
   });
 
@@ -110,9 +111,10 @@ export default function TaskForm(props: Props) {
     onError: () => {
       showEvent("There's an error in adding the task", 'error');
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries('tasks');
-      showEvent('Task is successfully updated', 'success');
+    onSuccess: async () => {
+      await queryClient.invalidateQueries('tasks').then(() => {
+        showEvent('Task is successfully updated', 'success');
+      });
     },
   });
 

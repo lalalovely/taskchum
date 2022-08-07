@@ -44,16 +44,18 @@ export default function HeaderDropdownMenu(props: Props) {
   }
 
   const { mutateAsync: deleteAllTasks } = useMutation(TaskApi.deleteAllTasks, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('tasks');
-      showEvent('Tasks are deleted', 'success');
+    onSuccess: async () => {
+      await queryClient.invalidateQueries('tasks').then(() => {
+        showEvent('All tasks are deleted', 'success');
+      });
     },
   });
 
   const { mutateAsync: deleteAllCompletedTasks } = useMutation(TaskApi.deleteAllCompletedTasks, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('tasks');
-      showEvent('Tasks are deleted', 'success');
+    onSuccess: async () => {
+      await queryClient.invalidateQueries('tasks').then(() => {
+        showEvent('Completed tasks are deleted', 'success');
+      });
     },
   });
 

@@ -58,16 +58,16 @@ export default function TaskItem(props: Props) {
   };
 
   const { mutateAsync: deleteTask } = useMutation(TaskApi.deleteTask, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('tasks').then(() => {
+    onSuccess: async () => {
+      await queryClient.invalidateQueries('tasks').then(() => {
         showEvent('Task is successfully deleted', 'success');
       });
     },
   });
 
   const { mutateAsync: completeTask } = useMutation(TaskApi.updateTask, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('tasks').then(() => {
+    onSuccess: async () => {
+      await queryClient.invalidateQueries('tasks').then(() => {
         showEvent('Task is completed', 'success');
       });
     },
