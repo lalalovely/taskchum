@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { BiDotsVertical } from 'react-icons/bi';
 import { MdDelete, MdEdit } from 'react-icons/md';
 import { useMutation, useQueryClient } from 'react-query';
@@ -34,8 +34,8 @@ export default function TaskItem(props: Props) {
 
   const queryClient = useQueryClient();
   const [isHovering, setIsHovering] = useState<boolean>(false);
-  //const [isCompleted, setIsCompleted] = useState<boolean>(task.isDone);
   const itemRef = useRef<HTMLDivElement>(null);
+  const [isDone, setIsDone] = useState<boolean>(task.isDone);
 
   const openUpdateDialog = () => {
     setIsUpdating(true);
@@ -86,7 +86,7 @@ export default function TaskItem(props: Props) {
   function handleComplete(e: React.MouseEvent<HTMLDivElement>) {
     e.stopPropagation();
     setIsHovering(false);
-    //onChangeStatus(true);
+    setIsDone(true);
     completeTask({
       ...task,
       isDone: true,
@@ -117,48 +117,50 @@ export default function TaskItem(props: Props) {
   );
 
   return (
-    <Container ref={itemRef} isCompleted={task.isDone}>
+    <>
       {displayUpdateTaskModal}
       {displayDeleteDialog}
-      <ItemContainer
-        role="button"
-        onMouseOver={handleMouseOver}
-        onMouseOut={handleMouseOut}
-        onClick={handleClick}
-      >
-        <LabelContainer>
-          <CompleteTask onClick={handleComplete} className="completeButton" />
-          <TextContainer>
-            <Text className="taskName">{task.name}</Text>
-          </TextContainer>
-        </LabelContainer>
+      <Container ref={itemRef} isCompleted={isDone}>
+        <ItemContainer
+          role="button"
+          onMouseOver={handleMouseOver}
+          onMouseOut={handleMouseOut}
+          onClick={handleClick}
+        >
+          <LabelContainer>
+            <CompleteTask onClick={handleComplete} className="completeButton" />
+            <TextContainer>
+              <Text className="taskName">{task.name}</Text>
+            </TextContainer>
+          </LabelContainer>
 
-        {task.isDone && (
-          <ItemActionButtons>
-            <ItemActionButton
-              onClick={handleDelete}
-              title="Delete task"
-              style={{ color: '#FCA91D' }}
-            >
-              <MdDelete size="20px" />
-            </ItemActionButton>
-          </ItemActionButtons>
-        )}
+          {task.isDone && (
+            <ItemActionButtons>
+              <ItemActionButton
+                onClick={handleDelete}
+                title="Delete task"
+                style={{ color: '#FCA91D' }}
+              >
+                <MdDelete size="20px" />
+              </ItemActionButton>
+            </ItemActionButtons>
+          )}
 
-        {isHovering && (
-          <ItemActionButtons>
-            <ItemActionButton onClick={handleDelete} title="Delete task">
-              <MdDelete size="20px" />
-            </ItemActionButton>
-            <ItemActionButton onClick={openUpdateDialog} title="Update task">
-              <MdEdit size="20px" />
-            </ItemActionButton>
-            <ItemActionButton>
-              <BiDotsVertical size="20px" />
-            </ItemActionButton>
-          </ItemActionButtons>
-        )}
-      </ItemContainer>
-    </Container>
+          {isHovering && (
+            <ItemActionButtons>
+              <ItemActionButton onClick={handleDelete} title="Delete task">
+                <MdDelete size="20px" />
+              </ItemActionButton>
+              <ItemActionButton onClick={openUpdateDialog} title="Update task">
+                <MdEdit size="20px" />
+              </ItemActionButton>
+              <ItemActionButton>
+                <BiDotsVertical size="20px" />
+              </ItemActionButton>
+            </ItemActionButtons>
+          )}
+        </ItemContainer>
+      </Container>
+    </>
   );
 }

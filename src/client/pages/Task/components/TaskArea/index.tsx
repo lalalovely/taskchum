@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useAuth } from 'src/client/contexts/AuthContext';
 
@@ -24,17 +24,19 @@ export default function TaskArea() {
 
   const task = { name: '', description: '' } as Task;
 
-  const { data: tasks } = useQuery(['tasks', currentUser.id], () =>
-    TaskApi.getTasksByUserId(currentUser.id),
-  );
+  const { data: tasks } = useQuery(['tasks', currentUser.id], getTasks);
 
   const taskListElement = (
     <ul>
-      {tasks?.map((task: Task, idx: number) => (
-        <TaskItem task={task} key={idx} />
+      {tasks?.map((task: Task) => (
+        <TaskItem task={task} key={task.id} />
       ))}
     </ul>
   );
+
+  function getTasks() {
+    return TaskApi.getTasksByUserId(currentUser.id);
+  }
 
   function openAddTaskForm() {
     setIsAdding(true);
