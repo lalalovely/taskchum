@@ -63,7 +63,11 @@ export default function TaskForm(props: Props) {
   function onKeyInputDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if ('Enter' === e.key && !e.shiftKey) {
       e.preventDefault();
-      handleSubmit();
+      if (name === '') {
+        showEvent('Task name cannot be empty', 'error');
+      } else {
+        handleSubmit();
+      }
     }
   }
 
