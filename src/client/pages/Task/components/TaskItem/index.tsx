@@ -27,7 +27,6 @@ type Props = {
 };
 
 export default function TaskItem(props: Props) {
-  //onMouseOver
   const { task } = props;
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
@@ -67,9 +66,7 @@ export default function TaskItem(props: Props) {
 
   const { mutateAsync: completeTask } = useMutation(TaskApi.updateTask, {
     onSuccess: async () => {
-      await queryClient.invalidateQueries('tasks').then(() => {
-        showEvent('Task is completed', 'success');
-      });
+      await queryClient.invalidateQueries('tasks');
     },
   });
 
