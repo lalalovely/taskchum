@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 
 import { useMutation, useQueryClient } from 'react-query';
 import TextareaAutosize from 'react-textarea-autosize';
@@ -32,7 +32,6 @@ export default function TaskForm(props: Props) {
   const { taskData, onClose } = props;
   const { currentUser } = useAuth();
   const queryClient = useQueryClient();
-  let taskNameRef: HTMLInputElement | null = null;
   const [name, setName] = useState<string>(taskData.name);
   const [description, setDescription] = useState<string>(taskData.description);
   const [isDiscarding, setIsDiscarding] = useState<boolean>(false);
@@ -40,19 +39,8 @@ export default function TaskForm(props: Props) {
   const submitLabel = taskData.name === '' ? 'Add' : 'Save';
   const disableSubmit = taskData.name === '' ? name.trim().length < 1 : false;
 
-  useEffect(() => {
-    if (taskNameRef) {
-      taskNameRef.focus();
-    }
-  });
-
-  function setTaskNameRef(node: HTMLInputElement | null) {
-    if (node) {
-      taskNameRef = node;
-    }
-  }
-
   function onChangeDescription(evt: ChangeEvent<HTMLTextAreaElement>) {
+    console.log('TEXT AREA IS BEING CHANGED');
     setDescription(evt.target.value);
   }
 
@@ -74,7 +62,6 @@ export default function TaskForm(props: Props) {
   function reset() {
     setName('');
     setDescription('');
-    taskNameRef?.focus();
   }
 
   function preventSubmit(e: FormEvent) {
@@ -165,10 +152,10 @@ export default function TaskForm(props: Props) {
             <InputFieldWrapper>
               <Input
                 placeholder="Task Name"
-                ref={setTaskNameRef}
                 onChange={onChangeName}
                 onKeyDown={onKeyInputDown}
                 value={name}
+                autoFocus={true}
               />
             </InputFieldWrapper>
             <InputFieldWrapper>
