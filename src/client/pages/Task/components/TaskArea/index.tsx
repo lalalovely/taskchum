@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
+import { LoadingIndicator } from 'src/client/components';
 import { useAuth } from 'src/client/contexts/AuthContext';
 
 import { Task } from '../../../../../commons/types/Task.type';
@@ -24,7 +25,7 @@ export default function TaskArea() {
 
   const task = { name: '', description: '' } as Task;
 
-  const { data: tasks } = useQuery(['tasks', currentUser.id], getTasks);
+  const { data: tasks, isLoading } = useQuery(['tasks', currentUser.id], getTasks);
 
   const taskListElement = (
     <ul>
@@ -53,7 +54,7 @@ export default function TaskArea() {
       <Wrapper>
         <Main>
           <Header isTaskListEmpty={tasks?.length === 0} />
-          <TaskList>{taskListElement}</TaskList>
+          <TaskList>{isLoading ? <LoadingIndicator /> : taskListElement}</TaskList>
           {isAdding ? (
             <AddForm>{displayAddTaskForm}</AddForm>
           ) : (
