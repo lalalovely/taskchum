@@ -8,15 +8,24 @@ import express, { NextFunction, Request, Response } from 'express';
 import * as admin from 'firebase-admin';
 
 import HttpStatus from 'http-status-codes';
+import swagger from 'swagger-ui-express';
 
 import { ErrorResponse } from '../commons/types/ErrorResponse.type';
 
 import BaseError from './errors/BaseError';
 import NotFoundError from './errors/NotFoundError';
 import router from './routes';
+import swaggerDoc from './swagger.json';
+import { applicationDefault } from 'firebase-admin/app';
+import config from './config/config';
 
 async function main() {
-  admin.initializeApp();
+  admin.initializeApp({
+    projectId: config.FIRESTORE_CREDS.project_id,
+    credential: applicationDefault(),
+    databaseURL: 'https://task-manager-ec6a7-default-rtdb.firebaseio.com',
+  });
+
   const app = express();
 
   app.disable('x-powered-by');
@@ -24,11 +33,10 @@ async function main() {
   app.use(express.urlencoded({ extended: false }));
   app.use(cors({ credentials: true, origin: true }));
 
-  // api routes
-  app.use('/api/', router);
+  app.use('/api-docs', swagger.serve, swagger.setup(swaggerDoc));
 
   // api routes
-  // app.use("/api/0.1", router);
+  app.use('/api/', router);
 
   // static files
   app.use('/static', express.static(path.join(__dirname, '../../build/static')));
