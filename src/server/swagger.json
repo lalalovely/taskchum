@@ -1,0 +1,61 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "taskchum",
+    "description": "These are the API definitions for taskchum",
+    "version": "0.1.0",
+    "contact": {
+      "name": "lovely grace",
+      "email": "lovelygracearsolon@gmail.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3001/api",
+      "description": "Local"
+    }
+  ],
+  "paths": {},
+  "host": "localhost:3000",
+  "basePath": "/api/task",
+  "components": {
+    "schemas": {
+      "Task": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "isDone": {
+            "type": "boolean",
+            "example": "true"
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2020-12-12T09:12:33.001+0000"
+          },
+          "dateUpdated": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2020-12-12T09:12:33.001+0000"
+          }
+        }
+      }
+    },
+    "responses": {},
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

@@ -15,7 +15,6 @@ async function getTasks(req: Request, res: Response, next: NextFunction) {
     }
     return res.json(await TaskModel.getTasks());
   } catch (e) {
-    console.error(e);
     next(e);
   }
 }
@@ -31,8 +30,6 @@ async function createTask(req: Request, res: Response, next: NextFunction) {
 
     return res.json(task);
   } catch (e) {
-    console.error(e);
-
     next(e);
   }
 }
@@ -43,7 +40,6 @@ async function deleteTask(req: Request, res: Response, next: NextFunction) {
     await TaskModel.deleteTask(id);
     res.sendStatus(HttpStatus.OK);
   } catch (e) {
-    console.error(e);
     next(e);
   }
 }
@@ -55,21 +51,9 @@ async function updateTask(req: Request, res: Response, next: NextFunction) {
       ...(req.body as Task),
       id: id,
     } as Task);
-    console.log('TASK ? ==', task);
+
     return res.json(task);
   } catch (e) {
-    console.error(e);
-    next(e);
-  }
-}
-
-async function getTasksByUserId(req: Request, res: Response, next: NextFunction) {
-  try {
-    const userId = req.query.userId as string;
-    const tasks = await TaskModel.getTasksByUserId(userId);
-    return res.json(tasks);
-  } catch (e) {
-    console.error(e);
     next(e);
   }
 }
@@ -81,13 +65,12 @@ async function deleteTasks(req: Request, res: Response, next: NextFunction) {
     const deleteSuccess = await TaskModel.deleteTasks(userId, isDone);
     return res.json(deleteSuccess);
   } catch (e) {
-    console.error(e);
     next(e);
   }
 }
 
-router.route('/').get(getTasks);
 router.route('/').post(createTask);
+router.route('/').get(getTasks);
 router.route('/').delete(deleteTasks);
 router.route('/:id').delete(deleteTask);
 router.route('/:id').put(updateTask);
