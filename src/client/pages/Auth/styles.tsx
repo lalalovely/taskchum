@@ -10,12 +10,12 @@ export const LogoText = styled.h1`
 
 export const PageContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
   position: relative;
   width: 100%;
   min-height: 100vh;
-  background-color: #f9fafc;
+  flex-direction: column;
+  align-items: center;
+  background-color: ${(props) => props.theme.colors.background};
 `;
 
 export const Section = styled.section`

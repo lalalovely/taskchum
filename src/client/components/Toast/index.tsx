@@ -62,7 +62,6 @@ export default function Toast() {
 }
 
 export function showEvent(message: string, type: string) {
-  console.log('SHOWING EVENTTTTT');
   const event = new CustomEvent(SHOW_EVENT, { detail: { message, type } });
   document.dispatchEvent(event);
 }
@@ -73,7 +72,6 @@ export function hideEvent() {
 }
 
 export function showEvt(onClose: () => void) {
-  console.log('SHOWING EVENTTTTT');
   const event = new CustomEvent(SHOW_EVENT, { detail: { onClose } });
   document.dispatchEvent(event);
 }

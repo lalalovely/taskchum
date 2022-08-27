@@ -4,18 +4,18 @@ type ContainerProps = {
   isCompleted: boolean;
 };
 
-export const Container = styled.div<ContainerProps>`
-  width: 100%;
-  background-color: white;
-  box-shadow: rgb(0 0 0 / 10%) 0px 4px 4px;
-  border-radius: 4px;
-  cursor: pointer;
+export const Container = styled.li<ContainerProps>`
   margin-top: 8px;
-  text-align: left;
+  width: 100%;
   font-size: 16px;
+  text-align: left;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
   border-left: 8px solid transparent;
   transition: unset;
-  border: 1px solid #e5e5e5;
+  background-color: white;
+  box-shadow: rgb(0 0 0 / 10%) 0px 4px 4px;
+  cursor: pointer;
 
   &:hover {
     border-left: 6px solid #dfdfdf;
@@ -45,63 +45,56 @@ export const Container = styled.div<ContainerProps>`
 
 export const ItemContainer = styled.div`
   display: flex;
+  width: 100%;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
 `;
 
 export const ButtonContainer = styled.button`
-  outline: none;
-  border: none;
-  background-color: transparent;
-  color: grey;
   margin-top: 2.5px;
   margin-right: 10px;
+  outline: none;
+  border: none;
+  color: grey;
+  background-color: transparent;
   cursor: pointer;
-
-  // width: 24px;
-  // height: 24px;
 
   &:hover {
     color: ${(props) => props.theme.colors.primary};
-    //background-color: ${(props) => props.theme.colors.iconHoverBackground};
   }
 `;
 
 export const LabelContainer = styled.div`
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
   position: relative;
   padding: 18px 0px 18px 14px;
-  overflow-wrap: break-word;
   width: 75%;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-wrap: break-word;
 `;
 
 export const TextContainer = styled.span`
-  color: rgb(85, 85, 85);
-  font-weight: bold;
   width: 85%;
   overflow: hidden;
   align-items: center;
+  font-weight: bold;
   line-height: 1.5em;
+  color: rgb(85, 85, 85);
 `;
 
 export const Text = styled.span`
+  margin-right: 8px;
+  padding: 2px 6px;
   font-size: 13px;
   border-radius: 4px;
-  padding: 2px 6px;
-  margin-right: 8px;
-  //background-color: rgb(240, 240, 240);
-  //color: rgb(163, 163, 163);
-  //display: none;
 `;
 
 export const ActionButtons = styled.div`
   display: flex;
+  height: 24px;
   justfiy-content: flex-start;
   align-items: center;
-  height: 24px;
 `;
 
 export const ItemActionButtons = styled.div`
@@ -111,55 +104,31 @@ export const ItemActionButtons = styled.div`
 `;
 
 export const ItemActionButton = styled.button`
+  display: flex;
+  margin-right: 10px;
+  padding: 2px;
   color: rgba(0, 0, 0, 0.5);
-  //color: rgba("#666", 0.2);
   background-color: transparent;
   outline: none;
-  padding: 0;
-  display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid transparent;
-  border-radius: 4px;
   cursor: pointer;
-  padding: 2px;
-  margin-right: 10px;
   border: 1px solid rgb(223, 223, 223);
   border-radius: 4px;
 
   &:hover {
     background-color: ${(props) => props.theme.colors.btnSecondaryHoverFill};
-
-    //border: 1px solid ${(props) => props.theme.colors.primary};
-    //color: ${(props) => props.theme.colors.primaryDark};
-    //background-color: ${(props) => props.theme.colors.primaryLight};
   }
 `;
 
-export const CompleteButton = styled.div`
-  color: rgba(0, 0, 0, 0.5);
-  //color: rgba("#666", 0.2);
-  background-color: transparent;
-  outline: none;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  cursor: pointer;
-  padding: 2px;
-  margin-right: 10px;
-`;
-
-export const CompleteTask = styled.div`
+export const CompleteTaskButton = styled.div`
   display: inline-block;
-  width: 22px;
-  height: 22px;
-  border: 2px solid #e5e5e5; //rgb(223, 223, 223);
-  //background-color: #e5e5e5; rgb(223, 223, 223);
   margin-right: 10px;
+  height: 22px;
+  width: 22px;
+  border: 2px solid #e5e5e5; //rgb(223, 223, 223);
   border-radius: 50%;
+  background-color: #dfdfdf;
 
   &:after {
     content: '';
@@ -175,7 +144,6 @@ export const CompleteTask = styled.div`
     transform: rotate(45deg);
   }
 
-  background-color: #dfdfdf;
   &:hover {
     background-color: #d4d4d4;
   }

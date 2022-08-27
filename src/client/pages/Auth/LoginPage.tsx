@@ -103,7 +103,7 @@ export default function LoginPage() {
                 <ActionButton type="submit">Login</ActionButton>
               </Form>
               <LoginMethodsContainer>
-                <LoginMethodSeparator>OR</LoginMethodSeparator>
+                <LoginMethodSeparator>or</LoginMethodSeparator>
                 <GoogleButton onClick={onGoogleSignIn}>
                   <GoogleIcon alt="googleIcon" src={googleIcon} />
                   Continue with Google

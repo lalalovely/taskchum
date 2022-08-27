@@ -27,14 +27,6 @@ export default function TaskArea() {
 
   const { data: tasks, isLoading } = useQuery(['tasks', currentUser.id], getTasks);
 
-  const taskListElement = (
-    <ul>
-      {tasks?.map((task: Task) => (
-        <TaskItem task={task} key={task.id} />
-      ))}
-    </ul>
-  );
-
   function getTasks() {
     return TaskApi.getTasksByUserId(currentUser.id);
   }
@@ -54,7 +46,14 @@ export default function TaskArea() {
       <Wrapper>
         <Main>
           <Header isTaskListEmpty={tasks?.length === 0} />
-          <TaskList>{isLoading ? <LoadingIndicator /> : taskListElement}</TaskList>
+          <TaskList>
+            {isLoading ? (
+              <LoadingIndicator />
+            ) : (
+              tasks?.map((task: Task) => <TaskItem task={task} key={task.id} />)
+            )}
+          </TaskList>
+
           {isAdding ? (
             <AddForm>{displayAddTaskForm}</AddForm>
           ) : (

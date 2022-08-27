@@ -1,42 +1,38 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  position: relative;
   display: flex;
+  position: relative;
   justify-content: center;
   align-items: center;
 `;
 
 export const Button = styled.button`
-  justify-content: center;
+  margin: 0;
+  padding: 0;
   outline: none;
   border: none;
   cursor: pointer;
   background: none;
-  text-transoform: inherit;
-  color: inherit;
-  font: inherit;
-  padding: 0;
-  margin: 0;
   user-select: none;
 `;
 
 export const UserInitialWrapper = styled.span`
   display: flex;
-  border-radius: 50%;
-  width: 40px;
   height: 40px;
-  font-size: 25px;
-  font-weight: 500;
-  line-height: 100%;
+  width: 40px;
   align-items: center;
   justify-content: center;
+  font-size: 25px;
+  font-weight: 500;
+  border-radius: 50%;
+  line-height: 100%;
   background-color: ${(props) => props.theme.colors.primary};
 `;
 
 export const UserInitial = styled.span`
-  fill: #fff;
-  color: #fff;
+  fill: ${(props) => props.theme.colors.white};
+  color: ${(props) => props.theme.colors.white};
   text-transform: uppercase;
 `;
 
@@ -47,7 +43,7 @@ export const UserPhotoWrapper = styled.span`
 `;
 
 export const UserPhoto = styled.img`
-  width: 40px;
   height: 40px;
+  width: 40px;
   border-radius: 50%;
 `;

@@ -1,11 +1,11 @@
 import styled, { css } from 'styled-components';
 
 export const ButtonLabel = styled.span`
+  width: 100%;
   text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden;
-  width: 100%;
   text-align: center;
+  overflow: hidden;
 `;
 
 type ButtonProps = {
@@ -15,21 +15,21 @@ type ButtonProps = {
 
 export const StyledButton = styled.button<ButtonProps>`
   display: inline-flex;
-  border: none;
+  padding: 0 12px;
+  height: 32px;
+  max-width: 100%;
+  min-width: 68px;
+  align-items: center;
   outline: none;
+  border: none;
   border-radius: 5px;
   cursor: pointer;
   vertical-align: middle;
-  align-items: center;
-  padding: 0 12px;
-  max-width: 100%;
-  font-weight: 600;
   font-size: 13px;
-  //line-height: 1.6;
+  font-weight: 600;
   text-align: center;
-  min-width: 68px;
-  height: 32px;
   text-decoration: none;
+
   ${(props) =>
     props.buttonType === 'primary' &&
     css`
@@ -54,14 +54,6 @@ export const StyledButton = styled.button<ButtonProps>`
   ${(props) =>
     props.buttonType === 'secondary' &&
     css`
-      // background-color: ${(props) => props.theme.colors.white};
-      // color: ${(props) => props.theme.colors.primary};
-      // border: 1px solid ${(props) => props.theme.colors.primary};
-
-      // background-color: ${(props) => props.theme.colors.secondary};
-      // color: ${(props) => props.theme.colors.primary};
-      // border: 1px solid ${(props) => props.theme.colors.primary};
-
       border: 1px solid transparent;
       background-color: ${(props) => props.theme.colors.btnSecondaryIdleFill};
       color: ${(props) => props.theme.colors.btnSecondaryIdleTint};
@@ -70,11 +62,5 @@ export const StyledButton = styled.button<ButtonProps>`
         background-color: ${(props) => props.theme.colors.btnSecondaryHoverFill};
         color: ${(props) => props.theme.colors.btnSecondaryHoverTint};
       }
-
-      // &:hover {
-      //   //opacity: 0.75;
-      //   //color: ${(props) => props.theme.colors.white};
-      //   background-color: ${(props) => props.theme.colors.iconHoverBackground};
-      // }
     `};
 `;

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-//import { HeaderContainer } from "../../../Login";
 
 export const Container = styled.div`
   position: sticky;
@@ -7,16 +6,15 @@ export const Container = styled.div`
 `;
 
 export const Wrapper = styled.div`
+  margin: auto;
   padding: 0px 12px;
   max-width: 620px;
-  margin: auto;
 `;
 
 export const Content = styled.div`
-  background-color: inherit;
-  width: 100%;
-  height: 60px;
   display: flex;
+  height: 60px;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -24,10 +22,10 @@ export const Content = styled.div`
 
 export const Logo = styled.h1`
   display: inline-block;
-  color: ${(props) => props.theme.colors.primary};
   margin: 0px;
   padding: 10px 0px;
   font-size: 20px;
+  color: ${(props) => props.theme.colors.primary};
 `;
 
 export const Controls = styled.span`
@@ -40,23 +38,20 @@ export const UserContainer = styled.div`
 `;
 
 export const UserButton = styled.div`
-  outline: none;
-  cursor: pointer;
-  border: none;
-  background: none;
-  width: 100%;
-  height: 100%;
-  text-transform: inherit;
-  color: inherit;
-  font: inherit;
-  padding: 0;
   margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  border: none;
+  outline: none;
+  background: none;
   user-select: none;
+  cursor: pointer;
 `;
 
 export const UserAvatar = styled.div`
-  line-height: 100%;
   display: flex;
+  line-height: 100%;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
@@ -64,16 +59,16 @@ export const UserAvatar = styled.div`
 `;
 
 export const UserInitial = styled.span`
-  width: 40px;
   height: 40px;
-  fill: #fff;
-  color: #fff;
-  text-transform: uppercase;
+  width: 40px;
   font-size: 40px;
   font-weight: 500;
+  text-transform: uppercase;
   line-height: 100%;
   text-align: center;
   align-self: center;
+  fill: ${(props) => props.theme.colors.white};
+  color: ${(props) => props.theme.colors.white};
 `;
 
 export const AvatarIcon = styled.img`
@@ -84,18 +79,17 @@ export const AvatarIcon = styled.img`
 `;
 
 export const HeaderContent = styled.div`
+  display: flex;
   height: 100%;
   width: 100%;
-  display: flex;
   justify-content: space-between;
   overflow: hidden;
 `;
 
 export const HeaderLogo = styled.div`
-  align-items: center;
   display: flex;
-  //height: 50px;
   padding: 0 12px;
+  align-items: center;
 `;
 
 export const HeaderItem = styled.div`
@@ -104,36 +98,12 @@ export const HeaderItem = styled.div`
 
 export const HeaderControls = styled.div`
   display: flex;
+  padding: 0 12px;
   align-items: center;
   justify-content: space-around;
-  padding: 0 12px;
   flex-shrink: 0;
 `;
 
 export const ButtonHolder = styled.div`
   margin-right: 8px;
 `;
-
-/*
-export const SearchBar = styled.div`
-  display: flex;
-  align-items: center;
-  position: relative;
-  margin-left: 12px;
-`;
-
-export const SearchInput = styled.input`
-  height: 40px;
-  width: 100%;
-  border-radius: 2px;
-  border: 1px solid #f2f3f4;
-  background-color: #f2f3f4;
-  margin: 12px 0;
-  font-size: 14px;
-  font-weight: 500;
-  color: #7a858c; // #f2f3f4; //#4c5358;
-  padding: 0 15px;
-  outline: none;
-  appearance: none;
-`;
-*/

@@ -5,34 +5,32 @@ export const Container = styled.div`
 `;
 
 export const Menu = styled.div`
-  opacity: 1;
-  padding: 4px 0px;
-  border-radius: 4px;
-  box-shadow: rgb(0 0 0 / 15%) 0px 10px 20px, rgb(0 0 0 / 10%) 0px 3px 6px;
-  //pointer-events: none;
-  position: absolute;
-  background-color: white;
-  transform: translateY(10px);
-  width: 250px;
-  right: 0px;
-  z-index: 9999999;
   //display: block;
-  //position: absolute;
+  position: absolute;
+  padding: 4px 0px;
+  opacity: 1;
+  width: 250px;
+  border-radius: 4px;
+  right: 0px;
+  box-shadow: rgb(0 0 0 / 15%) 0px 10px 20px, rgb(0 0 0 / 10%) 0px 3px 6px;
+  transform: translateY(10px);
+  z-index: 9999999;
   transition: all 0.3s ease;
+  background-color: ${(props) => props.theme.colors.white};
 `;
 
 export const MenuItem = styled.button`
+  display: flex;
+  padding: 10px;
+  width: 100%;
   outline: none;
   border: none;
-  color: rgb(79, 43, 45);
-  display: flex;
-  align-items: center;
-  padding: 10px;
   font-size: 14px;
+  align-items: center;
   cursor: pointer;
   z-index: 99;
-  width: 100%;
-  background-color: white;
+  //color: rgb(79, 43, 45);
+  background-color: ${(props) => props.theme.colors.white};
 
   &:disabled,
   &:disabled:hover,

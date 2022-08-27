@@ -6,12 +6,12 @@ import Portal from '../Portal';
 import {
   ModalBackground,
   ModalContainer,
+  ModalTitle,
+  HeaderContainer,
   HeaderButtonsContainer,
+  HeaderCloseButton,
   ContentContainer,
   ChildrenContainer,
-  HeaderContainer,
-  ModalTitle,
-  HeaderCloseButton,
 } from './styles';
 
 export enum ModalSize {
@@ -53,14 +53,6 @@ export default function Modal(props: Props) {
           </HeaderContainer>
           <ContentContainer>
             <ChildrenContainer>{children}</ChildrenContainer>
-            {/* <ButtonsContainer>
-              <ActionButtonContainer>
-                <button>Cancel</button>
-              </ActionButtonContainer>
-              <ActionButtonContainer>
-                <button>Add</button>
-              </ActionButtonContainer>
-            </ButtonsContainer> */}
           </ContentContainer>
         </ModalContainer>
       </ModalBackground>

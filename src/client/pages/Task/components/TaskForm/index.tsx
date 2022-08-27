@@ -40,7 +40,6 @@ export default function TaskForm(props: Props) {
   const disableSubmit = taskData.name === '' ? name.trim().length < 1 : false;
 
   function onChangeDescription(evt: ChangeEvent<HTMLTextAreaElement>) {
-    console.log('TEXT AREA IS BEING CHANGED');
     setDescription(evt.target.value);
   }
 

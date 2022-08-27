@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, TextareaHTMLAttributes } from 'react';
-import styled from 'styled-components';
+import { Container, TextArea } from './styles';
 
-const AutoTextArea = (props: TextareaHTMLAttributes<HTMLTextAreaElement>) => {
+export default function AutoTextArea(props: TextareaHTMLAttributes<HTMLTextAreaElement>) {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const [text, setText] = useState('');
   const [textAreaHeight, setTextAreaHeight] = useState('auto');
@@ -12,7 +12,7 @@ const AutoTextArea = (props: TextareaHTMLAttributes<HTMLTextAreaElement>) => {
     setTextAreaHeight(`${textAreaRef.current?.scrollHeight}px`);
   }, [text]);
 
-  const onChangeHandler = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  function onChangeHandler(event: React.ChangeEvent<HTMLTextAreaElement>) {
     setTextAreaHeight('auto');
     setParentHeight(`${textAreaRef.current?.scrollHeight}px`);
     setText(event.target.value);
@@ -20,7 +20,7 @@ const AutoTextArea = (props: TextareaHTMLAttributes<HTMLTextAreaElement>) => {
     if (props.onChange) {
       props.onChange(event);
     }
-  };
+  }
 
   return (
     <Container
@@ -39,24 +39,4 @@ const AutoTextArea = (props: TextareaHTMLAttributes<HTMLTextAreaElement>) => {
       />
     </Container>
   );
-};
-
-const Container = styled.div`
-  width: 100%;
-`;
-
-const TextArea = styled.textarea`
-  outline: none;
-  font-size: 15px;
-  line-height: 1.4em;
-  margin: 8px 0px;
-  display: block;
-  border-radius: 4px;
-  background-color: rgb(239, 239, 239);
-  border: none;
-  //padding: 10px 14px;
-  color: rgb(85, 85, 85);
-  width: 100%;
-`;
-
-export default AutoTextArea;
+}

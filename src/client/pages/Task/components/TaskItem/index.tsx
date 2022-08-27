@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { BiDotsVertical } from 'react-icons/bi';
 import { MdDelete, MdEdit } from 'react-icons/md';
 import { useMutation, useQueryClient } from 'react-query';
@@ -18,11 +18,10 @@ import {
   Container,
   TextContainer,
   LabelContainer,
-  CompleteTask,
+  CompleteTaskButton,
 } from './styles';
 
 type Props = {
-  //onClick: () => void;
   task: Task;
 };
 
@@ -33,7 +32,6 @@ export default function TaskItem(props: Props) {
 
   const queryClient = useQueryClient();
   const [isHovering, setIsHovering] = useState<boolean>(false);
-  const itemRef = useRef<HTMLDivElement>(null);
   const [isDone, setIsDone] = useState<boolean>(task.isDone);
 
   const openUpdateDialog = () => {
@@ -117,7 +115,7 @@ export default function TaskItem(props: Props) {
     <>
       {displayUpdateTaskModal}
       {displayDeleteDialog}
-      <Container ref={itemRef} isCompleted={isDone}>
+      <Container isCompleted={isDone}>
         <ItemContainer
           role="button"
           onMouseOver={handleMouseOver}
@@ -125,13 +123,13 @@ export default function TaskItem(props: Props) {
           onClick={handleClick}
         >
           <LabelContainer>
-            <CompleteTask onClick={handleComplete} className="completeButton" />
+            <CompleteTaskButton onClick={handleComplete} className="completeButton" />
             <TextContainer>
               <Text className="taskName">{task.name}</Text>
             </TextContainer>
           </LabelContainer>
 
-          {task.isDone && (
+          {isDone && (
             <ItemActionButtons>
               <ItemActionButton
                 onClick={handleDelete}
@@ -143,7 +141,7 @@ export default function TaskItem(props: Props) {
             </ItemActionButtons>
           )}
 
-          {isHovering && (
+          {isHovering && !isDone && (
             <ItemActionButtons>
               <ItemActionButton onClick={handleDelete} title="Delete task">
                 <MdDelete size="20px" />
