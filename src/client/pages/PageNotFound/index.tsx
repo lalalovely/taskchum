@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { P, Title, Wrapper } from './styles';
+import { Error, GoBackButton, P, Title, Wrapper } from './styles';
 
 export default function PageNotFound() {
   const navigate = useNavigate();
@@ -13,17 +13,10 @@ export default function PageNotFound() {
   return (
     <>
       <Wrapper>
-        <Title>
-          4
-          <span role="img" aria-label="Crying Face">
-            😢
-          </span>
-          4
-        </Title>
-        <P>Page not found.</P>
-        <button type="button" onClick={handleClick}>
-          Go back
-        </button>
+        <Error>404</Error>
+        <Title>Page not found.</Title>
+        <P>Sorry, we couldn&apos;t find the page you&apos;re looking for.</P>
+        <GoBackButton onClick={handleClick}>Go back</GoBackButton>
       </Wrapper>
     </>
   );

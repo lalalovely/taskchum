@@ -10,19 +10,39 @@ export const Wrapper = styled.div`
 `;
 
 export const Title = styled.div`
-  margin-top: -8vh;
   font-size: 3.375rem;
   font-weight: bold;
-  color: black;
+`;
 
-  span {
-    font-size: 3.125rem;
-  }
+export const Error = styled.h2`
+  color: ${(props) => props.theme.colors.primary};
 `;
 
 export const P = styled.p`
-  margin: 0.625rem 0 1.5rem 0;
   font-size: 1rem;
   line-height: 1.5;
-  color: black;
+`;
+
+export const GoBackButton = styled.button`
+  display: inline-flex;
+  margin-top: 28px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  color: ${(props) => props.theme.colors.white};
+  background: ${(props) => props.theme.colors.primary};
+
+  &:hover {
+    color: ${(props) => props.theme.colors.btnPrimaryHoverTint};
+    background-color: ${(props) => props.theme.colors.primaryDark};
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
 `;
