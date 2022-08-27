@@ -9,26 +9,26 @@ export const Container = styled.li<ContainerProps>`
   width: 100%;
   font-size: 16px;
   text-align: left;
-  border: 1px solid #e5e5e5;
+  border: 1px solid ${(props) => props.theme.colors.gray1};
   border-radius: 4px;
   border-left: 8px solid transparent;
   transition: unset;
-  background-color: white;
+  background-color: ${(props) => props.theme.colors.white};
   box-shadow: rgb(0 0 0 / 10%) 0px 4px 4px;
   cursor: pointer;
 
   &:hover {
-    border-left: 6px solid #dfdfdf;
+    border-left: 6px solid ${(props) => props.theme.colors.gray2};
   }
 
   ${(props) =>
     props.isCompleted === true &&
     css`
-      border-left: 8px solid #fca91d;
+      border-left: 8px solid ${(props) => props.theme.colors.primaryLight};
       cursor: default;
 
       &:hover {
-        border-left: 8px solid #fca91d;
+        border-left: 8px solid ${(props) => props.theme.colors.primaryLight};
       }
 
       .completeButton {
@@ -50,20 +50,6 @@ export const ItemContainer = styled.div`
   justify-content: space-between;
 `;
 
-export const ButtonContainer = styled.button`
-  margin-top: 2.5px;
-  margin-right: 10px;
-  outline: none;
-  border: none;
-  color: grey;
-  background-color: transparent;
-  cursor: pointer;
-
-  &:hover {
-    color: ${(props) => props.theme.colors.primary};
-  }
-`;
-
 export const LabelContainer = styled.div`
   display: flex;
   position: relative;
@@ -80,7 +66,7 @@ export const TextContainer = styled.span`
   align-items: center;
   font-weight: bold;
   line-height: 1.5em;
-  color: rgb(85, 85, 85);
+  color: ${(props) => props.theme.colors.gray4};
 `;
 
 export const Text = styled.span`
@@ -113,7 +99,7 @@ export const ItemActionButton = styled.button`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  border: 1px solid rgb(223, 223, 223);
+  border: 1px solid ${(props) => props.theme.colors.gray2};
   border-radius: 4px;
 
   &:hover {
@@ -126,9 +112,9 @@ export const CompleteTaskButton = styled.div`
   margin-right: 10px;
   height: 22px;
   width: 22px;
-  border: 2px solid #e5e5e5; //rgb(223, 223, 223);
+  border: 2px solid ${(props) => props.theme.colors.gray1};
   border-radius: 50%;
-  background-color: #dfdfdf;
+  background-color: ${(props) => props.theme.colors.gray2};
 
   &:after {
     content: '';
@@ -138,13 +124,13 @@ export const CompleteTaskButton = styled.div`
     width: 5px;
     height: 12px;
     border-style: solid;
-    border-color: rgb(255, 255, 255);
+    border-color: ${(props) => props.theme.colors.white};
     border-image: initial;
     border-width: 0px 3px 3px 0px;
     transform: rotate(45deg);
   }
 
   &:hover {
-    background-color: #d4d4d4;
+    background-color: ${(props) => props.theme.colors.gray3};
   }
 `;

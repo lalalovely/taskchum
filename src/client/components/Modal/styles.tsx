@@ -24,7 +24,7 @@ export const ModalBackground = styled.div<ModalBgProps>`
   ${(props) =>
     props.background === true &&
     css`
-      background-color: ${(props) => props.theme.colors.infoModal};
+      background-color: ${(props) => props.theme.colors.modalBg};
     `}
 `;
 

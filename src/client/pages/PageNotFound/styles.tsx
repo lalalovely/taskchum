@@ -38,7 +38,7 @@ export const GoBackButton = styled.button`
   background: ${(props) => props.theme.colors.primary};
 
   &:hover {
-    color: ${(props) => props.theme.colors.btnPrimaryHoverTint};
+    color: ${(props) => props.theme.colors.white};
     background-color: ${(props) => props.theme.colors.primaryDark};
   }
 

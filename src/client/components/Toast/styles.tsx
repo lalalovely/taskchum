@@ -51,7 +51,7 @@ export const ToastContainer = styled.div<ToastContainerProps>`
 export const ToastBody = styled.div<ToastBodyProps>`
   min-height: 22px;
   border: 1px solid ${(props) => props.theme.colors.border}; //rgba(0, 0, 0, 0.1);
-  background: ${(props) => props.theme.colors.background};
+  background: ${(props) => props.theme.colors.pageBg};
   box-shadow: 0 2px 4px 0 rgb(0 0 0 / 8%);
   text-align: center;
   position: relative;

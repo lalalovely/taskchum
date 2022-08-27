@@ -15,7 +15,7 @@ export const PageContainer = styled.div`
   min-height: 100vh;
   flex-direction: column;
   align-items: center;
-  background-color: ${(props) => props.theme.colors.background};
+  background-color: ${(props) => props.theme.colors.pageBg};
 `;
 
 export const Section = styled.section`

@@ -23,7 +23,7 @@ export const FormHeader = styled.h1`
   letter-spacing: -0.01em;
   line-height: 28px;
   text-align: center;
-  color: ${(props) => props.theme.colors.formLabel};
+  color: ${(props) => props.theme.colors.formLabelColor};
 `;
 
 export const FormFooter = styled.div`
@@ -31,7 +31,8 @@ export const FormFooter = styled.div`
   font-size: 14px;
   line-height: 1.6;
   text-align: center;
-  color: #37352fa6; //rgba(55, 53, 47, 0.65);
+  color: ${(props) => props.theme.colors.footerTextColor};
+  opacity: 0.65;
 `;
 
 export const FormSeparator = styled.hr`
@@ -49,7 +50,7 @@ export const Label = styled.div`
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
-  color: ${(props) => props.theme.colors.fieldLabel};
+  color: ${(props) => props.theme.colors.fieldLabelColor};
 `;
 
 export const Input = styled.input`
@@ -58,8 +59,8 @@ export const Input = styled.input`
   width: 100%;
   max-width: 400px;
   font-size: 14px;
-  background-color: #fafbfc;
-  border: 1px solid #dfe1e6;
+  background-color: ${(props) => props.theme.colors.inputBgColor};
+  border: 1px solid ${(props) => props.theme.colors.inputBorderColor};
   border-radius: 3px;
   outline: none;
 
@@ -86,11 +87,11 @@ export const ActionButton = styled.button`
   justify-content: center;
   white-space: nowrap;
   color: ${(props) => props.theme.colors.white};
-  background: ${(props) => props.theme.colors.primary}; //rgb(253, 245, 242);
+  background: ${(props) => props.theme.colors.primary};
   box-shadow: rgb(15 15 15 / 10%) 0px 1px 2px, rgb(235 87 87 / 30%) 0px 0px 0px 1px inset;
 
   &:hover {
-    color: ${(props) => props.theme.colors.btnPrimaryHoverTint};
+    color: ${(props) => props.theme.colors.white};
     background-color: ${(props) => props.theme.colors.primaryDark};
   }
 
@@ -120,7 +121,7 @@ export const GoogleLabel = styled.span`
   font-size: 14px;
   font-weight: bold;
   line-height: 32px;
-  color: ${(props) => props.theme.colors.formLabel};
+  color: ${(props) => props.theme.colors.formLabelColor};
 `;
 
 export const GoogleIcon = styled.img`
