@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from 'src/client/contexts/AuthContext';
 
@@ -15,6 +15,7 @@ import {
   Label,
   ActionButton,
   ErrorMessage,
+  ValidationErrorMessage,
 } from './formStyles';
 import { PageContainer, Section, Main, LogoText } from './styles';
 
@@ -26,7 +27,14 @@ interface SignUpInfo {
 
 export default function SignUpPage() {
   const navigate = useNavigate();
-  const { signUp } = useAuth();
+  const { signUp, currentUser } = useAuth();
+  const [signUpError, setSignUpError] = useState<string>('');
+
+  useEffect(() => {
+    if (currentUser) {
+      navigate('/', { replace: true });
+    }
+  }, [currentUser]);
 
   const {
     handleSubmit,
@@ -37,7 +45,7 @@ export default function SignUpPage() {
     validations: {
       name: {
         pattern: {
-          value: '^[A-Za-z]*$',
+          value: '^[A-Za-z ]*$',
           message: "You're not allowed to use special characters or numbers in your name.",
         },
       },
@@ -47,7 +55,7 @@ export default function SignUpPage() {
           message: 'Email is required',
         },
         pattern: {
-          value: '^[^s@]+@[^s@]+.[^s@]{2,}$',
+          value: '^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,6})*$',
           message: 'This is not a valid email format.',
         },
       },
@@ -62,14 +70,27 @@ export default function SignUpPage() {
       onSignUp(details['name'] || '', details['email'] || '', details['password'] || ''),
   });
 
-  async function onSignUp(name: string, email: string, password: string) {
-    try {
-      await signUp(name, email, password);
-    } catch (e) {
-      console.log(e);
-    } finally {
-      navigate('/', { replace: true });
+  useEffect(() => {
+    if (signUpError.length > 1) {
+      if (Object.keys(errors).length > 0) {
+        setSignUpError('');
+      }
+      if (user.email || user.password || user.name) {
+        if (user.email.length > 0 || user.password.length > 0 || user.name.length > 0) {
+          setSignUpError('');
+        }
+      }
     }
+  }, [errors, user.name, user.email, user.password]);
+
+  async function onSignUp(name: string, email: string, password: string) {
+    await signUp(name, email, password).catch((error) => {
+      if (error.code === 'auth/email-already-in-use') {
+        setSignUpError('Email is already in use');
+      } else {
+        setSignUpError(error.message);
+      }
+    });
   }
 
   return (
@@ -78,19 +99,22 @@ export default function SignUpPage() {
       <Section>
         <Main>
           <FormContainer>
+            {signUpError !== '' && Object.keys(errors).length === 0 && (
+              <ErrorMessage>{signUpError}</ErrorMessage>
+            )}
             <FormHeader>Sign up</FormHeader>
             <FormMain>
               <Form onSubmit={handleSubmit}>
                 <Label>Name</Label>
                 <Input placeholder="" value={user.name || ''} onChange={handleChange('name')} />
-                {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
+                {errors.name && <ValidationErrorMessage>{errors.name}</ValidationErrorMessage>}
                 <Label>Email</Label>
                 <Input
                   placeholder="example@mail.com"
                   value={user.email || ''}
                   onChange={handleChange('email')}
                 ></Input>
-                {errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
+                {errors.email && <ValidationErrorMessage>{errors.email}</ValidationErrorMessage>}
                 <Label>Password</Label>
                 <Input
                   placeholder=""
@@ -98,7 +122,9 @@ export default function SignUpPage() {
                   value={user.password || ''}
                   onChange={handleChange('password')}
                 ></Input>
-                {errors.password && <ErrorMessage>{errors.password}</ErrorMessage>}
+                {errors.password && (
+                  <ValidationErrorMessage>{errors.password}</ValidationErrorMessage>
+                )}
                 <ActionButton type="submit">Sign up</ActionButton>
               </Form>
             </FormMain>

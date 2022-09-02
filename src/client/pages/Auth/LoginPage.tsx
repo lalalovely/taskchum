@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from 'src/client/contexts/AuthContext';
 
@@ -20,6 +20,7 @@ import {
   LoginMethodSeparator,
   GoogleButton,
   GoogleIcon,
+  ValidationErrorMessage,
 } from './formStyles';
 import { PageContainer, Section, Main, LogoText } from './styles';
 
@@ -31,6 +32,7 @@ interface LoginInfo {
 export default function LoginPage() {
   const navigate = useNavigate();
   const { logIn, googleSignIn, currentUser } = useAuth();
+  const [loginError, setLoginError] = useState<string>('');
 
   useEffect(() => {
     if (currentUser) {
@@ -51,7 +53,7 @@ export default function LoginPage() {
           message: 'Email is required',
         },
         pattern: {
-          value: '^[^s@]+@[^s@]+.[^s@]{2,}$',
+          value: '^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,6})*$', //'^[^s@]+@[^s@]+.[^s@]{2,}$',
           message: 'This is not a valid email format.',
         },
       },
@@ -65,20 +67,27 @@ export default function LoginPage() {
     onSubmit: (details) => onLogin(details['email'] || '', details['password'] || ''),
   });
 
-  async function onLogin(email: string, password: string) {
-    try {
-      await logIn(email, password);
-    } catch (error) {
-      console.log(error);
+  useEffect(() => {
+    if (loginError.length > 1) {
+      if (Object.keys(errors).length > 0) {
+        setLoginError('');
+      }
+      if (user.email || user.password) {
+        if (user.email.length > 0 || user.password.length > 0) {
+          setLoginError('');
+        }
+      }
     }
+  }, [errors, user.email, user.password]);
+
+  async function onLogin(email: string, password: string) {
+    await logIn(email, password).catch((error) => {
+      setLoginError('Wrong email or password');
+    });
   }
 
   async function onGoogleSignIn() {
-    try {
-      await googleSignIn();
-    } catch (error) {
-      console.log(error);
-    }
+    await googleSignIn();
   }
 
   return (
@@ -87,19 +96,20 @@ export default function LoginPage() {
       <Section>
         <Main>
           <FormContainer>
+            {loginError !== '' && Object.keys(errors).length === 0 && (
+              <ErrorMessage>{loginError}</ErrorMessage>
+            )}
             <FormHeader>Login</FormHeader>
             <FormMain>
               <Form onSubmit={handleSubmit}>
                 <Label>Email</Label>
-                <Input
-                  placeholder="example@mail.com"
-                  value={user.email || ''}
-                  onChange={handleChange('email')}
-                ></Input>
-                {errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
+                <Input placeholder="example@mail.com" onChange={handleChange('email')}></Input>
+                {errors.email && <ValidationErrorMessage>{errors.email}</ValidationErrorMessage>}
                 <Label>Password</Label>
                 <Input placeholder="" type="password" onChange={handleChange('password')}></Input>
-                {errors.password && <ErrorMessage>{errors.password}</ErrorMessage>}
+                {errors.password && (
+                  <ValidationErrorMessage>{errors.password}</ValidationErrorMessage>
+                )}
                 <ActionButton type="submit">Login</ActionButton>
               </Form>
               <LoginMethodsContainer>

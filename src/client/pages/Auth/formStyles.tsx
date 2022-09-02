@@ -155,7 +155,19 @@ export const GoogleButton = styled.div`
   }
 `;
 
-export const ErrorMessage = styled.p`
+export const ValidationErrorMessage = styled.p`
   font-size: 12px;
   color: red;
+`;
+
+export const ErrorMessage = styled.div`
+  display: flex;
+  margin-bottom: 15px;
+  padding: 5px;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  background-color: red;
 `;
