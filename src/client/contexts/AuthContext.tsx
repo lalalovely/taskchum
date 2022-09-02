@@ -2,6 +2,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
+  updateProfile,
 } from 'firebase/auth';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useMutation } from 'react-query';
@@ -42,24 +43,15 @@ export function AuthProvider(props: AuthProviderProps) {
   }
 
   async function signUp(name: string, email: string, password: string) {
-    const user = await createUserWithEmailAndPassword(auth, email, password);
-    const newUser = await createUser({ id: user.user.uid, name: name, email: email });
-    setCurrentUser(newUser);
+    await createUserWithEmailAndPassword(auth, email, password).then((userCred) => {
+      updateProfile(userCred.user, {
+        displayName: name,
+      });
+    });
   }
 
   async function googleSignIn() {
-    signInWithPopup(auth, googleProvider).then(async (userDetails) => {
-      const user = await UserApi.getUser(userDetails.user.uid);
-      if (!user) {
-        const newUser = await createUser({
-          id: userDetails.user.uid,
-          name: userDetails.user.displayName ?? '',
-          email: userDetails.user.email ?? '',
-          photoURL: userDetails.user.photoURL ?? '',
-        });
-        setCurrentUser(newUser);
-      }
-    });
+    await signInWithPopup(auth, googleProvider);
   }
 
   async function logOut() {
@@ -70,7 +62,17 @@ export function AuthProvider(props: AuthProviderProps) {
     const authStateChanged = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         const user = await UserApi.getUser(userAuth.uid);
-        setCurrentUser(user);
+        if (!user) {
+          const newUser = await createUser({
+            id: userAuth.uid,
+            name: userAuth.displayName || '',
+            email: userAuth.email || '',
+            photoURL: userAuth.photoURL || '',
+          });
+          setCurrentUser(newUser);
+        } else {
+          setCurrentUser(user);
+        }
       } else {
         setCurrentUser(null);
         setError(new Error('Unauthenticated'));
@@ -93,5 +95,5 @@ export function AuthProvider(props: AuthProviderProps) {
     logOut,
   };
 
-  return <AuthContext.Provider value={value}>{!loading && props.children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>;
 }
