@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from 'src/client/contexts/AuthContext';
 
+import googleIcon from '../../assets/images/google-icon.svg';
 import { useForm } from '../../hooks/useForm';
 
 import {
@@ -16,6 +17,10 @@ import {
   ActionButton,
   ErrorMessage,
   ValidationErrorMessage,
+  LoginMethodSeparator,
+  LoginMethodsContainer,
+  GoogleButton,
+  GoogleIcon,
 } from './formStyles';
 import { PageContainer, Section, Main, LogoText } from './styles';
 
@@ -27,7 +32,7 @@ interface SignUpInfo {
 
 export default function SignUpPage() {
   const navigate = useNavigate();
-  const { signUp, currentUser } = useAuth();
+  const { signUp, googleSignIn, currentUser } = useAuth();
   const [signUpError, setSignUpError] = useState<string>('');
 
   useEffect(() => {
@@ -93,6 +98,10 @@ export default function SignUpPage() {
     });
   }
 
+  async function onGoogleSignUp() {
+    await googleSignIn();
+  }
+
   return (
     <PageContainer>
       <LogoText>taskchum</LogoText>
@@ -127,6 +136,13 @@ export default function SignUpPage() {
                 )}
                 <ActionButton type="submit">Sign up</ActionButton>
               </Form>
+              <LoginMethodsContainer>
+                <LoginMethodSeparator>or</LoginMethodSeparator>
+                <GoogleButton onClick={onGoogleSignUp}>
+                  <GoogleIcon alt="googleIcon" src={googleIcon} />
+                  Continue with Google
+                </GoogleButton>
+              </LoginMethodsContainer>
             </FormMain>
             <FormSeparator />
             <FormFooter>
