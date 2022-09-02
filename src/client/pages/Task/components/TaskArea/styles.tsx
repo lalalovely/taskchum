@@ -33,10 +33,10 @@ export const AddTaskButton = styled.div`
   cursor: pointer;
   border: 2px dashed ${(props) => props.theme.colors.primary};
   color: ${(props) => props.theme.colors.primary};
-  background-color: #ededed;
+  background-color: ${(props) => props.theme.colors.gray6};
 
   &:hover {
-    background-color: #e5e5e5;
+    background-color: ${(props) => props.theme.colors.gray1};
   }
 `;
 
@@ -49,7 +49,7 @@ export const AddForm = styled.div`
   margin-top: 12px;
   padding: 20px;
   border-radius: 8px;
-  border: 1px solid #e5e5e5;
+  border: 1px solid ${(props) => props.theme.colors.gray1};
   box-shadow: rgb(0 0 0 / 15%) 0px 10px 20px, rgb(0 0 0 / 10%) 0px 3px 6px;
   animation: 0.1s ease-in-out 0s 1 normal none running expand;
 `;
@@ -89,10 +89,10 @@ export const MenuButton = styled.button`
   border: none;
   box-shadow: none;
   color: ${(props) => props.theme.colors.primary} !important;
-  background-color: #ededed;
+  background-color: ${(props) => props.theme.colors.gray6};
 
   &:hover {
-    background-color: #e5e5e5;
+    background-color: ${(props) => props.theme.colors.gray1};
   }
 `;
 

@@ -103,7 +103,7 @@ export const ItemActionButton = styled.button`
   border-radius: 4px;
 
   &:hover {
-    background-color: ${(props) => props.theme.colors.btnSecondaryHoverFill};
+    background-color: ${(props) => props.theme.colors.gray1};
   }
 `;
 

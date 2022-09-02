@@ -94,7 +94,7 @@ export const HeaderCloseButton = styled.button`
   background-color: transparent;
 
   &:hover {
-    background-color: ${(props) => props.theme.colors.btnSecondaryHoverFill};
+    background-color: ${(props) => props.theme.colors.gray1};
   }
 `;
 

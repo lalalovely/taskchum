@@ -55,12 +55,11 @@ export const StyledButton = styled.button<ButtonProps>`
     props.buttonType === 'secondary' &&
     css`
       border: 1px solid transparent;
-      background-color: ${(props) => props.theme.colors.btnSecondaryIdleFill};
-      color: ${(props) => props.theme.colors.btnSecondaryIdleTint};
+      background-color: ${(props) => props.theme.colors.gray6};
+      color: rgba(0, 0, 0, 0.5);
 
       &:hover {
-        background-color: ${(props) => props.theme.colors.btnSecondaryHoverFill};
-        color: ${(props) => props.theme.colors.btnSecondaryHoverTint};
+        background-color: ${(props) => props.theme.colors.gray1};
       }
     `};
 `;
