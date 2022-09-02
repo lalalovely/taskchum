@@ -123,7 +123,6 @@ export default function LoginPage() {
                   <Label>Password</Label>
                   <InputContainer>
                     <Input
-                      className="inputField"
                       placeholder=""
                       type={showPassword ? 'text' : 'password'}
                       onChange={handleChange('password')}
