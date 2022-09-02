@@ -18,6 +18,8 @@ export const Form = styled.form`
   width: 100%;
 `;
 
+export const FormGroup = styled.div``;
+
 export const FormHeader = styled.h1`
   font-size: 16px;
   letter-spacing: -0.01em;
@@ -53,19 +55,35 @@ export const Label = styled.div`
   color: ${(props) => props.theme.colors.fieldLabelColor};
 `;
 
-export const Input = styled.input`
+export const InputContainer = styled.div`
+  display: flex;
   padding: 0.5em;
   height: 44px;
   width: 100%;
-  max-width: 400px;
-  font-size: 14px;
   background-color: ${(props) => props.theme.colors.inputBgColor};
   border: 1px solid ${(props) => props.theme.colors.inputBorderColor};
   border-radius: 3px;
   outline: none;
+  justify-content: space-between;
 
-  &:focus {
+  &:focus-within {
     border: 1px solid ${(props) => props.theme.colors.primaryLight};
+  }
+`;
+
+export const Input = styled.input`
+  width: 100%;
+  border: none;
+  outline: none;
+`;
+
+export const IconContainer = styled.span`
+  display: flex;
+  padding: 3px;
+  align-items: center;
+
+  &:hover {
+    background-color: ${(props) => props.theme.colors.gray1};
   }
 `;
 

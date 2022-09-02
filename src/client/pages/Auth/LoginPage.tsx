@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import { useAuth } from 'src/client/contexts/AuthContext';
 
 import googleIcon from '../../assets/images/google-icon.svg';
@@ -21,6 +22,9 @@ import {
   GoogleButton,
   GoogleIcon,
   ValidationErrorMessage,
+  InputContainer,
+  IconContainer,
+  FormGroup,
 } from './formStyles';
 import { PageContainer, Section, Main, LogoText } from './styles';
 
@@ -33,6 +37,7 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const { logIn, googleSignIn, currentUser } = useAuth();
   const [loginError, setLoginError] = useState<string>('');
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   useEffect(() => {
     if (currentUser) {
@@ -90,6 +95,10 @@ export default function LoginPage() {
     await googleSignIn();
   }
 
+  function togglePassword() {
+    setShowPassword(!showPassword);
+  }
+
   return (
     <PageContainer>
       <LogoText>taskchum</LogoText>
@@ -102,14 +111,32 @@ export default function LoginPage() {
             <FormHeader>Login</FormHeader>
             <FormMain>
               <Form onSubmit={handleSubmit}>
-                <Label>Email</Label>
-                <Input placeholder="example@mail.com" onChange={handleChange('email')}></Input>
-                {errors.email && <ValidationErrorMessage>{errors.email}</ValidationErrorMessage>}
-                <Label>Password</Label>
-                <Input placeholder="" type="password" onChange={handleChange('password')}></Input>
-                {errors.password && (
-                  <ValidationErrorMessage>{errors.password}</ValidationErrorMessage>
-                )}
+                <FormGroup>
+                  <Label>Email</Label>
+                  <InputContainer>
+                    <Input placeholder="example@mail.com" onChange={handleChange('email')}></Input>
+                  </InputContainer>
+                  {errors.email && <ValidationErrorMessage>{errors.email}</ValidationErrorMessage>}
+                </FormGroup>
+
+                <FormGroup>
+                  <Label>Password</Label>
+                  <InputContainer>
+                    <Input
+                      className="inputField"
+                      placeholder=""
+                      type={showPassword ? 'text' : 'password'}
+                      onChange={handleChange('password')}
+                    ></Input>
+                    <IconContainer onClick={togglePassword}>
+                      {showPassword ? <BsEye color="#a8a9ad" /> : <BsEyeSlash color="#a8a9ad" />}
+                    </IconContainer>
+                  </InputContainer>
+                  {errors.password && (
+                    <ValidationErrorMessage>{errors.password}</ValidationErrorMessage>
+                  )}
+                </FormGroup>
+
                 <ActionButton type="submit">Login</ActionButton>
               </Form>
               <LoginMethodsContainer>

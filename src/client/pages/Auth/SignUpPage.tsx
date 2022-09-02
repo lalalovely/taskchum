@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import { useAuth } from 'src/client/contexts/AuthContext';
 
 import googleIcon from '../../assets/images/google-icon.svg';
@@ -21,6 +22,9 @@ import {
   LoginMethodsContainer,
   GoogleButton,
   GoogleIcon,
+  InputContainer,
+  IconContainer,
+  FormGroup,
 } from './formStyles';
 import { PageContainer, Section, Main, LogoText } from './styles';
 
@@ -34,6 +38,7 @@ export default function SignUpPage() {
   const navigate = useNavigate();
   const { signUp, googleSignIn, currentUser } = useAuth();
   const [signUpError, setSignUpError] = useState<string>('');
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   useEffect(() => {
     if (currentUser) {
@@ -102,6 +107,10 @@ export default function SignUpPage() {
     await googleSignIn();
   }
 
+  function togglePassword() {
+    setShowPassword(!showPassword);
+  }
+
   return (
     <PageContainer>
       <LogoText>taskchum</LogoText>
@@ -114,26 +123,44 @@ export default function SignUpPage() {
             <FormHeader>Sign up</FormHeader>
             <FormMain>
               <Form onSubmit={handleSubmit}>
-                <Label>Name</Label>
-                <Input placeholder="" value={user.name || ''} onChange={handleChange('name')} />
-                {errors.name && <ValidationErrorMessage>{errors.name}</ValidationErrorMessage>}
-                <Label>Email</Label>
-                <Input
-                  placeholder="example@mail.com"
-                  value={user.email || ''}
-                  onChange={handleChange('email')}
-                ></Input>
-                {errors.email && <ValidationErrorMessage>{errors.email}</ValidationErrorMessage>}
-                <Label>Password</Label>
-                <Input
-                  placeholder=""
-                  type="password"
-                  value={user.password || ''}
-                  onChange={handleChange('password')}
-                ></Input>
-                {errors.password && (
-                  <ValidationErrorMessage>{errors.password}</ValidationErrorMessage>
-                )}
+                <FormGroup>
+                  <Label>Name</Label>
+                  <InputContainer>
+                    <Input placeholder="" value={user.name || ''} onChange={handleChange('name')} />
+                  </InputContainer>
+                  {errors.name && <ValidationErrorMessage>{errors.name}</ValidationErrorMessage>}
+                </FormGroup>
+
+                <FormGroup>
+                  <Label>Email</Label>
+                  <InputContainer>
+                    <Input
+                      placeholder="example@mail.com"
+                      value={user.email || ''}
+                      onChange={handleChange('email')}
+                    ></Input>
+                  </InputContainer>
+                  {errors.email && <ValidationErrorMessage>{errors.email}</ValidationErrorMessage>}
+                </FormGroup>
+
+                <FormGroup>
+                  <Label>Password</Label>
+                  <InputContainer>
+                    <Input
+                      placeholder=""
+                      type={showPassword ? 'text' : 'password'}
+                      value={user.password || ''}
+                      onChange={handleChange('password')}
+                    ></Input>
+                    <IconContainer onClick={togglePassword}>
+                      {showPassword ? <BsEye color="#a8a9ad" /> : <BsEyeSlash color="#a8a9ad" />}
+                    </IconContainer>
+                  </InputContainer>
+                  {errors.password && (
+                    <ValidationErrorMessage>{errors.password}</ValidationErrorMessage>
+                  )}
+                </FormGroup>
+
                 <ActionButton type="submit">Sign up</ActionButton>
               </Form>
               <LoginMethodsContainer>
