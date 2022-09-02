@@ -17,6 +17,8 @@ export const useForm = <T extends Record<keyof T, any> = Record<string, unknown>
     <S>(key: keyof T, sanitizeFn?: (value: string) => S) =>
     (e: ChangeEvent<HTMLInputElement>) => {
       const value = sanitizeFn ? sanitizeFn(e.target.value) : e.target.value;
+      errors[key] = '';
+      setErrors(errors);
       setData({
         ...data,
         [key]: value,
