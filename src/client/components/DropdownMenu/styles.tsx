@@ -14,7 +14,7 @@ export const Menu = styled.div`
   right: 0px;
   box-shadow: rgb(0 0 0 / 15%) 0px 10px 20px, rgb(0 0 0 / 10%) 0px 3px 6px;
   transform: translateY(10px);
-  z-index: 9999999;
+  z-index: 9;
   transition: all 0.3s ease;
   background-color: ${(props) => props.theme.colors.white};
 `;
