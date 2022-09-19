@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
+import ClickAwayListener from 'react-click-away-listener';
 import { LoadingIndicator } from 'src/client/components';
 import { useAuth } from 'src/client/contexts/AuthContext';
 
@@ -55,7 +56,9 @@ export default function TaskArea() {
           </TaskList>
 
           {isAdding ? (
-            <AddForm>{displayAddTaskForm}</AddForm>
+            <ClickAwayListener onClickAway={closeAddTaskForm}>
+              <AddForm>{displayAddTaskForm}</AddForm>
+            </ClickAwayListener>
           ) : (
             <AddTaskButton onClick={openAddTaskForm}>
               <AddButtonLabel>Add Task</AddButtonLabel>
