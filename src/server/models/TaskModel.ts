@@ -1,7 +1,13 @@
 import { Task } from '../../commons/types/Task.type';
+import BadRequestError from '../errors/BadRequestError';
+import NotFoundError from '../errors/NotFoundError';
 import firestore from '../libs/FirestoreClient';
 
 async function createTask(params: Task): Promise<Task> {
+  if (params.name === '') {
+    throw new BadRequestError();
+  }
+
   const task = {
     ...params,
     isDone: false,
@@ -15,8 +21,18 @@ async function createTask(params: Task): Promise<Task> {
 }
 
 async function deleteTask(id: string): Promise<string> {
+  if (id === '') {
+    throw new BadRequestError();
+  }
+
   const documentRef = firestore.doc(`tasks/${id}`);
+
+  if (!documentRef) {
+    throw new NotFoundError();
+  }
+
   await documentRef.delete();
+
   return id;
 }
 
@@ -27,10 +43,16 @@ async function updateTask(params: Task): Promise<Task> {
   } as Task;
   const { dateCreated, userId, ...dataToUpdate } = params;
   const documentRef = firestore.doc(`tasks/${params.id}`);
+
+  if (!documentRef) {
+    throw new NotFoundError();
+  }
+
   await documentRef.update({
     ...dataToUpdate,
     dateUpdated: new Date(),
   });
+
   return task;
 }
 
@@ -70,22 +92,15 @@ async function deleteTasks(userId: string, isDone: boolean): Promise<boolean> {
   const collectionRef = firestore.collection('tasks');
 
   let query = collectionRef.where('userId', '==', userId);
+
   if (isDone) {
     query = query.where('isDone', '==', true);
   }
   query = query.limit(batchSize);
 
-  const deleteResult = new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     deleteQueryBatch(query, resolve).catch(reject);
   });
-
-  return deleteResult
-    .then(() => {
-      return true;
-    })
-    .catch(() => {
-      return false;
-    });
 }
 
 async function deleteQueryBatch(query: FirebaseFirestore.Query, resolve: any): Promise<void> {

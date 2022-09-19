@@ -62,8 +62,8 @@ async function deleteTasks(req: Request, res: Response, next: NextFunction) {
   try {
     const userId = req.query.userId as string;
     const isDone = (req.query.isDone + '').toLowerCase() === 'true';
-    const deleteSuccess = await TaskModel.deleteTasks(userId, isDone);
-    return res.json(deleteSuccess);
+    await TaskModel.deleteTasks(userId, isDone);
+    res.sendStatus(HttpStatus.OK);
   } catch (e) {
     next(e);
   }

@@ -1,7 +1,12 @@
 import { User } from '../../commons/types/User.type';
+import BadRequestError from '../errors/BadRequestError';
 import firestore from '../libs/FirestoreClient';
 
 async function createUser(params: User): Promise<User> {
+  if (params.email === '' || params.id === '') {
+    throw new BadRequestError();
+  }
+
   const user = {
     ...params,
   } as unknown as User;
