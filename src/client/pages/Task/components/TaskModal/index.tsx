@@ -20,14 +20,11 @@ type Props = {
 };
 
 export default function TaskModal(props: Props) {
-  const { isOpen, task, isNew, onClose } = props;
-  const queryClient = useQueryClient();
-  const { currentUser } = useAuth();
+  const { isOpen, task, onClose } = props;
   const [taskData, setTaskData] = useState<Task>(task);
   const [isDiscarding, setIsDiscarding] = useState(false);
 
   function handleClose() {
-    console.log(`TASK NAME: ${task.name}:::::TASK DATA NAME: ${taskData.name}`);
     if (task.name !== taskData.name || task.description !== taskData.description) {
       setIsDiscarding(true);
     } else {

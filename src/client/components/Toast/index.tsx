@@ -70,8 +70,3 @@ export function hideEvent() {
   const event = new CustomEvent(HIDE_EVENT);
   document.dispatchEvent(event);
 }
-
-export function showEvt(onClose: () => void) {
-  const event = new CustomEvent(SHOW_EVENT, { detail: { onClose } });
-  document.dispatchEvent(event);
-}
