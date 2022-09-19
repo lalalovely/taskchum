@@ -8,7 +8,7 @@ type ToastBodyProps = {
   type: string;
 };
 
-const showHideAnimation = keyframes`
+const fadeUp = keyframes`
   0% {
     opacity: 0;
     bottom: 0px;
@@ -43,14 +43,14 @@ export const ToastContainer = styled.div<ToastContainerProps>`
   ${(props) =>
     props.isVisible &&
     css`
-      animation: ${showHideAnimation} 4.5s forwards;
+      animation: ${fadeUp} 4.5s forwards;
       animation-delay: 300ms;
     `}
 `;
 
 export const ToastBody = styled.div<ToastBodyProps>`
   min-height: 22px;
-  border: 1px solid ${(props) => props.theme.colors.border}; //rgba(0, 0, 0, 0.1);
+  border: 1px solid ${(props) => props.theme.colors.border};
   background: ${(props) => props.theme.colors.pageBg};
   box-shadow: 0 2px 4px 0 rgb(0 0 0 / 8%);
   text-align: center;
@@ -112,18 +112,13 @@ export const MessageContainer = styled.div`
   line-height: 1em;
 `;
 
-export const ButtonContainer = styled.div`
-  //   border: none;
-  //   outline: none;
-  //   background-color: transparent;
-`;
+export const ButtonContainer = styled.div``;
 
 export const ButtonClose = styled.div`
   color: grey;
 `;
 
 export const CloseButton = styled.button`
-  //color: rgba(0, 0, 0, 0.5);
   background-color: transparent;
   outline: none;
   padding: 0;
@@ -134,8 +129,4 @@ export const CloseButton = styled.button`
   border-radius: 4px;
   cursor: pointer;
   padding: 2px;
-
-  //   &:hover {
-  //     background-color: ${(props) => props.theme.colors.primaryLight};
-  //   }
 `;

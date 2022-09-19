@@ -10,8 +10,8 @@ import {
   ActionsArea,
 } from './styles';
 
-const SHOW_EVENT = 'toast:show';
-const HIDE_EVENT = 'toast:hide';
+const SHOW_TOAST_EVENT = 'toast:show';
+const HIDE_TOAST_EVENT = 'toast:hide';
 
 export default function Toast() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -31,8 +31,8 @@ export default function Toast() {
   }
 
   useEffect(() => {
-    document.addEventListener(SHOW_EVENT, showToast as any);
-    document.addEventListener(HIDE_EVENT, hideToast);
+    document.addEventListener(SHOW_TOAST_EVENT, showToast as any);
+    document.addEventListener(HIDE_TOAST_EVENT, hideToast);
 
     if (containerRef.current) {
       containerRef.current?.addEventListener('animationend', () => {
@@ -40,8 +40,8 @@ export default function Toast() {
       });
     }
     return () => {
-      document.removeEventListener(SHOW_EVENT, showToast as any);
-      document.removeEventListener(HIDE_EVENT, hideToast);
+      document.removeEventListener(SHOW_TOAST_EVENT, showToast as any);
+      document.removeEventListener(HIDE_TOAST_EVENT, hideToast);
     };
   }, []);
 
@@ -62,11 +62,11 @@ export default function Toast() {
 }
 
 export function showEvent(message: string, type: string) {
-  const event = new CustomEvent(SHOW_EVENT, { detail: { message, type } });
+  const event = new CustomEvent(SHOW_TOAST_EVENT, { detail: { message, type } });
   document.dispatchEvent(event);
 }
 
 export function hideEvent() {
-  const event = new CustomEvent(HIDE_EVENT);
+  const event = new CustomEvent(HIDE_TOAST_EVENT);
   document.dispatchEvent(event);
 }

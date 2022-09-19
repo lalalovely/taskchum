@@ -1,9 +1,14 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const MainContainer = styled.div`
   padding: 0px 12px;
   max-width: 620px;
   margin: auto;
+  margin: 20px auto;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgb(165, 48, 1, 0.1);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
 `;
 
 export const Wrapper = styled.div`
@@ -12,7 +17,7 @@ export const Wrapper = styled.div`
 
 export const Main = styled.div`
   margin: 0 auto;
-  padding-bottom: 100px;
+  padding-bottom: 80px;
   max-width: 480px;
   text-align: center;
   z-index: 2;
@@ -45,13 +50,26 @@ export const AddButtonLabel = styled.div`
   font-weight: bold;
 `;
 
+const scaleUp = keyframes`
+  0% {
+    -webkit-transform: scaleY(0.4);
+            transform: scaleY(0.4);
+  }
+
+  100% {
+    -webkit-transform: scaleY(1);
+            transform: scaleY(1);
+  }
+`;
+
 export const AddForm = styled.div`
   margin-top: 12px;
   padding: 20px;
   border-radius: 8px;
   border: 1px solid ${(props) => props.theme.colors.gray1};
   box-shadow: rgb(0 0 0 / 15%) 0px 10px 20px, rgb(0 0 0 / 10%) 0px 3px 6px;
-  animation: 0.1s ease-in-out 0s 1 normal none running expand;
+  -webkit-animation: ${scaleUp} 0.1s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+  animation: ${scaleUp} 0.1s cubic-bezier(0.39, 0.575, 0.565, 1) both;
 `;
 
 /**Header */
