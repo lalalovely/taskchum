@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useRef, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 
 import { useMutation, useQueryClient } from 'react-query';
 import TextareaAutosize from 'react-textarea-autosize';

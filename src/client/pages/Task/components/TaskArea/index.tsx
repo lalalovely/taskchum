@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
-import ClickAwayListener from 'react-click-away-listener';
 import { LoadingIndicator } from 'src/client/components';
 import { useAuth } from 'src/client/contexts/AuthContext';
 
