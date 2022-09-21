@@ -1,5 +1,6 @@
 import {
   createUserWithEmailAndPassword,
+  signInAnonymously,
   signInWithEmailAndPassword,
   signInWithPopup,
   updateProfile,
@@ -18,6 +19,7 @@ type AuthContextType = {
   logIn: (email: string, password: string) => Promise<void>;
   signUp: (name: string, email: string, password: string) => Promise<void>;
   googleSignIn: () => Promise<void>;
+  logInAsGuest: () => Promise<void>;
   logOut: () => Promise<void>;
 };
 
@@ -54,6 +56,10 @@ export function AuthProvider(props: AuthProviderProps) {
     await signInWithPopup(auth, googleProvider);
   }
 
+  async function logInAsGuest() {
+    await signInAnonymously(auth);
+  }
+
   async function logOut() {
     await auth.signOut();
   }
@@ -63,12 +69,23 @@ export function AuthProvider(props: AuthProviderProps) {
       if (userAuth) {
         const user = await UserApi.getUser(userAuth.uid);
         if (!user) {
-          const newUser = await createUser({
+          let newUserData = {
             id: userAuth.uid,
             name: userAuth.displayName || '',
             email: userAuth.email || '',
             photoURL: userAuth.photoURL || '',
-          });
+            isGuest: false,
+          };
+
+          if (userAuth.isAnonymous) {
+            newUserData = {
+              ...newUserData,
+              name: userAuth.displayName || 'Guest',
+              isGuest: true,
+            };
+          }
+
+          const newUser = await createUser(newUserData);
           setCurrentUser(newUser);
         } else {
           setCurrentUser(user);
@@ -92,6 +109,7 @@ export function AuthProvider(props: AuthProviderProps) {
     logIn,
     signUp,
     googleSignIn,
+    logInAsGuest,
     logOut,
   };
 

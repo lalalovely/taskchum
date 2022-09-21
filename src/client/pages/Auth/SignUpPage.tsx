@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
+import { HiOutlineUser } from 'react-icons/hi';
 import { useAuth } from 'src/client/contexts/AuthContext';
 
 import googleIcon from '../../assets/images/google-icon.svg';
@@ -20,11 +21,11 @@ import {
   ValidationErrorMessage,
   LoginMethodSeparator,
   LoginMethodsContainer,
-  GoogleButton,
-  GoogleIcon,
+  LoginMethodButton,
   InputContainer,
   IconContainer,
   FormGroup,
+  Icon,
 } from './formStyles';
 import { PageContainer, Section, Main, LogoText } from './styles';
 
@@ -36,7 +37,7 @@ interface SignUpInfo {
 
 export default function SignUpPage() {
   const navigate = useNavigate();
-  const { signUp, googleSignIn, currentUser } = useAuth();
+  const { signUp, googleSignIn, logInAsGuest, currentUser } = useAuth();
   const [signUpError, setSignUpError] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -107,6 +108,10 @@ export default function SignUpPage() {
     await googleSignIn();
   }
 
+  async function onSignUpAsGuest() {
+    await logInAsGuest();
+  }
+
   function togglePassword() {
     setShowPassword(!showPassword);
   }
@@ -165,10 +170,14 @@ export default function SignUpPage() {
               </Form>
               <LoginMethodsContainer>
                 <LoginMethodSeparator>or</LoginMethodSeparator>
-                <GoogleButton onClick={onGoogleSignUp}>
-                  <GoogleIcon alt="googleIcon" src={googleIcon} />
+                <LoginMethodButton onClick={onGoogleSignUp}>
+                  <Icon alt="googleIcon" src={googleIcon} />
                   Continue with Google
-                </GoogleButton>
+                </LoginMethodButton>
+                <LoginMethodButton onClick={onSignUpAsGuest}>
+                  <HiOutlineUser size="20px" color="#f26931" />
+                  Continue as Guest
+                </LoginMethodButton>
               </LoginMethodsContainer>
             </FormMain>
             <FormSeparator />

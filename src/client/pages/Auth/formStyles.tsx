@@ -142,21 +142,21 @@ export const GoogleLabel = styled.span`
   color: ${(props) => props.theme.colors.formLabelColor};
 `;
 
-export const GoogleIcon = styled.img`
+export const Icon = styled.img`
   display: inline-block;
-  margin-right: 10px;
   height: 18px;
   width: 18px;
   border-radius: 1px;
   vertical-align: middle;
 `;
 
-export const GoogleButton = styled.div`
+export const LoginMethodButton = styled.div`
   display: inline-flex;
   margin-bottom: 12px;
   padding-top: 0;
   height: 39px;
   width: 100%;
+  gap: 1rem;
   font-size: 14px;
   font-weight: bold;
   text-align: center;

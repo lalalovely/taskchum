@@ -3,7 +3,10 @@ import BadRequestError from '../errors/BadRequestError';
 import firestore from '../libs/FirestoreClient';
 
 async function createUser(params: User): Promise<User> {
-  if (params.email === '' || params.id === '') {
+  if (
+    (params.isGuest && params.id === '') ||
+    (!params.isGuest && (params.email === '' || params.id === ''))
+  ) {
     throw new BadRequestError();
   }
 

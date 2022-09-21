@@ -28,6 +28,12 @@ export const UserInitialWrapper = styled.span`
   border-radius: 50%;
   line-height: 100%;
   background-color: ${(props) => props.theme.colors.primary};
+  background: linear-gradient(
+    90deg,
+    rgba(165, 48, 1, 1) 0%,
+    rgba(242, 105, 49, 1) 35%,
+    rgba(252, 169, 29, 1) 100%
+  );
 `;
 
 export const UserInitial = styled.span`
