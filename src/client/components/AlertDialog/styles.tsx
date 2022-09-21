@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const DialogBody = styled.div`
-  padding-bottom: 1rem;
+  padding-bottom: 1.5rem;
 `;
 
 export const DialogFooter = styled.div`
