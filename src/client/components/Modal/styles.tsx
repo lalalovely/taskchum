@@ -4,7 +4,6 @@ import { ModalSize } from '.';
 
 type ModalBgProps = {
   zIndex: string;
-  background?: boolean;
 };
 
 type ModalContainerProps = {
@@ -20,12 +19,7 @@ export const ModalBackground = styled.div<ModalBgProps>`
   inset: 0;
   transition: all 0.3s ease-in-out;
   z-index: ${(props) => props.zIndex};
-
-  ${(props) =>
-    props.background === true &&
-    css`
-      background-color: ${(props) => props.theme.colors.modalBg};
-    `}
+  background-color: ${(props) => props.theme.colors.modalBg};
 `;
 
 export const ModalContainer = styled.div<ModalContainerProps>`
@@ -46,7 +40,7 @@ export const ModalContainer = styled.div<ModalContainerProps>`
   ${(props) =>
     props.size === ModalSize.MEDIUM &&
     css`
-      width: 500px;
+      width: 600px;
     `}
 
   ${(props) =>
@@ -56,52 +50,25 @@ export const ModalContainer = styled.div<ModalContainerProps>`
     `}
 `;
 
+export const ModalHeader = styled.div``;
+
 export const ModalTitle = styled.div`
   display: flex;
   padding: 0;
   outline: none;
+  font-size: 2rem;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   border: 1px solid transparent;
   border-radius: 4px;
   color: rgba(0, 0, 0, 0.5);
   background-color: transparent;
 `;
 
-export const HeaderContainer = styled.div`
-  display: flex;
-  margin-bottom: 15px;
-  align-items: center;
-  justify-content: space-between;
+export const ModalBody = styled.div`
+  padding-top: 1.25rem;
 `;
 
-export const HeaderButtonsContainer = styled.div`
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-`;
-
-export const HeaderCloseButton = styled.button`
-  display: flex;
-  padding: 0;
-  color: rgba(0, 0, 0, 0.5);
-  align-items: center;
-  justify-content: center;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  outline: none;
-  cursor: pointer;
-  background-color: transparent;
-
-  &:hover {
-    background-color: ${(props) => props.theme.colors.gray1};
-  }
-`;
-
-export const ContentContainer = styled.div`
+export const BodyContainer = styled.div`
   height: 100%;
-`;
-
-export const ChildrenContainer = styled.div`
-  //padding-bottom: 25px;
 `;

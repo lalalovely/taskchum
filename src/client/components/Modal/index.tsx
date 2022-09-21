@@ -1,5 +1,4 @@
 import React from 'react';
-import { MdClose } from 'react-icons/md';
 
 import Portal from '../Portal';
 
@@ -7,11 +6,9 @@ import {
   ModalBackground,
   ModalContainer,
   ModalTitle,
-  HeaderContainer,
-  HeaderButtonsContainer,
-  HeaderCloseButton,
-  ContentContainer,
-  ChildrenContainer,
+  ModalHeader,
+  ModalBody,
+  BodyContainer,
 } from './styles';
 
 export enum ModalSize {
@@ -22,16 +19,14 @@ export enum ModalSize {
 
 type Props = {
   isOpen: boolean;
-  onClose: () => void;
+  order: string;
   size?: ModalSize;
   children?: React.ReactNode;
   label?: React.ReactNode;
-  background?: boolean;
-  zIndex: string;
 };
 
 export default function Modal(props: Props) {
-  const { children, onClose, isOpen, zIndex, label, background, size } = props;
+  const { children, isOpen, order, label, size } = props;
 
   if (!isOpen) return null;
 
@@ -41,19 +36,14 @@ export default function Modal(props: Props) {
 
   return (
     <Portal>
-      <ModalBackground onClick={onClose} zIndex={zIndex} background={background}>
+      <ModalBackground zIndex={order}>
         <ModalContainer size={size} onClick={handleClick as any}>
-          <HeaderContainer>
+          <ModalHeader>
             <ModalTitle>{label}</ModalTitle>
-            <HeaderButtonsContainer>
-              <HeaderCloseButton onClick={onClose} title="Close Modal">
-                <MdClose size="20px" />
-              </HeaderCloseButton>
-            </HeaderButtonsContainer>
-          </HeaderContainer>
-          <ContentContainer>
-            <ChildrenContainer>{children}</ChildrenContainer>
-          </ContentContainer>
+          </ModalHeader>
+          <ModalBody>
+            <BodyContainer>{children}</BodyContainer>
+          </ModalBody>
         </ModalContainer>
       </ModalBackground>
     </Portal>

@@ -5,7 +5,6 @@ export const Container = styled.div`
 `;
 
 export const Menu = styled.div`
-  //display: block;
   position: absolute;
   padding: 4px 0px;
   opacity: 1;
@@ -29,7 +28,7 @@ export const MenuItem = styled.button`
   align-items: center;
   cursor: pointer;
   z-index: 99;
-  //color: rgb(79, 43, 45);
+  color: ${(props) => props.theme.colors.black};
   background-color: ${(props) => props.theme.colors.white};
 
   &:disabled,

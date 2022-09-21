@@ -56,9 +56,7 @@ export default function TaskArea() {
           </TaskList>
 
           {isAdding ? (
-            <ClickAwayListener onClickAway={closeAddTaskForm}>
-              <AddForm>{displayAddTaskForm}</AddForm>
-            </ClickAwayListener>
+            <AddForm>{displayAddTaskForm}</AddForm>
           ) : (
             <AddTaskButton onClick={openAddTaskForm}>
               <AddButtonLabel>Add Task</AddButtonLabel>

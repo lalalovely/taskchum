@@ -35,18 +35,13 @@ async function main() {
 
   app.use('/api-docs', swagger.serve, swagger.setup(swaggerDoc));
 
-  // api routes
   app.use('/api/', router);
 
-  // static files
   app.use('/static', express.static(path.join(__dirname, '../../build/static')));
 
-  // catch all routes
   app.use('^/$', (req, res, next) => {
     fs.readFile(path.join(__dirname, '../../build/index.html'), 'utf-8', (err, data) => {
       if (err) {
-        console.error(err.message);
-
         return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send('Errors');
       }
 

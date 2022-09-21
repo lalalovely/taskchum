@@ -61,12 +61,12 @@ export default function Toast() {
   );
 }
 
-export function showEvent(message: string, type: string) {
+export function showToast(message: string, type: string) {
   const event = new CustomEvent(SHOW_TOAST_EVENT, { detail: { message, type } });
   document.dispatchEvent(event);
 }
 
-export function hideEvent() {
+export function hideToast() {
   const event = new CustomEvent(HIDE_TOAST_EVENT);
   document.dispatchEvent(event);
 }
