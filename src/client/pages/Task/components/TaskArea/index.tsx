@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { LoadingIndicator } from 'src/client/components';
 import { useAuth } from 'src/client/contexts/AuthContext';
@@ -21,17 +21,33 @@ import {
 
 export default function TaskArea() {
   const [isAdding, setIsAdding] = useState<boolean>(false);
+  const [tasksToDisplay, setTasksToDisplay] = useState<Task[]>([]);
+  const [currentFilter, setCurrentFilter] = useState<string>('all');
+  const [activeTasksCount, setActiveTasksCount] = useState<number>(0);
+  const [completedTasksCount, setCompletedTasksCount] = useState<number>(0);
   const { currentUser } = useAuth();
 
   const task = { name: '', description: '' } as Task;
 
   const { data: tasks, isLoading } = useQuery(['tasks', currentUser.id], getTasks);
 
+  useEffect(() => {
+    if (tasks) {
+      const completedTasks = tasks.filter((task) => task.isDone === true);
+      const activeTasks = tasks.filter((task) => task.isDone === false);
+      setCompletedTasksCount(completedTasks.length);
+      setActiveTasksCount(activeTasks.length);
+
+      filterTasks(currentFilter);
+    }
+  }, [tasks, currentFilter]);
+
   function getTasks() {
     return TaskApi.getTasksByUserId(currentUser.id);
   }
 
   function openAddTaskForm() {
+    setCurrentFilter('all');
     setIsAdding(true);
   }
 
@@ -41,16 +57,44 @@ export default function TaskArea() {
 
   const displayAddTaskForm = isAdding && <TaskForm taskData={task} onClose={closeAddTaskForm} />;
 
+  function filterTasks(filter: string) {
+    switch (filter) {
+      case 'completed':
+        if (tasks) {
+          const completedTasks = tasks.filter((task) => task.isDone === true);
+          setTasksToDisplay(completedTasks);
+        }
+        break;
+      case 'active':
+        if (tasks) {
+          const activeTasks = tasks.filter((task) => task.isDone === false);
+          setTasksToDisplay(activeTasks);
+        }
+        break;
+      default:
+        if (tasks) {
+          setTasksToDisplay(tasks);
+        }
+        break;
+    }
+  }
+
   return (
     <MainContainer>
       <Wrapper>
         <Main>
-          <Header isTaskListEmpty={tasks?.length === 0} />
+          <Header
+            isTaskListEmpty={tasks?.length === 0}
+            currentFilter={currentFilter}
+            activeCount={activeTasksCount}
+            completedCount={completedTasksCount}
+            setFilter={setCurrentFilter}
+          />
           <TaskList>
             {isLoading ? (
               <LoadingIndicator />
             ) : (
-              tasks?.map((task: Task) => <TaskItem task={task} key={task.id} />)
+              tasksToDisplay?.map((task: Task) => <TaskItem task={task} key={task.id} />)
             )}
           </TaskList>
 
