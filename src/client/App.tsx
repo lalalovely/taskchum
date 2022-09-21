@@ -12,6 +12,7 @@ import { LoginPage, SignUpPage } from './pages/Auth';
 import LoadingPage from './pages/LoadingPage';
 import PageNotFound from './pages/PageNotFound';
 import TaskPage from './pages/Task';
+import { AlertDialogProvider } from './contexts/AlertDialogContext';
 
 function App() {
   const { loading } = useAuth();
@@ -24,21 +25,23 @@ function App() {
     <AuthProvider>
       <ThemeProvider theme={defaultTheme}>
         <GlobalStyle />
-        <BrowserRouter>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <ProtectedPage>
-                  <TaskPage />
-                </ProtectedPage>
-              }
-            />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignUpPage />} />
-            <Route path="*" element={<PageNotFound />} />
-          </Routes>
-        </BrowserRouter>
+        <AlertDialogProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <ProtectedPage>
+                    <TaskPage />
+                  </ProtectedPage>
+                }
+              />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<SignUpPage />} />
+              <Route path="*" element={<PageNotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </AlertDialogProvider>
         <Toast />
       </ThemeProvider>
     </AuthProvider>

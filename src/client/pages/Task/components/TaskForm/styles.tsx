@@ -1,24 +1,11 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  display: flex;
-  padding-bottom: 5px;
-  width: 100%;
-  flex-direction: column;
-  flex-grow: 1;
-  overflow: auto;
-  overflow-x: hidden;
-  border-radius: 10px;
-`;
-
 export const Form = styled.form`
-  display: block;
-  margin: 0;
-  padding: 0;
+  width: 100%;
 `;
 
 export const FormFieldsWrapper = styled.div`
-  margin-bottom: 10px;
+  padding-bottom: 1rem;
   border: none;
   cursor: text;
 `;
@@ -30,7 +17,7 @@ export const InputFields = styled.div`
 `;
 
 export const InputFieldWrapper = styled.div`
-  margin-bottom: 10px;
+  margin-bottom: 1rem;
 `;
 
 export const TextAreaContainer = styled.div`
@@ -61,10 +48,7 @@ export const Input = styled.input`
 `;
 
 export const FormActionsWrapper = styled.div`
-  display: block;
-  margin: 0;
-  margin-top: 8px;
-  padding: 0;
+  padding: 0.5rem 0 0.25rem 0;
   width: 100%;
   font-size: 14px;
   font-family: inherit;

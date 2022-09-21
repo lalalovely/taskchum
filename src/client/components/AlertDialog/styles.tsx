@@ -1,22 +1,20 @@
 import styled from 'styled-components';
 
-export const DialogMessage = styled.div`
-  font-size: 14px;
-  //color: #202020;
+export const DialogBody = styled.div`
+  padding-bottom: 1rem;
 `;
 
-export const DialogActionButtonsContainer = styled.div`
-  display: block;
-  padding: 0;
-  margin: 0;
-  margin-top: 15px;
+export const DialogFooter = styled.div`
   width: 100%;
   border: 0;
   font-size: 14px;
-  font-family: inherit;
-  vertical-align: baseline;
   background-color: transparent;
-  list-style: none;
+`;
+
+export const DialogMessage = styled.div`
+  font-size: 14px;
+  font-weight: 500;
+  color: ${(props) => props.theme.colors.black};
 `;
 
 export const DialogActionButtons = styled.div`

@@ -1,17 +1,16 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useRef, useState } from 'react';
 
 import { useMutation, useQueryClient } from 'react-query';
 import TextareaAutosize from 'react-textarea-autosize';
+import { useAlertDialog } from 'src/client/contexts/AlertDialogContext';
 import { useAuth } from 'src/client/contexts/AuthContext';
 
 import { Task } from '../../../../../commons/types/Task.type';
 import TaskApi from '../../../../api/TaskApi';
-import { Button, Dialog } from '../../../../components';
-import { DialogType } from '../../../../components/Dialog';
-import { showEvent } from '../../../../components/Toast';
+import { Button } from '../../../../components';
+import { showToast } from '../../../../components/Toast';
 
 import {
-  Container,
   Form,
   InputFields,
   FormActionsWrapper,
@@ -30,11 +29,13 @@ type Props = {
 
 export default function TaskForm(props: Props) {
   const { taskData, onClose } = props;
-  const { currentUser } = useAuth();
-  const queryClient = useQueryClient();
+
   const [name, setName] = useState<string>(taskData.name);
   const [description, setDescription] = useState<string>(taskData.description);
-  const [isDiscarding, setIsDiscarding] = useState<boolean>(false);
+  const { currentUser } = useAuth();
+  let taskNameRef: HTMLInputElement | null = null;
+  const queryClient = useQueryClient();
+  const alertDialog = useAlertDialog();
 
   const submitLabel = taskData.name === '' ? 'Add' : 'Save';
   const disableSubmit = taskData.name === '' ? name.trim().length < 1 : false;
@@ -51,7 +52,11 @@ export default function TaskForm(props: Props) {
     if ('Enter' === e.key && !e.shiftKey) {
       e.preventDefault();
       if (name === '') {
-        showEvent('Task name cannot be empty', 'error');
+        alertDialog({
+          variant: 'error',
+          catchOnCancel: false,
+          message: 'Task name cannot be empty',
+        }).then(() => taskNameRef?.focus());
       } else {
         handleSubmit();
       }
@@ -80,11 +85,11 @@ export default function TaskForm(props: Props) {
 
   const { mutateAsync: createTask } = useMutation(TaskApi.createTask, {
     onError: () => {
-      showEvent("There's an error in adding the task", 'error');
+      showToast("There's an error in adding the task", 'error');
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries('tasks').then(() => {
-        showEvent('Task is successfully added', 'success');
+        showToast('Task is successfully added', 'success');
       });
     },
   });
@@ -99,11 +104,11 @@ export default function TaskForm(props: Props) {
 
   const { mutateAsync: updateTask } = useMutation(TaskApi.updateTask, {
     onError: () => {
-      showEvent("There's an error in adding the task", 'error');
+      showToast("There's an error in adding the task", 'error');
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries('tasks').then(() => {
-        showEvent('Task is successfully updated', 'success');
+        showToast('Task is successfully updated', 'success');
       });
     },
   });
@@ -118,73 +123,61 @@ export default function TaskForm(props: Props) {
 
   function handleCancel() {
     if (name.trim() !== taskData.name) {
-      setIsDiscarding(true);
+      alertDialog({
+        variant: 'warning',
+        confirmText: 'Discard',
+        message: 'Discard changes?',
+      })
+        .then(() => onClose())
+        .catch(() => taskNameRef?.focus());
     } else {
       onClose();
     }
   }
 
-  function discardTask() {
-    setIsDiscarding(false);
-    onClose();
-  }
-
-  const discardDialog = isDiscarding && (
-    <Dialog
-      isOpen={isDiscarding}
-      onCancel={() => {
-        setIsDiscarding(false);
-      }}
-      onConfirm={discardTask}
-      type={DialogType.WARNING}
-      message="Discard changes?"
-      confirmText="Discard"
-    />
-  );
-
   return (
-    <Container>
-      {discardDialog}
-      <Form onSubmit={preventSubmit}>
-        <FormFieldsWrapper>
-          <InputFields>
-            <InputFieldWrapper>
-              <Input
-                placeholder="Task Name"
-                onChange={onChangeName}
-                onKeyDown={onKeyInputDown}
-                value={name}
-                autoFocus={true}
+    <Form onSubmit={preventSubmit}>
+      <FormFieldsWrapper>
+        <InputFields>
+          <InputFieldWrapper>
+            <Input
+              ref={(input) => {
+                if (input) taskNameRef = input;
+              }}
+              placeholder="Task Name"
+              onChange={onChangeName}
+              onKeyDown={onKeyInputDown}
+              value={name}
+              autoFocus={true}
+            />
+          </InputFieldWrapper>
+          <InputFieldWrapper>
+            <TextAreaContainer>
+              <TextareaAutosize
+                className="textarea"
+                placeholder="Enter description"
+                value={description}
+                onChange={onChangeDescription}
               />
-            </InputFieldWrapper>
-            <InputFieldWrapper>
-              <TextAreaContainer>
-                <TextareaAutosize
-                  className="textarea"
-                  placeholder="Enter description"
-                  value={description}
-                  onChange={onChangeDescription}
-                />
-              </TextAreaContainer>
-            </InputFieldWrapper>
-          </InputFields>
-        </FormFieldsWrapper>
-        <FormActionsWrapper>
-          <FormActions>
-            <ButtonContainer>
-              <Button isDisabled={false} type="secondary" onClick={handleCancel} label="Cancel" />
-            </ButtonContainer>
-            <ButtonContainer>
-              <Button
-                isDisabled={disableSubmit}
-                type="primary"
-                onClick={handleSubmit}
-                label={submitLabel}
-              />
-            </ButtonContainer>
-          </FormActions>
-        </FormActionsWrapper>
-      </Form>
-    </Container>
+            </TextAreaContainer>
+          </InputFieldWrapper>
+        </InputFields>
+      </FormFieldsWrapper>
+      <FormActionsWrapper>
+        <FormActions>
+          <ButtonContainer>
+            <Button isDisabled={false} type="secondary" onClick={handleCancel} label="Cancel" />
+          </ButtonContainer>
+          <ButtonContainer>
+            <Button
+              isDisabled={disableSubmit}
+              type="primary"
+              onClick={handleSubmit}
+              label={submitLabel}
+            />
+          </ButtonContainer>
+        </FormActions>
+      </FormActionsWrapper>
+    </Form>
   );
 }

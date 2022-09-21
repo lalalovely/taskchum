@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import { BiDotsVertical } from 'react-icons/bi';
 import { MdDelete, MdEdit } from 'react-icons/md';
 import { useMutation, useQueryClient } from 'react-query';
+import { useAlertDialog } from 'src/client/contexts/AlertDialogContext';
 
 import { Task } from '../../../../../commons/types/Task.type';
 import TaskApi from '../../../../api/TaskApi';
-import { Dialog } from '../../../../components';
-import { DialogType } from '../../../../components/Dialog';
-import { showEvent } from '../../../../components/Toast';
+import { showToast } from '../../../../components/Toast';
 import TaskModal from '../TaskModal';
 
 import {
@@ -27,12 +26,13 @@ type Props = {
 
 export default function TaskItem(props: Props) {
   const { task } = props;
-  const [isUpdating, setIsUpdating] = useState<boolean>(false);
-  const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
-  const queryClient = useQueryClient();
+  const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const [isHovering, setIsHovering] = useState<boolean>(false);
   const [isDone, setIsDone] = useState<boolean>(task.isDone);
+
+  const queryClient = useQueryClient();
+  const alertDialog = useAlertDialog();
 
   const openUpdateDialog = () => {
     setIsUpdating(true);
@@ -57,7 +57,7 @@ export default function TaskItem(props: Props) {
   const { mutateAsync: deleteTask } = useMutation(TaskApi.deleteTask, {
     onSuccess: async () => {
       await queryClient.invalidateQueries('tasks').then(() => {
-        showEvent('Task is successfully deleted', 'success');
+        showToast('Task is successfully deleted', 'success');
       });
     },
   });
@@ -68,14 +68,14 @@ export default function TaskItem(props: Props) {
     },
   });
 
-  function confirmDelete() {
-    deleteTask(task.id);
-    setIsDeleting(false);
-  }
-
   function handleDelete(e: React.MouseEvent<HTMLButtonElement>) {
     e.stopPropagation();
-    setIsDeleting(true);
+    alertDialog({
+      variant: 'warning',
+      catchOnCancel: false,
+      confirmText: 'Delete',
+      message: 'Are you sure you want to delete the task?',
+    }).then(() => deleteTask(task.id));
   }
 
   function handleComplete(e: React.MouseEvent<HTMLDivElement>) {
@@ -98,23 +98,9 @@ export default function TaskItem(props: Props) {
     <TaskModal onClose={closeUpdateDialog} isOpen={isUpdating} task={task} isNew={false} />
   );
 
-  const displayDeleteDialog = isDeleting && (
-    <Dialog
-      isOpen={isDeleting}
-      onCancel={() => {
-        setIsDeleting(false);
-      }}
-      onConfirm={confirmDelete}
-      type={DialogType.INFO}
-      message="Are you sure you want to delete?"
-      confirmText="Delete"
-    />
-  );
-
   return (
     <>
       {displayUpdateTaskModal}
-      {displayDeleteDialog}
       <Container isCompleted={isDone}>
         <ItemContainer
           role="button"

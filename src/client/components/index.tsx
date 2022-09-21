@@ -1,6 +1,6 @@
+import AlertDialog from './AlertDialog';
 import Avatar from './Avatar';
 import Button from './Button';
-import Dialog from './Dialog';
 import Header from './Header';
 import LoadingIndicator from './LoadingIndicator';
 import Logo from './Logo';
@@ -10,9 +10,9 @@ import ProtectedPage from './ProtectedPage';
 import Toast from './Toast';
 
 export {
+  AlertDialog,
   Avatar,
   Button,
-  Dialog,
   Header,
   LoadingIndicator,
   Logo,
