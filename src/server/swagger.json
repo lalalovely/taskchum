@@ -15,7 +15,231 @@
       "description": "Local"
     }
   ],
-  "paths": {},
+  "paths": {
+    "/tasks/": {
+      "get": {
+        "tags": ["developers"],
+        "summary": "Gets all task items of the logged in user",
+        "description": "",
+        "produces": ["json"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "params",
+            "description": "ID of the logged in user",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task items",
+            "schema": {
+              "type": "array"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["developers"],
+        "summary": "Creates a task item for user",
+        "description": "",
+        "produces": ["json"],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Task item to create",
+            "required": true,
+            "example": {
+              "name": "Wash clothes",
+              "description": "This is a description",
+              "userId": "BDg23ksiw0390ksner0gHj"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Created task item",
+            "schema": {
+              "type": "json"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["developers"],
+        "summary": "Deletes the tasks of the user",
+        "description": "Deletes all tasks or deletes completed tasks only",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "params",
+            "description": "ID of the logged in user",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "isDone",
+            "in": "params",
+            "description": "Flag indicating if the task is completed or not",
+            "type": "boolean",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Delete successful"
+          }
+        }
+      }
+    },
+    "/tasks/{taskId}": {
+      "put": {
+        "tags": ["developers"],
+        "summary": "Updates a task item",
+        "description": "",
+        "consumes": ["application/json", "application/xml"],
+        "produces": "application/json",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "Task item id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Updated task item",
+            "required": "true",
+            "schema": {
+              "$ref": "#/components/schemas/Task"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated task item",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["developers"],
+        "summary": "Deletes a task item",
+        "description": "",
+        "operationId": "deleteTask",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "Task id to delete",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Delete successful"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Task not found"
+          }
+        }
+      }
+    },
+    "/users/": {
+      "post": {
+        "tags": ["developers"],
+        "summary": "Creates a user",
+        "description": "",
+        "produces": ["json"],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Contains user info",
+            "required": true,
+            "example": {
+              "name": "lovely",
+              "email": "lovely@mail.com"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Created user",
+            "schema": {
+              "type": "json"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/users/{userId}": {
+      "get": {
+        "tags": ["developers"],
+        "summary": "Gets user info",
+        "description": "",
+        "produces": ["json"],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "params",
+            "description": "User id",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User info",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    }
+  },
   "host": "localhost:3000",
   "basePath": "/api/task",
   "components": {
@@ -47,9 +271,25 @@
             "example": "2020-12-12T09:12:33.001+0000"
           }
         }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "photoUrl": {
+            "type": "string"
+          }
+        }
       }
     },
-    "responses": {},
     "securitySchemes": {
       "bearerAuth": {
         "type": "http",
