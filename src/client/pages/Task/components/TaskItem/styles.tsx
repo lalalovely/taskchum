@@ -11,9 +11,8 @@ export const Container = styled.li<ContainerProps>`
   text-align: left;
   border: 1px solid ${(props) => props.theme.colors.gray1};
   border-radius: 4px;
-  border-left: 8px solid transparent;
   transition: unset;
-  background-color: ${(props) => props.theme.colors.white};
+  background-color: transparent;
   box-shadow: rgb(0 0 0 / 10%) 0px 4px 4px;
   cursor: pointer;
 

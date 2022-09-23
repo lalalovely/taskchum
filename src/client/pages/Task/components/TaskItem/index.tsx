@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { BiDotsVertical } from 'react-icons/bi';
 import { MdDelete, MdEdit } from 'react-icons/md';
 import { useMutation, useQueryClient } from 'react-query';
 import { useAlertDialog } from 'src/client/contexts/AlertDialogContext';
@@ -34,25 +33,17 @@ export default function TaskItem(props: Props) {
   const queryClient = useQueryClient();
   const alertDialog = useAlertDialog();
 
-  const openUpdateDialog = () => {
-    setIsUpdating(true);
-  };
+  function handleUpdateDialogVisibility() {
+    setIsUpdating(!isUpdating);
+  }
 
-  const closeUpdateDialog = () => {
-    setIsUpdating(false);
-  };
+  function handleMouseOver() {
+    setIsHovering(!task.isDone);
+  }
 
-  const handleMouseOver = () => {
-    if (task.isDone) {
-      setIsHovering(false);
-    } else {
-      setIsHovering(true);
-    }
-  };
-
-  const handleMouseOut = () => {
+  function handleMouseOut() {
     setIsHovering(false);
-  };
+  }
 
   const { mutateAsync: deleteTask } = useMutation(TaskApi.deleteTask, {
     onSuccess: async () => {
@@ -90,12 +81,17 @@ export default function TaskItem(props: Props) {
 
   function handleClick() {
     if (!task.isDone) {
-      openUpdateDialog();
+      handleUpdateDialogVisibility();
     }
   }
 
   const displayUpdateTaskModal = isUpdating && (
-    <TaskModal onClose={closeUpdateDialog} isOpen={isUpdating} task={task} isNew={false} />
+    <TaskModal
+      onClose={handleUpdateDialogVisibility}
+      isOpen={isUpdating}
+      task={task}
+      isNew={false}
+    />
   );
 
   return (
@@ -132,11 +128,8 @@ export default function TaskItem(props: Props) {
               <ItemActionButton onClick={handleDelete} title="Delete task">
                 <MdDelete size="20px" />
               </ItemActionButton>
-              <ItemActionButton onClick={openUpdateDialog} title="Update task">
+              <ItemActionButton onClick={handleUpdateDialogVisibility} title="Update task">
                 <MdEdit size="20px" />
-              </ItemActionButton>
-              <ItemActionButton>
-                <BiDotsVertical size="20px" />
               </ItemActionButton>
             </ItemActionButtons>
           )}

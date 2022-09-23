@@ -26,10 +26,11 @@ type TaskHeaderProps = {
 };
 
 export default function TaskHeader(props: TaskHeaderProps) {
-  const { toggleTheme } = props;
-  const navigate = useNavigate();
-  const { logOut } = useAuth();
   const [openDropdownMenu, setOpenDropdownMenu] = useState<boolean>(false);
+
+  const { toggleTheme } = props;
+  const { logOut } = useAuth();
+  const navigate = useNavigate();
 
   const logoutIcon = <MdOutlineLogout size="20px" />;
   const dropdownMenuOptions = [{ id: 1, name: 'Logout', icon: logoutIcon, disabled: false }];
@@ -49,12 +50,8 @@ export default function TaskHeader(props: TaskHeaderProps) {
     }
   }
 
-  function openDropdown() {
-    setOpenDropdownMenu(true);
-  }
-
-  function closeDropdown() {
-    setOpenDropdownMenu(false);
+  function handleDropdownVisibility() {
+    setOpenDropdownMenu(!openDropdownMenu);
   }
 
   return (
@@ -80,12 +77,12 @@ export default function TaskHeader(props: TaskHeaderProps) {
             </HeaderItem>
             <HeaderItem>
               <UserContainer>
-                <Avatar showUserMenu={openDropdown} />
+                <Avatar showUserMenu={handleDropdownVisibility} />
                 {openDropdownMenu && (
                   <DropdownMenu
                     options={dropdownMenuOptions}
                     onSelect={onSelectDropdown}
-                    onClose={closeDropdown}
+                    onClose={handleDropdownVisibility}
                   />
                 )}
               </UserContainer>
