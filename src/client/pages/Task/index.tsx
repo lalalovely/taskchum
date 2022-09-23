@@ -5,10 +5,14 @@ import TaskHeader from './components/TaskHeader';
 
 import { TaskPageContainer } from './styles';
 
-export default function TaskPage() {
+type TaskPageProps = {
+  toggleTheme: () => void;
+};
+
+export default function TaskPage(props: TaskPageProps) {
   return (
     <TaskPageContainer>
-      <TaskHeader />
+      <TaskHeader toggleTheme={props.toggleTheme} />
       <TaskArea />
     </TaskPageContainer>
   );

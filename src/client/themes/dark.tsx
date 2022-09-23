@@ -19,7 +19,7 @@ const colors = {
   shadow: '0 2px 4px -1px rgba(57,76,96,0.15)',
 
   border: '#e0e3e7',
-  pageBg: '#f9fafc',
+  pageBg: '#18191a',
   modalBg: rgba(0, 0, 0, 0.5),
 
   labelColor: '#505f79',
@@ -32,8 +32,6 @@ const colors = {
   footerTextColor: '#37352f',
 };
 
-const defaultTheme = {
-  colors,
-};
+const darkTheme = { colors };
 
-export default defaultTheme;
+export default darkTheme;

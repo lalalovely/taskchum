@@ -1,26 +1,38 @@
 import React, { useState } from 'react';
-import { MdOutlineLogout, MdOutlineManageAccounts, MdOutlineSettings } from 'react-icons/md';
+import { MdOutlineLogout } from 'react-icons/md';
+import { HiOutlineMoon, HiOutlineSun } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 import { Avatar } from 'src/client/components';
 import { useAuth } from 'src/client/contexts/AuthContext';
 
 import DropdownMenu from '../../../../components/DropdownMenu';
 
-import { Container, Wrapper, Content, Logo, Controls, UserContainer, HeaderItem } from './styles';
+import {
+  Container,
+  Wrapper,
+  Content,
+  Logo,
+  Controls,
+  UserContainer,
+  HeaderItem,
+  ToggleTheme,
+  Checkbox,
+  ToggleButton,
+  Slider,
+} from './styles';
 
-export default function TaskHeader() {
+type TaskHeaderProps = {
+  toggleTheme: () => void;
+};
+
+export default function TaskHeader(props: TaskHeaderProps) {
+  const { toggleTheme } = props;
   const navigate = useNavigate();
   const { logOut } = useAuth();
   const [openDropdownMenu, setOpenDropdownMenu] = useState<boolean>(false);
 
   const logoutIcon = <MdOutlineLogout size="20px" />;
-  const profileIcon = <MdOutlineManageAccounts size="20px" />;
-  const settingsIcon = <MdOutlineSettings size="20px" />;
-  const dropdownMenuOptions = [
-    { id: 1, name: 'Profile', icon: profileIcon, disabled: true },
-    { id: 2, name: 'Settings', icon: settingsIcon, disabled: true },
-    { id: 3, name: 'Logout', icon: logoutIcon, disabled: false },
-  ];
+  const dropdownMenuOptions = [{ id: 1, name: 'Logout', icon: logoutIcon, disabled: false }];
 
   async function onLogOut() {
     await logOut();
@@ -29,7 +41,7 @@ export default function TaskHeader() {
 
   function onSelectDropdown(optionId: number) {
     switch (optionId) {
-      case dropdownMenuOptions[2].id:
+      case dropdownMenuOptions[0].id:
         onLogOut();
         break;
       default:
@@ -51,6 +63,21 @@ export default function TaskHeader() {
         <Content>
           <Logo>taskchum</Logo>
           <Controls>
+            <HeaderItem>
+              <ToggleTheme>
+                <Checkbox
+                  type="checkbox"
+                  className="checkbox"
+                  id="checkbox"
+                  onChange={toggleTheme}
+                />
+                <ToggleButton htmlFor="checkbox" className="toggle">
+                  <HiOutlineMoon size="14px" color="#a8a9ad" className="night" />
+                  <HiOutlineSun size="14px" color="#f39c12" className="sunny" />
+                  <Slider className="slider" />
+                </ToggleButton>
+              </ToggleTheme>
+            </HeaderItem>
             <HeaderItem>
               <UserContainer>
                 <Avatar showUserMenu={openDropdown} />

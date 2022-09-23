@@ -28,7 +28,7 @@ export const MenuItem = styled.button`
   align-items: center;
   cursor: pointer;
   z-index: 99;
-  color: ${(props) => props.theme.colors.black};
+  color: ${(props) => props.theme.colors.labelColor};
   background-color: ${(props) => props.theme.colors.white};
 
   &:disabled,
