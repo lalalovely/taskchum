@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { BiDotsVertical } from 'react-icons/bi';
-import { MdAdd } from 'react-icons/md';
+import { MdAdd, MdDeleteOutline } from 'react-icons/md';
 
 import { Task } from '../../../../../commons/types/Task.type';
 import TaskModal from '../TaskModal';
@@ -12,83 +11,60 @@ import {
   HeaderControls,
   MenuButton,
   DropContainer,
-  Filters,
-  Filter,
+  HeaderContainer,
 } from './styles';
+import HeaderFilterMenu from './HeaderFilterMenu';
 
 type Props = {
   isTaskListEmpty: boolean;
-  currentFilter: string;
-  activeCount: number;
-  completedCount: number;
   setFilter: (filter: string) => void;
 };
 
 export default function Header(props: Props) {
-  const { isTaskListEmpty, setFilter, currentFilter, activeCount, completedCount } = props;
+  const { isTaskListEmpty, setFilter } = props;
   const [openAddModal, setOpenAddModal] = useState<boolean>(false);
   const [openDropdownMenu, setOpenDropdownMenu] = useState<boolean>(false);
 
-  function openAddTaskModal() {
-    setOpenAddModal(true);
+  function handleAddTaskModalVisibility() {
+    setOpenAddModal(!openAddModal);
   }
 
-  function closeAddTaskModal() {
-    setOpenAddModal(false);
-  }
-
-  function handleCloseDropdownMenu() {
-    setOpenDropdownMenu(false);
+  function handleDropdownMenuVisibility() {
+    setOpenDropdownMenu(!openDropdownMenu);
   }
 
   const displayAddTaskModal = openAddModal && (
     <TaskModal
       isNew={true}
       isOpen={openAddModal}
-      onClose={closeAddTaskModal}
+      onClose={handleAddTaskModalVisibility}
       task={{ name: '', description: '' } as Task}
     />
   );
 
   return (
-    <MainHeader>
-      {displayAddTaskModal}
-      <HeaderLabel>My Tasks</HeaderLabel>
-      <HeaderControls>
-        {/* <MenuButton onClick={openAddTaskModal}>
-          <MdAdd size="20px" />
-        </MenuButton> */}
-        <Filters>
-          <Filter role="button" selected={currentFilter === 'all'} onClick={() => setFilter('all')}>
-            All
-          </Filter>
-          <Filter
-            role="button"
-            selected={currentFilter === 'active'}
-            onClick={() => setFilter('active')}
-          >
-            Active<sup>{activeCount}</sup>
-          </Filter>
-          <Filter
-            role="button"
-            selected={currentFilter === 'completed'}
-            onClick={() => setFilter('completed')}
-          >
-            Completed<sup>{completedCount}</sup>
-          </Filter>
-        </Filters>
-        <DropContainer>
-          <MenuButton onClick={() => setOpenDropdownMenu(!openDropdownMenu)}>
-            <BiDotsVertical size="25px" color="#505f79" />
+    <HeaderContainer>
+      <MainHeader>
+        {displayAddTaskModal}
+        <HeaderLabel>My Tasks</HeaderLabel>
+        <HeaderControls>
+          <HeaderFilterMenu setFilter={setFilter} />
+          <MenuButton onClick={handleAddTaskModalVisibility}>
+            <MdAdd size="20px" color="#505f79" />
           </MenuButton>
-          {openDropdownMenu && (
-            <HeaderDropdownMenu
-              isTaskListEmpty={isTaskListEmpty}
-              onClose={handleCloseDropdownMenu}
-            />
-          )}
-        </DropContainer>
-      </HeaderControls>
-    </MainHeader>
+          <DropContainer>
+            <MenuButton onClick={handleDropdownMenuVisibility}>
+              <MdDeleteOutline size="20px" color="#505f79" />
+            </MenuButton>
+            {openDropdownMenu && (
+              <HeaderDropdownMenu
+                isTaskListEmpty={isTaskListEmpty}
+                onClose={handleDropdownMenuVisibility}
+              />
+            )}
+          </DropContainer>
+        </HeaderControls>
+      </MainHeader>
+    </HeaderContainer>
   );
 }
