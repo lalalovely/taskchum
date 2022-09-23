@@ -1,44 +1,37 @@
 import React, { useEffect, useState } from 'react';
+import { MdAdd } from 'react-icons/md';
 import { useQuery } from 'react-query';
 import { LoadingIndicator } from 'src/client/components';
 import { useAuth } from 'src/client/contexts/AuthContext';
 
 import { Task } from '../../../../../commons/types/Task.type';
 import TaskApi from '../../../../api/TaskApi';
-import TaskForm from '../TaskForm';
 import TaskItem from '../TaskItem';
+import TaskModal from '../TaskModal';
 import Header from './Header';
 
 import {
   MainContainer,
-  Wrapper,
   Main,
   TaskList,
-  AddTaskButton,
-  AddButtonLabel,
-  AddForm,
+  TaskListContainer,
+  AddTaskContainer,
+  AddTaskBtn,
 } from './styles';
 
 export default function TaskArea() {
-  const [isAdding, setIsAdding] = useState<boolean>(false);
   const [tasksToDisplay, setTasksToDisplay] = useState<Task[]>([]);
   const [currentFilter, setCurrentFilter] = useState<string>('all');
-  const [activeTasksCount, setActiveTasksCount] = useState<number>(0);
-  const [completedTasksCount, setCompletedTasksCount] = useState<number>(0);
+  const [openAddModal, setOpenAddModal] = useState<boolean>(false);
   const { currentUser } = useAuth();
 
-  const task = { name: '', description: '' } as Task;
+  const emptyTask = { name: '', description: '' } as Task;
 
   const { data: tasks, isLoading } = useQuery(['tasks', currentUser.id], getTasks);
 
   useEffect(() => {
     if (tasks) {
-      const completedTasks = tasks.filter((task) => task.isDone === true);
-      const activeTasks = tasks.filter((task) => task.isDone === false);
-      setCompletedTasksCount(completedTasks.length);
-      setActiveTasksCount(activeTasks.length);
-
-      filterTasks(currentFilter);
+      displayTasks(currentFilter);
     }
   }, [tasks, currentFilter]);
 
@@ -46,30 +39,24 @@ export default function TaskArea() {
     return TaskApi.getTasksByUserId(currentUser.id);
   }
 
-  function openAddTaskForm() {
-    setCurrentFilter('all');
-    setIsAdding(true);
+  function filterTasks(isDone: boolean) {
+    if (tasks) {
+      const filteredTasks = tasks.filter((task) => task.isDone === isDone);
+      setTasksToDisplay(filteredTasks);
+    }
   }
 
-  function closeAddTaskForm() {
-    setIsAdding(false);
+  function handleAddModalVisibility() {
+    setOpenAddModal(!openAddModal);
   }
 
-  const displayAddTaskForm = isAdding && <TaskForm taskData={task} onClose={closeAddTaskForm} />;
-
-  function filterTasks(filter: string) {
+  function displayTasks(filter: string) {
     switch (filter) {
       case 'completed':
-        if (tasks) {
-          const completedTasks = tasks.filter((task) => task.isDone === true);
-          setTasksToDisplay(completedTasks);
-        }
+        filterTasks(true);
         break;
       case 'active':
-        if (tasks) {
-          const activeTasks = tasks.filter((task) => task.isDone === false);
-          setTasksToDisplay(activeTasks);
-        }
+        filterTasks(false);
         break;
       default:
         if (tasks) {
@@ -79,34 +66,38 @@ export default function TaskArea() {
     }
   }
 
+  const displayAddTaskModal = openAddModal && (
+    <TaskModal
+      isNew={true}
+      isOpen={openAddModal}
+      onClose={handleAddModalVisibility}
+      task={emptyTask}
+    />
+  );
+
   return (
     <MainContainer>
-      <Wrapper>
-        <Main>
-          <Header
-            isTaskListEmpty={tasks?.length === 0}
-            currentFilter={currentFilter}
-            activeCount={activeTasksCount}
-            completedCount={completedTasksCount}
-            setFilter={setCurrentFilter}
-          />
-          <TaskList>
-            {isLoading ? (
-              <LoadingIndicator />
-            ) : (
-              tasksToDisplay?.map((task: Task) => <TaskItem task={task} key={task.id} />)
-            )}
-          </TaskList>
-
-          {isAdding ? (
-            <AddForm>{displayAddTaskForm}</AddForm>
-          ) : (
-            <AddTaskButton onClick={openAddTaskForm}>
-              <AddButtonLabel>Add Task</AddButtonLabel>
-            </AddTaskButton>
-          )}
-        </Main>
-      </Wrapper>
+      <Main>
+        <Header isTaskListEmpty={tasks?.length === 0} setFilter={setCurrentFilter} />
+        {displayAddTaskModal}
+        {tasksToDisplay.length === 0 ? (
+          <AddTaskContainer role="button">
+            <AddTaskBtn onClick={handleAddModalVisibility}>
+              <MdAdd size="25px" /> Click here to add a Task
+            </AddTaskBtn>
+          </AddTaskContainer>
+        ) : (
+          <TaskListContainer>
+            <TaskList>
+              {isLoading ? (
+                <LoadingIndicator />
+              ) : (
+                tasksToDisplay?.map((task: Task) => <TaskItem task={task} key={task.id} />)
+              )}
+            </TaskList>
+          </TaskListContainer>
+        )}
+      </Main>
     </MainContainer>
   );
 }
