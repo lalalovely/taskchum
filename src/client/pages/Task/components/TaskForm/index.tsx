@@ -77,6 +77,7 @@ export default function TaskForm(props: Props) {
     if (taskData.name === '') {
       handleAddTask();
       reset();
+      onClose();
     } else {
       handleUpdateTask();
       onClose();
