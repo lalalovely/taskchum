@@ -1,59 +1,73 @@
 import styled, { css, keyframes } from 'styled-components';
 
 export const MainContainer = styled.div`
-  padding: 0px 12px;
-  max-width: 620px;
-  margin: auto;
-  margin: 20px auto;
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 8px 32px 0 rgb(165, 48, 1, 0.1);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-`;
-
-export const Wrapper = styled.div`
-  text-align: center;
+  margin: 0 auto;
 `;
 
 export const Main = styled.div`
-  margin: 0 auto;
-  padding-bottom: 80px;
-  max-width: 480px;
-  text-align: center;
-  z-index: 2;
+  padding: 0 30px;
+  max-width: 620px;
+  margin: 20px auto;
+  background: transparent;
+  box-shadow: 0 8px 32px 0 rgb(165, 48, 1, 0.1);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  height: calc(100vh - 100px);
+  overflow: hidden;
+
+  @media (max-width: 425px) {
+    border: none;
+    box-shadow: none;
+  }
+`;
+
+export const TaskListContainer = styled.div`
+  height: 82%;
+  overflow: auto;
+  padding-bottom: 20px;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${(props) => props.theme.colors.fieldLabelColor};
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: ${(props) => props.theme.colors.white};
+  }
 `;
 
 export const TaskList = styled.ul`
   margin-top: 18px;
-`;
-
-export const AddTaskButton = styled.div`
-  display: flex;
-  margin-top: 30px;
-  height: 60px;
   width: 100%;
-  border-radius: 8px;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  border: 2px dashed ${(props) => props.theme.colors.primary};
-  color: ${(props) => props.theme.colors.primary};
-  background-color: ${(props) => props.theme.colors.primary};
-  color: white;
-  // background: linear-gradient(
-  //   90deg,
-  //   rgba(165, 48, 1, 1) 0%,
-  //   rgba(242, 105, 49, 1) 35%,
-  //   rgba(252, 169, 29, 1) 100%
-  // );
-  &:hover {
-    background-color: ${(props) => props.theme.colors.gray1};
-  }
+  list-style-type: none;
+  padding-right: 20px;
 `;
 
-export const AddButtonLabel = styled.div`
-  //opacity: 0.8;
-  font-weight: 600;
+export const AddTaskContainer = styled.div`
+  display: flex;
+  height: 82%;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const AddTaskBtn = styled.button`
+  display: inline-flex;
+  background-color: transparent;
+  align-items: center;
+  gap: 5px;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  content: none;
+  color: ${(props) => props.theme.colors.primary};
+
+  &:active {
+    transform: scale(0.98);
+  }
 `;
 
 const scaleUp = keyframes`
@@ -68,25 +82,30 @@ const scaleUp = keyframes`
   }
 `;
 
-export const AddForm = styled.div`
-  margin-top: 12px;
-  padding: 20px;
-  border-radius: 8px;
-  border: 1px solid ${(props) => props.theme.colors.gray1};
-  box-shadow: rgb(0 0 0 / 15%) 0px 10px 20px, rgb(0 0 0 / 10%) 0px 3px 6px;
-  -webkit-animation: ${scaleUp} 0.1s cubic-bezier(0.39, 0.575, 0.565, 1) both;
-  animation: ${scaleUp} 0.1s cubic-bezier(0.39, 0.575, 0.565, 1) both;
-`;
-
 /**Header */
+
+export const HeaderContainer = styled.div``;
 
 export const MainHeader = styled.div`
   display: flex;
-  padding: 30px 0 14px 0;
+  padding: 15px 0;
   justify-content: space-between;
   align-items: center;
-  //border-bottom: 2px solid ${(props) => props.theme.colors.primary};
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+  // .filterBtn {
+  //   display: none;
+  // }
+
+  // @media (max-width: 425px) {
+  //   .filters {
+  //     display: none;
+  //   }
+
+  //   .filterBtn {
+  //     display: block;
+  //   }
+  // }
 `;
 
 export const HeaderLabel = styled.div`
@@ -97,8 +116,8 @@ export const HeaderLabel = styled.div`
 
 export const HeaderControls = styled.div`
   display: flex;
-  gap: 18px;
-  //position: relative;
+  align-items: center;
+  //gap: 16px;
 `;
 
 export const MenuButton = styled.button`
@@ -115,10 +134,12 @@ export const MenuButton = styled.button`
   border: none;
   box-shadow: none;
   color: ${(props) => props.theme.colors.primary} !important;
-  background-color: ${(props) => props.theme.colors.gray6};
+  //background-color: ${(props) => props.theme.colors.gray6};
+  background-color: transparent;
+  border: 1px solid ${(props) => props.theme.colors.gray2};
 
   &:hover {
-    background-color: ${(props) => props.theme.colors.gray1};
+    background-color: ${(props) => props.theme.colors.gray2};
   }
 `;
 
@@ -135,7 +156,6 @@ export const Filters = styled.div`
   font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
-  //margin-right: 18px;
 `;
 
 type FilterProps = {
@@ -147,12 +167,15 @@ export const Filter = styled.div<FilterProps>`
 
   &:active,
   &:hover {
-    color: ${(props) => props.theme.colors.primary};
+    //color: ${(props) => props.theme.colors.primary};
+    border-bottom: 1px solid ${(props) => props.theme.colors.primary};
   }
 
   ${(props) =>
     props.selected &&
     css`
-      color: ${(props) => props.theme.colors.primary};
+      color: ${(props) => props.theme.colors.primaryLight};
+      // padding-bottom: 3px;
+      // border-bottom: 1px solid ${(props) => props.theme.colors.primary};
     `}
 `;
