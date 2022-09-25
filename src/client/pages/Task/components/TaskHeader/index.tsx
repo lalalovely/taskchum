@@ -22,13 +22,14 @@ import {
 } from './styles';
 
 type TaskHeaderProps = {
+  theme: string;
   toggleTheme: () => void;
 };
 
 export default function TaskHeader(props: TaskHeaderProps) {
   const [openDropdownMenu, setOpenDropdownMenu] = useState<boolean>(false);
 
-  const { toggleTheme } = props;
+  const { toggleTheme, theme } = props;
   const { logOut } = useAuth();
   const navigate = useNavigate();
 
@@ -66,6 +67,7 @@ export default function TaskHeader(props: TaskHeaderProps) {
                   type="checkbox"
                   className="checkbox"
                   id="checkbox"
+                  checked={theme === 'dark'}
                   onChange={toggleTheme}
                 />
                 <ToggleButton htmlFor="checkbox" className="toggle">

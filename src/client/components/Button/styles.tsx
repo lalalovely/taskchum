@@ -18,17 +18,18 @@ export const StyledButton = styled.button<ButtonProps>`
   padding: 0 12px;
   height: 32px;
   max-width: 100%;
-  min-width: 68px;
+  //min-width: 68px;
   align-items: center;
   outline: none;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   vertical-align: middle;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   text-align: center;
   text-decoration: none;
+  box-shadow: ${(props) => props.theme.shadows.smallCard};
 
   ${(props) =>
     props.buttonType === 'primary' &&

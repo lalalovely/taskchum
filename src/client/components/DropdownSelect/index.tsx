@@ -8,12 +8,13 @@ import { Button, Container, Menu, MenuItem, MenuItemLabel } from './styles';
 
 type Props = {
   options: DropdownOption[];
+  selected: DropdownOption;
   onSelect: (optionId: number) => void;
 };
 
 export default function DropdownSelect(props: Props) {
-  const { options, onSelect } = props;
-  const [selected, setSelected] = useState<DropdownOption>(options[0]);
+  const { options, onSelect, selected } = props;
+  //const [selected, setSelected] = useState<DropdownOption>(options[0]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   function handleToggleVisibility() {
@@ -23,7 +24,7 @@ export default function DropdownSelect(props: Props) {
   const menuItems = options.map((option: DropdownOption) => {
     function handleSelect() {
       onSelect(option.id);
-      setSelected(option);
+      //setSelected(option);
     }
 
     return (

@@ -9,16 +9,16 @@ export const Container = styled.li<ContainerProps>`
   width: 100%;
   font-size: 16px;
   text-align: left;
-  border: 1px solid ${(props) => props.theme.colors.gray1};
-  border-radius: 4px;
+  //border: 1px solid ${(props) => props.theme.colors.gray1};
+  //border-radius: 4px;
   transition: unset;
-  background-color: transparent;
-  box-shadow: rgb(0 0 0 / 10%) 0px 4px 4px;
+  background-color: ${(props) => props.theme.colors.listItemBg};
+  box-shadow: ${(props) => props.theme.shadows.smallCard};
   cursor: pointer;
 
-  &:hover {
-    border-left: 6px solid ${(props) => props.theme.colors.gray2};
-  }
+  // &:hover {
+  //   border-left: 6px solid ${(props) => props.theme.colors.gray2};
+  // }
 
   ${(props) =>
     props.isCompleted === true &&
@@ -31,7 +31,7 @@ export const Container = styled.li<ContainerProps>`
       }
 
       .completeButton {
-        background-color: ${(props) => props.theme.colors.primaryLight};
+        color: ${(props) => props.theme.colors.primaryLight};
         pointer-events: none;
       }
 
@@ -65,7 +65,7 @@ export const TextContainer = styled.span`
   align-items: center;
   font-weight: bold;
   line-height: 1.5em;
-  color: ${(props) => props.theme.colors.gray4};
+  color: ${(props) => props.theme.colors.mainTextColor};
 `;
 
 export const Text = styled.span`
@@ -92,17 +92,40 @@ export const ItemActionButton = styled.button`
   display: flex;
   margin-right: 10px;
   padding: 2px;
-  color: rgba(0, 0, 0, 0.5);
+  //color: rgba(0, 0, 0, 0.5);
   background-color: transparent;
   outline: none;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  border: 1px solid ${(props) => props.theme.colors.gray2};
-  border-radius: 4px;
+  border: none;
+  //border: 1px solid ${(props) => props.theme.colors.gray2};
+  //border-radius: 4px;
+
+  // &:hover {
+  //   background-color: ${(props) => props.theme.colors.gray1};
+  // }
+
+  color: ${(props) => props.theme.colors.gray0};
 
   &:hover {
-    background-color: ${(props) => props.theme.colors.gray1};
+    color: ${(props) => props.theme.colors.gray1};
+  }
+`;
+
+export const CompleteTaskBtn = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  content: none;
+  border: none;
+  background: none;
+  margin-right: 10px;
+  color: ${(props) => props.theme.colors.gray0};
+
+  &:hover {
+    color: ${(props) => props.theme.colors.gray1};
   }
 `;
 

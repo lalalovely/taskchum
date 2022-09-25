@@ -3,11 +3,12 @@ import { MdCheckCircle, MdCheckCircleOutline, MdOutlineFormatListBulleted } from
 import DropdownSelect from 'src/client/components/DropdownSelect';
 
 type HeaderFilterMenuProps = {
+  currentFilter: string;
   setFilter: (filter: string) => void;
 };
 
 export default function HeaderFilterMenu(props: HeaderFilterMenuProps) {
-  const { setFilter } = props;
+  const { setFilter, currentFilter } = props;
 
   const dropdownMenuOptions = [
     {
@@ -24,5 +25,15 @@ export default function HeaderFilterMenu(props: HeaderFilterMenuProps) {
     setFilter(dropdownMenuOptions[optionId - 1].name.toLocaleLowerCase());
   }
 
-  return <DropdownSelect options={dropdownMenuOptions} onSelect={handleSelect} />;
+  return (
+    <DropdownSelect
+      options={dropdownMenuOptions}
+      onSelect={handleSelect}
+      selected={
+        dropdownMenuOptions.filter(
+          (option) => option.name.toLocaleLowerCase() === currentFilter.toLocaleLowerCase(),
+        )[0]
+      }
+    />
+  );
 }

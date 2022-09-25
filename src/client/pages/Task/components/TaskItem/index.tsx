@@ -1,5 +1,11 @@
-import React, { useState } from 'react';
-import { MdDelete, MdEdit } from 'react-icons/md';
+import React, { forwardRef, useState } from 'react';
+import {
+  MdCheckBoxOutlineBlank,
+  MdCheckCircle,
+  MdCheckCircleOutline,
+  MdDelete,
+  MdEdit,
+} from 'react-icons/md';
 import { useMutation, useQueryClient } from 'react-query';
 import { useAlertDialog } from 'src/client/contexts/AlertDialogContext';
 
@@ -17,13 +23,14 @@ import {
   TextContainer,
   LabelContainer,
   CompleteTaskButton,
+  CompleteTaskBtn,
 } from './styles';
 
 type Props = {
   task: Task;
 };
 
-export default function TaskItem(props: Props) {
+const TaskItem = forwardRef<HTMLLIElement, Props>((props, itemRef) => {
   const { task } = props;
 
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
@@ -69,7 +76,7 @@ export default function TaskItem(props: Props) {
     }).then(() => deleteTask(task.id));
   }
 
-  function handleComplete(e: React.MouseEvent<HTMLDivElement>) {
+  function handleComplete(e: React.MouseEvent<HTMLButtonElement>) {
     e.stopPropagation();
     setIsHovering(false);
     setIsDone(true);
@@ -97,7 +104,7 @@ export default function TaskItem(props: Props) {
   return (
     <>
       {displayUpdateTaskModal}
-      <Container isCompleted={isDone}>
+      <Container isCompleted={isDone} ref={itemRef}>
         <ItemContainer
           role="button"
           onMouseOver={handleMouseOver}
@@ -105,7 +112,10 @@ export default function TaskItem(props: Props) {
           onClick={handleClick}
         >
           <LabelContainer>
-            <CompleteTaskButton onClick={handleComplete} className="completeButton" />
+            {/* <CompleteTaskButton onClick={handleComplete} className="completeButton" /> */}
+            <CompleteTaskBtn onClick={handleComplete} className="completeButton">
+              <MdCheckCircle size="25px" />
+            </CompleteTaskBtn>
             <TextContainer>
               <Text className="taskName">{task.name}</Text>
             </TextContainer>
@@ -118,18 +128,18 @@ export default function TaskItem(props: Props) {
                 title="Delete task"
                 style={{ color: '#FCA91D' }}
               >
-                <MdDelete size="20px" />
+                <MdDelete size="25px" />
               </ItemActionButton>
             </ItemActionButtons>
           )}
 
           {isHovering && !isDone && (
             <ItemActionButtons>
-              <ItemActionButton onClick={handleDelete} title="Delete task">
-                <MdDelete size="20px" />
-              </ItemActionButton>
               <ItemActionButton onClick={handleUpdateDialogVisibility} title="Update task">
-                <MdEdit size="20px" />
+                <MdEdit size="25px" />
+              </ItemActionButton>
+              <ItemActionButton onClick={handleDelete} title="Delete task">
+                <MdDelete size="25px" />
               </ItemActionButton>
             </ItemActionButtons>
           )}
@@ -137,4 +147,8 @@ export default function TaskItem(props: Props) {
       </Container>
     </>
   );
-}
+});
+
+TaskItem.displayName = 'TaskItem';
+
+export default TaskItem;

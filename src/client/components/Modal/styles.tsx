@@ -29,7 +29,7 @@ export const ModalContainer = styled.div<ModalContainerProps>`
   overflow: hidden;
   align-self: center;
   box-shadow: 0 15px 50px 0 rgb(0 0 0 / 35%);
-  background-color: ${(props) => props.theme.colors.white};
+  background-color: ${(props) => props.theme.colors.modalContainerBg};
 
   ${(props) =>
     props.size === ModalSize.SMALL &&
@@ -61,7 +61,7 @@ export const ModalTitle = styled.div`
   justify-content: flex-start;
   border: 1px solid transparent;
   border-radius: 4px;
-  color: rgba(0, 0, 0, 0.5);
+  color: ${(props) => props.theme.colors.labelColor};
   background-color: transparent;
 `;
 

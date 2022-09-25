@@ -131,7 +131,12 @@ export default function SignUpPage() {
                 <FormGroup>
                   <Label>Name</Label>
                   <InputContainer>
-                    <Input placeholder="" value={user.name || ''} onChange={handleChange('name')} />
+                    <Input
+                      className="input"
+                      placeholder=""
+                      value={user.name || ''}
+                      onChange={handleChange('name')}
+                    />
                   </InputContainer>
                   {errors.name && <ValidationErrorMessage>{errors.name}</ValidationErrorMessage>}
                 </FormGroup>
@@ -140,6 +145,7 @@ export default function SignUpPage() {
                   <Label>Email</Label>
                   <InputContainer>
                     <Input
+                      className="input"
                       placeholder="example@mail.com"
                       value={user.email || ''}
                       onChange={handleChange('email')}
@@ -152,6 +158,7 @@ export default function SignUpPage() {
                   <Label>Password</Label>
                   <InputContainer>
                     <Input
+                      className="input"
                       placeholder=""
                       type={showPassword ? 'text' : 'password'}
                       value={user.password || ''}
@@ -182,7 +189,10 @@ export default function SignUpPage() {
             </FormMain>
             <FormSeparator />
             <FormFooter>
-              Already have an account? <Link to="/login">Login</Link>
+              Already have an account?{' '}
+              <Link className="link" to="/login">
+                Login
+              </Link>
             </FormFooter>
           </FormContainer>
         </Main>

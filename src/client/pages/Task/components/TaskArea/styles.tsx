@@ -6,13 +6,14 @@ export const MainContainer = styled.div`
 
 export const Main = styled.div`
   padding: 0 30px;
+  margin: 10px auto;
   max-width: 620px;
-  margin: 20px auto;
-  background: transparent;
-  box-shadow: 0 8px 32px 0 rgb(165, 48, 1, 0.1);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  //height: 100vh;
   height: calc(100vh - 100px);
+  background: ${(props) => props.theme.colors.cardBg};
+  box-shadow: ${(props) => props.theme.shadows.bigCard}};
+  //border-radius: 10px;
+  //border: 1px solid rgba(255, 255, 255, 0.18);
   overflow: hidden;
 
   @media (max-width: 425px) {
@@ -31,11 +32,15 @@ export const TaskListContainer = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: ${(props) => props.theme.colors.fieldLabelColor};
+    background-color: ${(props) => props.theme.colors.gray2};
+
+    &:hover {
+      background-color: ${(props) => props.theme.colors.gray3};
+    }
   }
 
   &::-webkit-scrollbar-track {
-    background-color: ${(props) => props.theme.colors.white};
+    background-color: transparent;
   }
 `;
 
@@ -43,7 +48,7 @@ export const TaskList = styled.ul`
   margin-top: 18px;
   width: 100%;
   list-style-type: none;
-  padding-right: 20px;
+  padding: 0 15px 0 10px;
 `;
 
 export const AddTaskContainer = styled.div`
@@ -82,6 +87,20 @@ const scaleUp = keyframes`
   }
 `;
 
+export const AddTaskBtnContainer = styled.div`
+  padding: 20px 10px;
+`;
+
+export const AddForm = styled.div`
+  margin-top: 12px;
+  padding: 20px;
+  // border-radius: 8px;
+  border: 1px solid ${(props) => props.theme.colors.gray1};
+  // box-shadow: rgb(0 0 0 / 15%) 0px 10px 20px, rgb(0 0 0 / 10%) 0px 3px 6px;
+  -webkit-animation: ${scaleUp} 0.1s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+  animation: ${scaleUp} 0.1s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+`;
+
 /**Header */
 
 export const HeaderContainer = styled.div``;
@@ -91,21 +110,7 @@ export const MainHeader = styled.div`
   padding: 15px 0;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-
-  // .filterBtn {
-  //   display: none;
-  // }
-
-  // @media (max-width: 425px) {
-  //   .filters {
-  //     display: none;
-  //   }
-
-  //   .filterBtn {
-  //     display: block;
-  //   }
-  // }
+  border-bottom: 1px solid ${(props) => props.theme.colors.border}; //rgba(255, 255, 255, 0.1);
 `;
 
 export const HeaderLabel = styled.div`
@@ -124,6 +129,7 @@ export const MenuButton = styled.button`
   display: flex;
   margin-left: 8px;
   padding: 8px;
+  height: 32px;
   min-width: auto;
   font-size: 13px;
   align-items: center;
@@ -132,14 +138,18 @@ export const MenuButton = styled.button`
   border-radius: 4px;
   cursor: pointer;
   border: none;
-  box-shadow: none;
-  color: ${(props) => props.theme.colors.primary} !important;
-  //background-color: ${(props) => props.theme.colors.gray6};
-  background-color: transparent;
-  border: 1px solid ${(props) => props.theme.colors.gray2};
+  box-shadow: ${(props) => props.theme.shadows.icon};
+  background-color: ${(props) => props.theme.colors.iconBg};
+  font-size: 20px;
+  color: ${(props) => props.theme.colors.iconColor};
+  //border: 1px solid ${(props) => props.theme.colors.gray2};
 
   &:hover {
-    background-color: ${(props) => props.theme.colors.gray2};
+    //background-color: ${(props) => props.theme.colors.gray2};
+  }
+
+  &:active {
+    transform: scale(0.98);
   }
 `;
 

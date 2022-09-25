@@ -17,7 +17,7 @@ export const Content = styled.div`
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid ${(props) => props.theme.colors.border}; //rgba(255, 255, 255, 0.1);
 `;
 
 export const Logo = styled.h1`

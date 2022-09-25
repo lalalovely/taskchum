@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
@@ -20,8 +20,17 @@ function App() {
   const [theme, setTheme] = useState<string>('light');
   const isDarkTheme = theme === 'dark';
 
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setTheme(JSON.parse(savedTheme));
+    }
+  }, []);
+
   const toggleTheme = () => {
-    setTheme(isDarkTheme ? 'light' : 'dark');
+    const newTheme = isDarkTheme ? 'light' : 'dark';
+    setTheme(newTheme);
+    localStorage.setItem('theme', JSON.stringify(newTheme));
   };
 
   if (loading) {
@@ -39,7 +48,7 @@ function App() {
                 path="/"
                 element={
                   <ProtectedPage>
-                    <TaskPage toggleTheme={toggleTheme} />
+                    <TaskPage toggleTheme={toggleTheme} theme={theme} />
                   </ProtectedPage>
                 }
               />

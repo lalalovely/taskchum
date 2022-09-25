@@ -31,7 +31,7 @@ export const TextAreaContainer = styled.div`
     border-radius: 4px;
     border: none;
     outline: none;
-    color: rgb(85, 85, 85);
+    color: ${(props) => props.theme.colors.subTextColor};
     background-color: transparent;
   }
 `;
@@ -45,6 +45,8 @@ export const Input = styled.input`
   border: none;
   outline: none;
   cursor: text;
+  background: transparent;
+  color: ${(props) => props.theme.colors.mainTextColor};
 `;
 
 export const FormActionsWrapper = styled.div`

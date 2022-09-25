@@ -14,7 +14,7 @@ export const DialogFooter = styled.div`
 export const DialogMessage = styled.div`
   font-size: 14px;
   font-weight: 500;
-  color: ${(props) => props.theme.colors.black};
+  color: ${(props) => props.theme.colors.labelColor};
 `;
 
 export const DialogActionButtons = styled.div`

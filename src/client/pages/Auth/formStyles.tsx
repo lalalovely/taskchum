@@ -3,8 +3,8 @@ import styled from 'styled-components';
 export const FormContainer = styled.div`
   padding: 25px 40px;
   border-radius: 3px;
-  box-shadow: rgb(0 0 0 / 10%) 0 0 10px;
-  background-color: ${(props) => props.theme.colors.white};
+  box-shadow: ${(props) => props.theme.shadows.bigCard};
+  background-color: ${(props) => props.theme.colors.cardBg};
 `;
 
 export const FormMain = styled.div`
@@ -25,7 +25,7 @@ export const FormHeader = styled.h1`
   letter-spacing: -0.01em;
   line-height: 28px;
   text-align: center;
-  color: ${(props) => props.theme.colors.formLabelColor};
+  color: ${(props) => props.theme.colors.labelColor};
 `;
 
 export const FormFooter = styled.div`
@@ -33,8 +33,14 @@ export const FormFooter = styled.div`
   font-size: 14px;
   line-height: 1.6;
   text-align: center;
-  color: ${(props) => props.theme.colors.footerTextColor};
-  opacity: 0.65;
+  color: ${(props) => props.theme.colors.labelColor};
+  opacity: 0.8;
+
+  .link {
+    padding-left: 10px;
+    font-size: 14px;
+    color: ${(props) => props.theme.colors.primaryLight};
+  }
 `;
 
 export const FormSeparator = styled.hr`
@@ -44,7 +50,7 @@ export const FormSeparator = styled.hr`
   padding: 0;
   height: 1px;
   border: 0;
-  border-top: 1px solid hsl(0, 0%, 80%);
+  border-top: 1px solid ${(props) => props.theme.colors.border};
 `;
 
 export const Label = styled.div`
@@ -62,12 +68,18 @@ export const InputContainer = styled.div`
   width: 100%;
   background-color: ${(props) => props.theme.colors.inputBgColor};
   border: 1px solid ${(props) => props.theme.colors.inputBorderColor};
-  border-radius: 3px;
+  //border-radius: 3px;
   outline: none;
   justify-content: space-between;
+  //box-shadow: ${(props) => props.theme.shadows.smallCard};
 
   &:focus-within {
     border: 1px solid ${(props) => props.theme.colors.primaryLight};
+  }
+
+  .input {
+    color: ${(props) => props.theme.colors.labelColor};
+    background: transparent;
   }
 `;
 
@@ -96,7 +108,7 @@ export const ActionButton = styled.button`
   height: 36px;
   width: 100%;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1;
   border: none;
   border-radius: 4px;
@@ -106,7 +118,7 @@ export const ActionButton = styled.button`
   white-space: nowrap;
   color: ${(props) => props.theme.colors.white};
   background: ${(props) => props.theme.colors.primary};
-  box-shadow: rgb(15 15 15 / 10%) 0px 1px 2px, rgb(235 87 87 / 30%) 0px 0px 0px 1px inset;
+  box-shadow: ${(props) => props.theme.shadows.smallCard};
 
   &:hover {
     color: ${(props) => props.theme.colors.white};
@@ -128,7 +140,7 @@ export const LoginMethodSeparator = styled.div`
   font-size: 12px;
   text-align: center;
   text-transform: uppercase;
-  color: rgba(55, 53, 47, 0.65);
+  color: ${(props) => props.theme.colors.labelColor};
 `;
 
 export const GoogleLabel = styled.span`
@@ -153,20 +165,22 @@ export const Icon = styled.img`
 export const LoginMethodButton = styled.div`
   display: inline-flex;
   margin-bottom: 12px;
-  padding-top: 0;
+  padding: 0 1.5rem;
   height: 39px;
   width: 100%;
-  gap: 1rem;
+  gap: 2rem;
   font-size: 14px;
-  font-weight: bold;
+  font-weight: 600;
+  //font-weight: bold;
   text-align: center;
   align-items: center;
-  justify-content: center;
   cursor: pointer;
-  box-shadow: rgb(0 0 0 / 20%) 1px 1px 5px 0;
+  //box-shadow: ${(props) => props.theme.shadows.smallCard};
+  border: 2px solid ${(props) => props.theme.colors.border};
   border-radius: 3px;
-  color: #505f79;
-  background: ${(props) => props.theme.colors.white};
+  color: ${(props) => props.theme.colors.labelColor};
+  //background: ${(props) => props.theme.colors.white};
+  background: transparent;
 
   &:active {
     transform: scale(0.98);

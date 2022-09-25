@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { MdAdd, MdDeleteOutline } from 'react-icons/md';
+import { BiDotsVertical } from 'react-icons/bi';
 
 import { Task } from '../../../../../commons/types/Task.type';
 import TaskModal from '../TaskModal';
@@ -14,14 +15,16 @@ import {
   HeaderContainer,
 } from './styles';
 import HeaderFilterMenu from './HeaderFilterMenu';
+import { Button } from 'src/client/components';
 
 type Props = {
   isTaskListEmpty: boolean;
+  currentFilter: string;
   setFilter: (filter: string) => void;
 };
 
 export default function Header(props: Props) {
-  const { isTaskListEmpty, setFilter } = props;
+  const { isTaskListEmpty, currentFilter, setFilter } = props;
   const [openAddModal, setOpenAddModal] = useState<boolean>(false);
   const [openDropdownMenu, setOpenDropdownMenu] = useState<boolean>(false);
 
@@ -48,13 +51,14 @@ export default function Header(props: Props) {
         {displayAddTaskModal}
         <HeaderLabel>My Tasks</HeaderLabel>
         <HeaderControls>
-          <HeaderFilterMenu setFilter={setFilter} />
-          <MenuButton onClick={handleAddTaskModalVisibility}>
-            <MdAdd size="20px" color="#505f79" />
-          </MenuButton>
+          <HeaderFilterMenu setFilter={setFilter} currentFilter={currentFilter} />
+          {/* <MenuButton onClick={handleAddTaskModalVisibility}>
+            <MdAdd />
+          </MenuButton> */}
+          <Button label="Add Task" type={'primary'} onClick={handleAddTaskModalVisibility} />
           <DropContainer>
             <MenuButton onClick={handleDropdownMenuVisibility}>
-              <MdDeleteOutline size="20px" color="#505f79" />
+              <BiDotsVertical />
             </MenuButton>
             {openDropdownMenu && (
               <HeaderDropdownMenu

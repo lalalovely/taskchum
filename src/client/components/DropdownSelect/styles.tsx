@@ -16,7 +16,7 @@ export const Menu = styled.div`
   transform: translateY(10px);
   z-index: 9;
   transition: all 0.3s ease;
-  background-color: ${(props) => props.theme.colors.white};
+  background-color: ${(props) => props.theme.colors.dropdownBg};
 `;
 
 type MenuItemProps = {
@@ -33,7 +33,7 @@ export const MenuItem = styled.button<MenuItemProps>`
   cursor: pointer;
   z-index: 99;
   color: ${(props) => props.theme.colors.labelColor};
-  background-color: ${(props) => props.theme.colors.white};
+  background-color: ${(props) => props.theme.colors.dropdownBg};
 
   &:disabled,
   &:disabled:hover,
@@ -46,7 +46,7 @@ export const MenuItem = styled.button<MenuItemProps>`
   &:enabled:hover,
   &:enabled:active,
   &:enabled:hover:active {
-    background-color: #e9e9e9;
+    background-color: ${(props) => props.theme.colors.hover}; //#e9e9e9;
     outline: none;
   }
 

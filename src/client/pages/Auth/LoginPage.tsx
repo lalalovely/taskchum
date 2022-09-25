@@ -119,7 +119,11 @@ export default function LoginPage() {
                 <FormGroup>
                   <Label>Email</Label>
                   <InputContainer>
-                    <Input placeholder="example@mail.com" onChange={handleChange('email')}></Input>
+                    <Input
+                      className="input"
+                      placeholder="example@mail.com"
+                      onChange={handleChange('email')}
+                    ></Input>
                   </InputContainer>
                   {errors.email && <ValidationErrorMessage>{errors.email}</ValidationErrorMessage>}
                 </FormGroup>
@@ -128,6 +132,7 @@ export default function LoginPage() {
                   <Label>Password</Label>
                   <InputContainer>
                     <Input
+                      className="input"
                       placeholder=""
                       type={showPassword ? 'text' : 'password'}
                       onChange={handleChange('password')}
@@ -157,7 +162,10 @@ export default function LoginPage() {
             </FormMain>
             <FormSeparator />
             <FormFooter>
-              No account yet? <Link to="/signup">Sign up</Link>
+              No account yet?
+              <Link className="link" to="/signup">
+                Sign up
+              </Link>
             </FormFooter>
           </FormContainer>
         </Main>
