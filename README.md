@@ -1,6 +1,6 @@
 # Taskchum
 
-A simple task manager app. Live: https://taskchum.vercel.app/
+A simple task manager app. Live: taskchum.vercel.app
 
 ## Tech
 - Firebase auth
