@@ -1,5 +1,5 @@
 import React from 'react';
-import { SyncLoader } from 'react-spinners';
+import { FadeLoader } from 'react-spinners';
 import styled, { ThemeProvider } from 'styled-components';
 
 import { GlobalStyle } from '../App.styles';
@@ -10,7 +10,7 @@ export default function LoadingPage() {
     <ThemeProvider theme={defaultTheme}>
       <GlobalStyle />
       <Fullscreen>
-        <SyncLoader color="#F26931" />;
+        <FadeLoader color="#F26931" />
       </Fullscreen>
     </ThemeProvider>
   );

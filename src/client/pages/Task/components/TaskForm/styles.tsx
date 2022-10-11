@@ -5,7 +5,6 @@ export const Form = styled.form`
 `;
 
 export const FormFieldsWrapper = styled.div`
-  padding-bottom: 1rem;
   border: none;
   cursor: text;
 `;
@@ -14,6 +13,23 @@ export const InputFields = styled.div`
   max-height: 200px;
   overflow-y: auto;
   overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${(props) => props.theme.colors.thumbColor};
+
+    &:hover {
+      background-color: ${(props) => props.theme.colors.thumbColorHover};
+    }
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 50%;
+  }
 `;
 
 export const InputFieldWrapper = styled.div`

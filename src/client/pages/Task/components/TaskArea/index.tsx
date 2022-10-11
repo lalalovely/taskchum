@@ -1,33 +1,29 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { MdAdd } from 'react-icons/md';
 import { useQuery } from 'react-query';
-import { LoadingIndicator } from 'src/client/components';
+import { FadeLoader } from 'react-spinners';
 import { useAuth } from 'src/client/contexts/AuthContext';
 
 import { Task } from '../../../../../commons/types/Task.type';
 import TaskApi from '../../../../api/TaskApi';
-import TaskForm from '../TaskForm';
 import TaskItem from '../TaskItem';
 import TaskModal from '../TaskModal';
-import Header from './Header';
+import Header from './components/Header';
 
 import {
   MainContainer,
   Main,
   TaskList,
   TaskListContainer,
-  AddTaskContainer,
   AddTaskBtn,
-  AddForm,
   AddTaskBtnContainer,
+  LoadingContainer,
 } from './styles';
 
 export default function TaskArea() {
   const [isAdding, setIsAdding] = useState<boolean>(false);
   const [tasksToDisplay, setTasksToDisplay] = useState<Task[]>([]);
   const [currentFilter, setCurrentFilter] = useState<string>('all');
-  const [openAddModal, setOpenAddModal] = useState<boolean>(false);
-  const itemRef = useRef<HTMLLIElement>(null);
   const itemsListRef = useRef<HTMLUListElement>(null);
   const { currentUser } = useAuth();
 
@@ -41,21 +37,8 @@ export default function TaskArea() {
     }
   }, [tasks, currentFilter]);
 
-  useEffect(() => {
-    if (itemsListRef) {
-      const lastItem = itemsListRef.current?.lastElementChild;
-      if (lastItem) {
-        lastItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
-    }
-  }, [tasksToDisplay]);
-
   function getTasks() {
     return TaskApi.getTasksByUserId(currentUser.id);
-  }
-
-  function handleAddModalVisibility() {
-    setOpenAddModal(!openAddModal);
   }
 
   function handleAddFormVisibility() {
@@ -85,74 +68,54 @@ export default function TaskArea() {
     }
   }
 
-  const displayAddTaskModal = openAddModal && (
+  const displayAddTaskForm = isAdding && (
     <TaskModal
       isNew={true}
-      isOpen={openAddModal}
-      onClose={handleAddModalVisibility}
+      isModal={false}
+      isOpen={isAdding}
       task={emptyTask}
+      onClose={handleAddFormVisibility}
     />
   );
 
-  const displayAddTaskForm = isAdding && (
-    <TaskForm taskData={emptyTask} onClose={handleAddFormVisibility} />
-  );
-
   return (
-    <MainContainer>
-      <Main>
-        <Header
-          isTaskListEmpty={tasks?.length === 0}
-          currentFilter={currentFilter}
-          setFilter={setCurrentFilter}
-        />
-        {displayAddTaskModal}
-        {/* {tasks?.length === 0 ? (
-          <AddTaskContainer role="button">
-            <AddTaskBtn onClick={handleAddModalVisibility}>
-              <MdAdd size="25px" /> Click here to add a Task
-            </AddTaskBtn>
-          </AddTaskContainer>
-        ) : (
-          <TaskListContainer>
-            <TaskList ref={itemsListRef}>
-              {isLoading ? (
-                <LoadingIndicator />
-              ) : (
-                tasksToDisplay?.map((task: Task) => (
-                  <TaskItem task={task} key={task.id} ref={itemRef} />
-                ))
-              )}
-            </TaskList>
-          </TaskListContainer>
-        )} */}
+    <>
+      <MainContainer>
+        <Main>
+          <Header
+            isFixed={false}
+            isTaskListEmpty={tasks?.length === 0}
+            currentFilter={currentFilter}
+            setFilter={setCurrentFilter}
+          />
 
-        <>
-          <TaskListContainer>
-            <>
-              <TaskList ref={itemsListRef}>
-                {isLoading ? (
-                  <LoadingIndicator />
+          <>
+            <TaskListContainer>
+              <>
+                <TaskList ref={itemsListRef}>
+                  {isLoading ? (
+                    <LoadingContainer>
+                      <FadeLoader />
+                    </LoadingContainer>
+                  ) : (
+                    tasksToDisplay?.map((task: Task) => <TaskItem task={task} key={task.id} />)
+                  )}
+                </TaskList>
+
+                {isAdding ? (
+                  <>{displayAddTaskForm}</>
                 ) : (
-                  tasksToDisplay?.map((task: Task) => (
-                    <TaskItem task={task} key={task.id} ref={itemRef} />
-                  ))
+                  <AddTaskBtnContainer>
+                    <AddTaskBtn onClick={handleAddFormVisibility}>
+                      <MdAdd size="25px" /> Add new task
+                    </AddTaskBtn>
+                  </AddTaskBtnContainer>
                 )}
-              </TaskList>
-
-              {isAdding ? (
-                <AddForm>{displayAddTaskForm}</AddForm>
-              ) : (
-                <AddTaskBtnContainer>
-                  <AddTaskBtn onClick={handleAddFormVisibility}>
-                    <MdAdd size="25px" /> Add new task
-                  </AddTaskBtn>
-                </AddTaskBtnContainer>
-              )}
-            </>
-          </TaskListContainer>
-        </>
-      </Main>
-    </MainContainer>
+              </>
+            </TaskListContainer>
+          </>
+        </Main>
+      </MainContainer>
+    </>
   );
 }

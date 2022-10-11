@@ -12,7 +12,6 @@ export const usePortal = () => {
     document.getElementsByTagName('body')[0].append(div);
     setLoaded(true);
 
-    // clean up
     return () => {
       document.getElementsByTagName('body')[0].removeChild(div);
     };

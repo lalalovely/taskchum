@@ -5,15 +5,13 @@ import { ButtonLabel, StyledButton } from './styles';
 type ButtonProps = {
   type: 'primary' | 'secondary';
   isDisabled?: boolean;
-  label?: string;
+  label: string;
   icon?: React.ReactNode;
   onClick: () => void;
 };
 
 export default function Button(props: ButtonProps) {
   const { type, isDisabled, label, icon, onClick } = props;
-
-  const isIcon = icon ? true : false;
 
   function handleClick() {
     if (isDisabled) {
@@ -23,13 +21,7 @@ export default function Button(props: ButtonProps) {
   }
 
   return (
-    <StyledButton
-      buttonType={type}
-      icon={isIcon}
-      onClick={handleClick}
-      disabled={isDisabled}
-      type="button"
-    >
+    <StyledButton buttonType={type} onClick={handleClick} disabled={isDisabled} type="button">
       {icon}
       <ButtonLabel>{label}</ButtonLabel>
     </StyledButton>

@@ -20,7 +20,7 @@ ApiClient.interceptors.request.use(async (config) => {
 }, interceptErrorResponse);
 
 function interceptErrorResponse(error: AxiosError) {
-  showError(error.message, 'error');
+  showError(error.message, 'error', 'Error');
 }
 
 export default ApiClient;

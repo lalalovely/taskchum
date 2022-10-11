@@ -29,6 +29,7 @@ export default function HeaderDropdownMenu(props: Props) {
       case dropdownMenuOptions[0].id:
         alertDialog({
           variant: 'warning',
+          title: 'Delete',
           confirmText: 'Delete',
           message: 'Are you sure you want to delete all completed tasks?',
         }).then(() => deleteAllCompletedTasks(currentUser.id));
@@ -36,6 +37,7 @@ export default function HeaderDropdownMenu(props: Props) {
       case dropdownMenuOptions[1].id:
         alertDialog({
           variant: 'warning',
+          title: 'Delete',
           confirmText: 'Delete',
           message: 'Are you sure you want to delete all tasks?',
         }).then(() => deleteAllTasks(currentUser.id));

@@ -35,7 +35,7 @@ type AuthProviderProps = {
 
 export function AuthProvider(props: AuthProviderProps) {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
 
   const { mutateAsync: createUser } = useMutation(UserApi.createUser, {});
@@ -45,6 +45,7 @@ export function AuthProvider(props: AuthProviderProps) {
   }
 
   async function signUp(name: string, email: string, password: string) {
+    setLoading(true);
     await createUserWithEmailAndPassword(auth, email, password).then((userCred) => {
       updateProfile(userCred.user, {
         displayName: name,
@@ -53,14 +54,17 @@ export function AuthProvider(props: AuthProviderProps) {
   }
 
   async function googleSignIn() {
+    setLoading(true);
     await signInWithPopup(auth, googleProvider);
   }
 
   async function logInAsGuest() {
+    setLoading(true);
     await signInAnonymously(auth);
   }
 
   async function logOut() {
+    setLoading(true);
     await auth.signOut();
   }
 

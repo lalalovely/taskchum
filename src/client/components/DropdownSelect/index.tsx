@@ -14,7 +14,6 @@ type Props = {
 
 export default function DropdownSelect(props: Props) {
   const { options, onSelect, selected } = props;
-  //const [selected, setSelected] = useState<DropdownOption>(options[0]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   function handleToggleVisibility() {
@@ -24,7 +23,7 @@ export default function DropdownSelect(props: Props) {
   const menuItems = options.map((option: DropdownOption) => {
     function handleSelect() {
       onSelect(option.id);
-      //setSelected(option);
+      handleToggleVisibility();
     }
 
     return (

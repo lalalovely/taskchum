@@ -12,9 +12,9 @@ export const PageContainer = styled.div`
   display: flex;
   position: relative;
   width: 100%;
-  min-height: 100vh;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
   background-color: ${(props) => props.theme.colors.pageBg};
 `;
 

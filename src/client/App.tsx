@@ -8,15 +8,13 @@ import darkTheme from './themes/dark';
 
 import { GlobalStyle } from './App.styles';
 import { ProtectedPage, Toast } from './components';
-import { useAuth, AuthProvider } from './contexts/AuthContext';
+import { AuthProvider } from './contexts/AuthContext';
 import { LoginPage, SignUpPage } from './pages/Auth';
-import LoadingPage from './pages/LoadingPage';
 import PageNotFound from './pages/PageNotFound';
 import TaskPage from './pages/Task';
 import { AlertDialogProvider } from './contexts/AlertDialogContext';
 
 function App() {
-  const { loading } = useAuth();
   const [theme, setTheme] = useState<string>('light');
   const isDarkTheme = theme === 'dark';
 
@@ -32,10 +30,6 @@ function App() {
     setTheme(newTheme);
     localStorage.setItem('theme', JSON.stringify(newTheme));
   };
-
-  if (loading) {
-    return <LoadingPage />;
-  }
 
   return (
     <AuthProvider>

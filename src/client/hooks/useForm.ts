@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 import { FormValidation } from '../interfaces/FormValidation';
 
@@ -25,8 +25,7 @@ export const useForm = <T extends Record<keyof T, any> = Record<string, unknown>
       });
     };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     const validations = options?.validations;
     if (validations) {
       let valid = true;

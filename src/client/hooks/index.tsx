@@ -1,2 +1,2 @@
-export * from './useModalPortal';
 export * from './usePortal';
+export * from './useForm';

@@ -28,21 +28,22 @@ export const MenuItem = styled.button`
   align-items: center;
   cursor: pointer;
   z-index: 99;
-  color: ${(props) => props.theme.colors.labelColor};
+  color: ${(props) => props.theme.colors.dropdownColor};
   background-color: ${(props) => props.theme.colors.dropdownBg};
 
   &:disabled,
   &:disabled:hover,
   &:disabled:active,
   &:disabled:hover:active {
-    color: ${(props) => props.theme.colors.hover}; //#d4d4d4;
+    color: ${(props) => props.theme.colors.dropdownDisabled};
     cursor: not-allowed;
   }
 
   &:enabled:hover,
   &:enabled:active,
   &:enabled:hover:active {
-    background-color: ${(props) => props.theme.colors.hover}; //#e9e9e9;
+    color: ${(props) => props.theme.colors.mainTextColor};
+    background-color: ${(props) => props.theme.colors.dropdownHover};
     outline: none;
   }
 `;

@@ -2,9 +2,15 @@ import styled from 'styled-components';
 
 export const FormContainer = styled.div`
   padding: 25px 40px;
-  border-radius: 3px;
-  box-shadow: ${(props) => props.theme.shadows.bigCard};
-  background-color: ${(props) => props.theme.colors.cardBg};
+  border-radius: 10px;
+  background-color: ${(props) => props.theme.colors.formCard};
+
+  @media (max-width: 425px) {
+    width: 100%;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+  }
 `;
 
 export const FormMain = styled.div`
@@ -43,14 +49,21 @@ export const FormFooter = styled.div`
   }
 `;
 
-export const FormSeparator = styled.hr`
-  display: block;
-  margin: 1em 0;
-  margin-top: 25px;
-  padding: 0;
-  height: 1px;
-  border: 0;
-  border-top: 1px solid ${(props) => props.theme.colors.border};
+export const LoginMethodsContainer = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 16px;
+`;
+
+export const LoginMethodSeparator = styled.div`
+  margin-bottom: 16px;
+  margin-top: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  text-transform: uppercase;
+  color: ${(props) => props.theme.colors.fieldLabelColor};
 `;
 
 export const Label = styled.div`
@@ -68,13 +81,12 @@ export const InputContainer = styled.div`
   width: 100%;
   background-color: ${(props) => props.theme.colors.inputBgColor};
   border: 1px solid ${(props) => props.theme.colors.inputBorderColor};
-  //border-radius: 3px;
+  border-radius: 5px;
   outline: none;
   justify-content: space-between;
-  //box-shadow: ${(props) => props.theme.shadows.smallCard};
 
   &:focus-within {
-    border: 1px solid ${(props) => props.theme.colors.primaryLight};
+    border: 1px solid ${(props) => props.theme.colors.inputHoverBorderColor};
   }
 
   .input {
@@ -91,38 +103,17 @@ export const Input = styled.input`
 
 export const IconContainer = styled.span`
   display: flex;
-  padding: 3px;
+  padding: 8px;
   align-items: center;
-
-  &:hover {
-    background-color: ${(props) => props.theme.colors.gray1};
-  }
-`;
-
-export const ActionButton = styled.button`
-  display: inline-flex;
-  margin-bottom: 12px;
-  margin-top: 28px;
-  padding-left: 12px;
-  padding-right: 12px;
-  height: 36px;
-  width: 100%;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1;
-  border: none;
-  border-radius: 4px;
+  background-color: transparent;
+  border-radius: 9999px;
   cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  white-space: nowrap;
-  color: ${(props) => props.theme.colors.white};
-  background: ${(props) => props.theme.colors.primary};
-  box-shadow: ${(props) => props.theme.shadows.smallCard};
+  color: ${(props) => props.theme.colors.passwordIconColor};
 
   &:hover {
-    color: ${(props) => props.theme.colors.white};
-    background-color: ${(props) => props.theme.colors.primaryDark};
+    background-color: ${(props) => props.theme.colors.iconHoverBackground};
+    border-color: ${(props) => props.theme.colors.iconBorder};
+    color: ${(props) => props.theme.colors.mainTextColor};
   }
 
   &:active {
@@ -130,28 +121,11 @@ export const ActionButton = styled.button`
   }
 `;
 
-export const LoginMethodsContainer = styled.div`
+export const ButtonContainer = styled.div`
+  margin-bottom: 12px;
+  margin-top: 28px;
   width: 100%;
-`;
-
-export const LoginMethodSeparator = styled.div`
-  margin-bottom: 16px;
-  margin-top: 16px;
-  font-size: 12px;
-  text-align: center;
-  text-transform: uppercase;
-  color: ${(props) => props.theme.colors.labelColor};
-`;
-
-export const GoogleLabel = styled.span`
-  display: inline-block;
-  padding: 3px;
-  height: 32px;
-  vertical-align: middle;
-  font-size: 14px;
-  font-weight: bold;
-  line-height: 32px;
-  color: ${(props) => props.theme.colors.formLabelColor};
+  border: none;
 `;
 
 export const Icon = styled.img`
@@ -160,31 +134,6 @@ export const Icon = styled.img`
   width: 18px;
   border-radius: 1px;
   vertical-align: middle;
-`;
-
-export const LoginMethodButton = styled.div`
-  display: inline-flex;
-  margin-bottom: 12px;
-  padding: 0 1.5rem;
-  height: 39px;
-  width: 100%;
-  gap: 2rem;
-  font-size: 14px;
-  font-weight: 600;
-  //font-weight: bold;
-  text-align: center;
-  align-items: center;
-  cursor: pointer;
-  //box-shadow: ${(props) => props.theme.shadows.smallCard};
-  border: 2px solid ${(props) => props.theme.colors.border};
-  border-radius: 3px;
-  color: ${(props) => props.theme.colors.labelColor};
-  //background: ${(props) => props.theme.colors.white};
-  background: transparent;
-
-  &:active {
-    transform: scale(0.98);
-  }
 `;
 
 export const ValidationErrorMessage = styled.p`

@@ -1,10 +1,9 @@
-import React, { forwardRef, useState } from 'react';
+import React, { useState } from 'react';
 import {
-  MdCheckBoxOutlineBlank,
-  MdCheckCircle,
-  MdCheckCircleOutline,
-  MdDelete,
-  MdEdit,
+  MdDeleteOutline,
+  MdOutlineCheckCircle,
+  MdOutlineEdit,
+  MdRadioButtonUnchecked,
 } from 'react-icons/md';
 import { useMutation, useQueryClient } from 'react-query';
 import { useAlertDialog } from 'src/client/contexts/AlertDialogContext';
@@ -22,7 +21,6 @@ import {
   Container,
   TextContainer,
   LabelContainer,
-  CompleteTaskButton,
   CompleteTaskBtn,
 } from './styles';
 
@@ -30,9 +28,8 @@ type Props = {
   task: Task;
 };
 
-const TaskItem = forwardRef<HTMLLIElement, Props>((props, itemRef) => {
+export default function TaskItem(props: Props) {
   const { task } = props;
-
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const [isHovering, setIsHovering] = useState<boolean>(false);
   const [isDone, setIsDone] = useState<boolean>(task.isDone);
@@ -71,6 +68,7 @@ const TaskItem = forwardRef<HTMLLIElement, Props>((props, itemRef) => {
     alertDialog({
       variant: 'warning',
       catchOnCancel: false,
+      title: 'Delete',
       confirmText: 'Delete',
       message: 'Are you sure you want to delete the task?',
     }).then(() => deleteTask(task.id));
@@ -98,13 +96,14 @@ const TaskItem = forwardRef<HTMLLIElement, Props>((props, itemRef) => {
       isOpen={isUpdating}
       task={task}
       isNew={false}
+      isModal={true}
     />
   );
 
   return (
     <>
       {displayUpdateTaskModal}
-      <Container isCompleted={isDone} ref={itemRef}>
+      <Container isCompleted={isDone}>
         <ItemContainer
           role="button"
           onMouseOver={handleMouseOver}
@@ -112,9 +111,12 @@ const TaskItem = forwardRef<HTMLLIElement, Props>((props, itemRef) => {
           onClick={handleClick}
         >
           <LabelContainer>
-            {/* <CompleteTaskButton onClick={handleComplete} className="completeButton" /> */}
             <CompleteTaskBtn onClick={handleComplete} className="completeButton">
-              <MdCheckCircle size="25px" />
+              {isDone ? (
+                <MdOutlineCheckCircle size="25px" />
+              ) : (
+                <MdRadioButtonUnchecked size="25px" />
+              )}
             </CompleteTaskBtn>
             <TextContainer>
               <Text className="taskName">{task.name}</Text>
@@ -123,12 +125,8 @@ const TaskItem = forwardRef<HTMLLIElement, Props>((props, itemRef) => {
 
           {isDone && (
             <ItemActionButtons>
-              <ItemActionButton
-                onClick={handleDelete}
-                title="Delete task"
-                style={{ color: '#FCA91D' }}
-              >
-                <MdDelete size="25px" />
+              <ItemActionButton onClick={handleDelete} title="Delete task">
+                <MdDeleteOutline size="25px" />
               </ItemActionButton>
             </ItemActionButtons>
           )}
@@ -136,10 +134,10 @@ const TaskItem = forwardRef<HTMLLIElement, Props>((props, itemRef) => {
           {isHovering && !isDone && (
             <ItemActionButtons>
               <ItemActionButton onClick={handleUpdateDialogVisibility} title="Update task">
-                <MdEdit size="25px" />
+                <MdOutlineEdit size="25px" />
               </ItemActionButton>
               <ItemActionButton onClick={handleDelete} title="Delete task">
-                <MdDelete size="25px" />
+                <MdDeleteOutline size="25px" />
               </ItemActionButton>
             </ItemActionButtons>
           )}
@@ -147,8 +145,4 @@ const TaskItem = forwardRef<HTMLLIElement, Props>((props, itemRef) => {
       </Container>
     </>
   );
-});
-
-TaskItem.displayName = 'TaskItem';
-
-export default TaskItem;
+}

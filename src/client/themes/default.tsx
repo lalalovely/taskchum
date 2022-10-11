@@ -4,60 +4,86 @@ const colors = {
   primary: '#f26931',
   primaryLight: '#fca91d',
   primaryDark: '#a53001',
-
-  gray0: '#a8a9ad',
-  gray1: '#777777',
-  gray2: '#dfdfdf',
-  gray3: '#d4d4d4',
-  gray4: '#555555',
-  gray5: '#37352f',
-  gray6: '#ededed',
-
   black: '#231f20',
   white: '#ffffff',
-
-  shadow: '0 2px 4px -1px rgba(57,76,96,0.15)',
-
-  border: rgba(0, 0, 0, 0.1), //'#e0e3e7',
-  pageBg: '#f9fafc',
-  dropdownBg: '#ffffff',
-  modalBg: rgba(0, 0, 0, 0.5),
-  modalContainerBg: '#ffffff',
-
-  //labelColor: '#505f79',
+  border: rgba(0, 0, 0, 0.1),
+  pageBg: '#f4f4f4',
   labelColor: rgba(0, 0, 0, 0.8),
-  iconColor: rgba(0, 0, 0, 0.8),
-  formFieldBg: 'hsla(0, 100%, 100%, 0.05)',
-  iconBg: 'hsla(0, 100%, 100%, 0.05)',
-  cardBg: 'hsla(0, 100%, 100%, 0.15)',
-  listItemBg: 'hsla(0, 100%, 100%, 0.05);',
   mainTextColor: rgba(0, 0, 0, 1),
   subTextColor: rgba(0, 0, 0, 0.7),
 
-  // for forms
+  //buttons
+  buttonPrimaryColor: '#ffffff',
+  buttonPrimaryDisabledColor: '#a6a6a6',
+  buttonPrimaryDisabledBackground: '#d4d4d4',
+  buttonPrimaryDisabledBorder: '#404040',
+
+  buttonSecondaryColor: '#a6a6a6',
+  buttonSecondaryBorder: '#a8a9ad',
+  buttonSecondaryHoverColor: '#333333',
+  buttonSecondaryHoverBorder: '#737373',
+
+  //toggle button
+  toggleButtonBorder: '#a8a9ad',
+
+  //task list
+  taskListBackground: '#ffffff',
+
+  //task item
+  taskNotCompleted: '#555555',
+  taskCompleted: '#b3b3b3',
+  taskHovered: '#000000',
+  taskItemHovered: '#ededed',
+  taskItemBorder: '#404040',
+  taskItemIcon: '#a8a9ad',
+
+  //modals
+  modalOverlayBackground: rgba(0, 0, 0, 0.5),
+  modalCardBackground: '#ffffff',
+  modalText: '#e6e6e6',
+  modalTitle: 'ededed',
+  modalClose: '#a6a6a6',
+  modalCloseHover: '#555555',
+
+  //icons
+  iconHoverBackground: '#ededed',
+  iconBorder: '#404040',
+  iconColor: rgba(0, 0, 0, 0.8),
+
+  //forms
+  formCard: '#ffffff',
   formLabelColor: '#505f79',
-  fieldLabelColor: '#c4c4c4',
+  fieldLabelColor: '#a6a6a6',
   inputBgColor: '#fafbfc',
   inputBorderColor: '#dfe1e6',
+  inputHoverBorderColor: '#a8a8a8',
   footerTextColor: '#37352f',
+  passwordIconColor: '#a8a9ad',
+  buttonHoverBorder: '#a8a8a8',
 
-  hover: '#e9e9e9', //'hsla(0, 100%, 100%, 0.15)',
-};
+  //dropdown
+  dropdownBg: '#ffffff',
+  dropdownColor: '#555555',
+  dropdownDisabled: '#b3b3b3',
+  dropdownHover: '#ededed',
 
-const shadows = {
-  //bigCard: '0 8px 32px 0 rgba(165, 48, 1, 0.2)',
-  icon: '0px 1px 1px 0px hsla(0,0%,0%,0.14), 0px 2px 1px -1px hsla(0,0%,0%,0.12), 0px 1px 3px 0px hsla(0,0%,0%,0.2)',
-  bigCard:
-    '0px 16px 24px 2px hsla(0,0%,0%,0.14), 0px 6px 30px 5px hsla(0,0%,0%,0.12), 0px 8px 10px -5px hsla(0,0%,0%,0.2)',
-  smallCard:
-    '0px 4px 5px 0px hsla(0,0%,0%,0.14), 0px 1px 10px 0px hsla(0,0%,0%,0.12), 0px 2px 4px -1px hsla(0,0%,0%,0.2)',
-  // bigCard:
-  //   '0px 4px 5px 0px hsla(0,0%,0%,0.14), 0px 1px 10px 0px hsla(0,0%,0%,0.12), 0px 2px 4px -1px hsla(0,0%,0%,0.2)',
+  //toast
+  toastColorSuccess: '#9f6000',
+  toastBgSuccess: '#ffd997',
+  toastButtonColorSuccess: '#9f6000',
+  toastButtonHoverSuccess: '#ffcb72',
+  toastColorError: '#d63301',
+  toastBgError: '#ffccba',
+  toastButtonColorError: '#d8000c',
+  toastButtonHoverError: '#ffbaba',
+
+  //scrollbar
+  thumbColor: rgba(51, 51, 51, 0.5),
+  thumbHoverColor: '#333333',
 };
 
 const defaultTheme = {
   colors,
-  shadows,
 };
 
 export default defaultTheme;

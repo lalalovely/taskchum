@@ -1,33 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import { HiOutlineUser } from 'react-icons/hi';
 import { useAuth } from 'src/client/contexts/AuthContext';
 
 import googleIcon from '../../assets/images/google-icon.svg';
-import { useForm } from '../../hooks/useForm';
+import { useForm } from '../../hooks';
 
 import {
   FormContainer,
   FormHeader,
   FormMain,
   Form,
-  FormSeparator,
   FormFooter,
   Input,
   Label,
-  ActionButton,
   ErrorMessage,
   ValidationErrorMessage,
   LoginMethodSeparator,
   LoginMethodsContainer,
-  LoginMethodButton,
   InputContainer,
   IconContainer,
   FormGroup,
   Icon,
+  ButtonContainer,
 } from './formStyles';
 import { PageContainer, Section, Main, LogoText } from './styles';
+import LoadingPage from '../LoadingPage';
+import { Button } from 'src/client/components';
+import Loading from 'src/client/components/Loading';
 
 interface SignUpInfo {
   name: string;
@@ -37,7 +38,7 @@ interface SignUpInfo {
 
 export default function SignUpPage() {
   const navigate = useNavigate();
-  const { signUp, googleSignIn, logInAsGuest, currentUser } = useAuth();
+  const { loading, signUp, googleSignIn, logInAsGuest, currentUser } = useAuth();
   const [signUpError, setSignUpError] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -116,8 +117,15 @@ export default function SignUpPage() {
     setShowPassword(!showPassword);
   }
 
+  function preventSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+  }
+
+  const showLoading = loading && <Loading />;
+
   return (
     <PageContainer>
+      {showLoading}
       <LogoText>taskchum</LogoText>
       <Section>
         <Main>
@@ -127,7 +135,7 @@ export default function SignUpPage() {
             )}
             <FormHeader>Sign up</FormHeader>
             <FormMain>
-              <Form onSubmit={handleSubmit}>
+              <Form onSubmit={preventSubmit}>
                 <FormGroup>
                   <Label>Name</Label>
                   <InputContainer>
@@ -173,21 +181,26 @@ export default function SignUpPage() {
                   )}
                 </FormGroup>
 
-                <ActionButton type="submit">Sign up</ActionButton>
+                <ButtonContainer>
+                  <Button label="Sign up" type="primary" onClick={handleSubmit} />
+                </ButtonContainer>
               </Form>
+              <LoginMethodSeparator>or</LoginMethodSeparator>
               <LoginMethodsContainer>
-                <LoginMethodSeparator>or</LoginMethodSeparator>
-                <LoginMethodButton onClick={onGoogleSignUp}>
-                  <Icon alt="googleIcon" src={googleIcon} />
-                  Continue with Google
-                </LoginMethodButton>
-                <LoginMethodButton onClick={onSignUpAsGuest}>
-                  <HiOutlineUser size="20px" color="#f26931" />
-                  Continue as Guest
-                </LoginMethodButton>
+                <Button
+                  label="Continue with Google"
+                  type="secondary"
+                  icon={<Icon alt="googleIcon" src={googleIcon} />}
+                  onClick={onGoogleSignUp}
+                />
+                <Button
+                  label="Continue as Guest"
+                  type="secondary"
+                  icon={<HiOutlineUser size="20px" color="#f26931" />}
+                  onClick={onSignUpAsGuest}
+                />
               </LoginMethodsContainer>
             </FormMain>
-            <FormSeparator />
             <FormFooter>
               Already have an account?{' '}
               <Link className="link" to="/login">

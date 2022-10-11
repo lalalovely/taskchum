@@ -49,6 +49,7 @@ export function AlertDialogProvider(props: AlertDialogProviderProps) {
     setAlertDialogState({
       variant: event.detail.variant,
       message: event.detail.message,
+      title: event.detail.title,
     });
   }
 
@@ -78,14 +79,17 @@ export function AlertDialogProvider(props: AlertDialogProviderProps) {
         onCancel={handleCancel}
         variant={alertDialogState?.variant || 'info'}
         message={alertDialogState?.message || ''}
+        title={alertDialogState?.title || ''}
         {...alertDialogState}
       />
     </>
   );
 }
 
-export function showError(message: string, variant: string) {
-  const event = new CustomEvent(SHOW_DIALOG_EVENT, { detail: { message, variant } });
+export function showError(message: string, variant: string, title: string) {
+  const event = new CustomEvent(SHOW_DIALOG_EVENT, {
+    detail: { message, variant, title },
+  });
   document.dispatchEvent(event);
 }
 

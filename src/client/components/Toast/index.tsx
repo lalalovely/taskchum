@@ -1,14 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { MdClose } from 'react-icons/md';
 
-import {
-  ToastContainer,
-  ToastBody,
-  MessageContainer,
-  ButtonContainer,
-  CloseButton,
-  ActionsArea,
-} from './styles';
+import { ToastContainer, ToastBody, MessageContainer, CloseButton, ActionsArea } from './styles';
 
 const SHOW_TOAST_EVENT = 'toast:show';
 const HIDE_TOAST_EVENT = 'toast:hide';
@@ -50,11 +43,9 @@ export default function Toast() {
       <ToastBody type={type}>
         <MessageContainer>{message}</MessageContainer>
         <ActionsArea>
-          <ButtonContainer>
-            <CloseButton onClick={hideToast}>
-              <MdClose size="18px" />
-            </CloseButton>
-          </ButtonContainer>
+          <CloseButton onClick={hideToast}>
+            <MdClose size="18px" />
+          </CloseButton>
         </ActionsArea>
       </ToastBody>
     </ToastContainer>

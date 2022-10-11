@@ -17,7 +17,6 @@ export const Content = styled.div`
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid ${(props) => props.theme.colors.border}; //rgba(255, 255, 255, 0.1);
 `;
 
 export const Logo = styled.h1`
@@ -117,7 +116,7 @@ export const ToggleTheme = styled.div`
 
   input:checked + .toggle .slider {
     transform: translateX(24px);
-    border: 2px solid ${(props) => props.theme.colors.gray0};
+    border: 2px solid ${(props) => props.theme.colors.toggleButtonBorder};
   }
 
   input:checked + .toggle .sunny {
@@ -140,7 +139,7 @@ export const ToggleButton = styled.label`
   padding: 5px;
   height: 20px;
   width: 45px;
-  background-color: transparent; //#4d4d4d;
+  background-color: transparent;
   border-radius: 30px;
   transition: 0.2s;
   align-items: center;
@@ -148,7 +147,7 @@ export const ToggleButton = styled.label`
   transform: scale(1.5);
   margin-right: 1rem;
   cursor: pointer;
-  box-shadow: 0 0 1px ${(props) => props.theme.colors.gray0};
+  box-shadow: 0 0 1px ${(props) => props.theme.colors.toggleButtonBorder};
 `;
 
 export const Slider = styled.div`

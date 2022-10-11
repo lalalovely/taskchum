@@ -10,30 +10,26 @@ export const ButtonLabel = styled.span`
 
 type ButtonProps = {
   buttonType: 'primary' | 'secondary';
-  icon?: boolean;
 };
 
 export const StyledButton = styled.button<ButtonProps>`
   display: inline-flex;
-  padding: 0 12px;
-  height: 32px;
-  max-width: 100%;
-  //min-width: 68px;
-  align-items: center;
-  outline: none;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  vertical-align: middle;
+  margin: 0;
+  padding: 10px 15px;
+  width: 100%;
+  border-radius: 4px;
   font-size: 14px;
   font-weight: 600;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  text-decoration: none;
-  box-shadow: ${(props) => props.theme.shadows.smallCard};
+  cursor: pointer;
+  white-space: nowrap;
 
   ${(props) =>
     props.buttonType === 'primary' &&
     css`
+      border: 1px solid transparent;
       background-color: ${(props) => props.theme.colors.primary};
       color: ${(props) => props.theme.colors.white};
 
@@ -42,7 +38,8 @@ export const StyledButton = styled.button<ButtonProps>`
       &:disabled:active,
       &:disabled:hover:active {
         cursor: not-allowed;
-        opacity: 0.5;
+        background-color: ${(props) => props.theme.colors.buttonPrimaryDisabledBackground};
+        color: ${(props) => props.theme.colors.buttonPrimaryDisabledColor};
       }
 
       &:enabled:hover,
@@ -51,16 +48,22 @@ export const StyledButton = styled.button<ButtonProps>`
         background-color: ${(props) => props.theme.colors.primaryDark};
         outline: none;
       }
+
+      &:active {
+        transform: scale(0.98);
+      }
     `}
+
   ${(props) =>
     props.buttonType === 'secondary' &&
     css`
-      border: 1px solid transparent;
-      background-color: ${(props) => props.theme.colors.gray6};
-      color: rgba(0, 0, 0, 0.5);
+      border: 1px solid ${(props) => props.theme.colors.buttonSecondaryBorder};
+      background-color: transparent;
+      color: ${(props) => props.theme.colors.buttonSecondaryColor};
 
       &:hover {
-        background-color: ${(props) => props.theme.colors.gray1};
+        color: ${(props) => props.theme.colors.buttonSecondaryHoverColor};
+        border: 1px solid ${(props) => props.theme.colors.buttonSecondaryHoverBorder};
       }
     `};
 `;

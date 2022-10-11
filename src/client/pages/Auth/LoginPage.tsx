@@ -1,22 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import { HiOutlineUser } from 'react-icons/hi';
 import { useAuth } from 'src/client/contexts/AuthContext';
 
 import googleIcon from '../../assets/images/google-icon.svg';
-import { useForm } from '../../hooks/useForm';
+import { useForm } from '../../hooks';
 
 import {
   FormContainer,
   FormHeader,
   FormMain,
   Form,
-  FormSeparator,
   FormFooter,
   Input,
   Label,
-  ActionButton,
   ErrorMessage,
   LoginMethodsContainer,
   LoginMethodSeparator,
@@ -24,10 +22,12 @@ import {
   InputContainer,
   IconContainer,
   FormGroup,
-  LoginMethodButton,
   Icon,
+  ButtonContainer,
 } from './formStyles';
 import { PageContainer, Section, Main, LogoText } from './styles';
+import { Button } from 'src/client/components';
+import Loading from 'src/client/components/Loading';
 
 interface LoginInfo {
   email: string;
@@ -36,7 +36,7 @@ interface LoginInfo {
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const { logIn, googleSignIn, logInAsGuest, currentUser } = useAuth();
+  const { loading, logIn, googleSignIn, logInAsGuest, currentUser } = useAuth();
   const [loginError, setLoginError] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -104,8 +104,15 @@ export default function LoginPage() {
     setShowPassword(!showPassword);
   }
 
+  function preventSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+  }
+
+  const showLoading = loading && <Loading />;
+
   return (
     <PageContainer>
+      {showLoading}
       <LogoText>taskchum</LogoText>
       <Section>
         <Main>
@@ -115,7 +122,7 @@ export default function LoginPage() {
             )}
             <FormHeader>Login</FormHeader>
             <FormMain>
-              <Form onSubmit={handleSubmit}>
+              <Form onSubmit={preventSubmit}>
                 <FormGroup>
                   <Label>Email</Label>
                   <InputContainer>
@@ -127,7 +134,6 @@ export default function LoginPage() {
                   </InputContainer>
                   {errors.email && <ValidationErrorMessage>{errors.email}</ValidationErrorMessage>}
                 </FormGroup>
-
                 <FormGroup>
                   <Label>Password</Label>
                   <InputContainer>
@@ -138,29 +144,33 @@ export default function LoginPage() {
                       onChange={handleChange('password')}
                     ></Input>
                     <IconContainer onClick={togglePassword}>
-                      {showPassword ? <BsEye color="#a8a9ad" /> : <BsEyeSlash color="#a8a9ad" />}
+                      {showPassword ? <BsEye /> : <BsEyeSlash />}
                     </IconContainer>
                   </InputContainer>
                   {errors.password && (
                     <ValidationErrorMessage>{errors.password}</ValidationErrorMessage>
                   )}
                 </FormGroup>
-
-                <ActionButton type="submit">Login</ActionButton>
+                <ButtonContainer>
+                  <Button label="Log in" type="primary" onClick={handleSubmit} />
+                </ButtonContainer>
               </Form>
+              <LoginMethodSeparator>or</LoginMethodSeparator>
               <LoginMethodsContainer>
-                <LoginMethodSeparator>or</LoginMethodSeparator>
-                <LoginMethodButton onClick={onGoogleSignIn}>
-                  <Icon alt="googleIcon" src={googleIcon} />
-                  Continue with Google
-                </LoginMethodButton>
-                <LoginMethodButton onClick={onLogInAsGuest}>
-                  <HiOutlineUser size="20px" color="#f26931" />
-                  Continue as Guest
-                </LoginMethodButton>
+                <Button
+                  label="Continue with Google"
+                  type="secondary"
+                  icon={<Icon alt="googleIcon" src={googleIcon} />}
+                  onClick={onGoogleSignIn}
+                />
+                <Button
+                  label="Continue as Guest"
+                  type="secondary"
+                  icon={<HiOutlineUser size="20px" color="#f26931" />}
+                  onClick={onLogInAsGuest}
+                />
               </LoginMethodsContainer>
             </FormMain>
-            <FormSeparator />
             <FormFooter>
               No account yet?
               <Link className="link" to="/signup">
