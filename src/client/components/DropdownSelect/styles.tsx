@@ -53,7 +53,9 @@ export const MenuItem = styled.button<MenuItemProps>`
   ${(props) =>
     props.active === true &&
     css`
-      color: ${(props) => props.theme.colors.primaryLight};
+      font-weight: 700;
+      color: ${(props) => props.theme.colors.mainTextColor};
+      background-color: ${(props) => props.theme.colors.dropdownHover};
     `}
 `;
 
@@ -72,5 +74,5 @@ export const Button = styled.div`
   color: black;
   font-size: 14px;
   font-weight: 600;
-  color: ${(props) => props.theme.colors.primaryLight};
+  color: ${(props) => props.theme.colors.mainTextColor};
 `;

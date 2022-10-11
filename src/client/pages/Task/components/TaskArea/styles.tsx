@@ -64,12 +64,17 @@ export const AddTaskBtn = styled.button`
   background-color: transparent;
   align-items: center;
   gap: 5px;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 16px;
   cursor: pointer;
   border: none;
+  border-radius: 5px;
   content: none;
-  color: ${(props) => props.theme.colors.primaryDark};
+  color: ${(props) => props.theme.colors.primary};
+
+  &:hover {
+    color: ${(props) => props.theme.colors.primaryDark};
+  }
 
   &:active {
     transform: scale(0.98);

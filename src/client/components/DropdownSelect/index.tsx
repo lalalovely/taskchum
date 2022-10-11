@@ -41,7 +41,7 @@ export default function DropdownSelect(props: Props) {
 
   return (
     <>
-      <Button role="button" onClick={handleToggleVisibility}>
+      <Button title="Filter tasks" role="button" onClick={handleToggleVisibility}>
         {selected.name}
         <MdExpandMore size="20px" />
       </Button>
