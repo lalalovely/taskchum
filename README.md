@@ -2,7 +2,7 @@
 
 A simple task manager app.
 
-## Demo
+## Site
 https://taskchum.vercel.app
 
 ## Tech
