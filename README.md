@@ -3,7 +3,7 @@
 A simple task manager app.
 
 ## Site
-https://taskchum.vercel.app
+https://taskchum.herokuapp.com/
 
 ## Tech
 - React
