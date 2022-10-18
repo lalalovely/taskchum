@@ -1,10 +1,10 @@
 import axios, { AxiosError } from 'axios';
 
-import config from '../configs/config.dev.json';
 import { showError } from '../contexts/AlertDialogContext';
 import { auth } from '../services/FirebaseService';
+import config from '../configs/config';
 
-export const baseURL = `${config.API_URL}/api/`;
+export const baseURL = `${config.apiUrl}/api/`;
 const ApiClient = axios.create({ baseURL });
 
 ApiClient.interceptors.response.use((res) => res, interceptErrorResponse);

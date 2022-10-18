@@ -60,7 +60,7 @@ export default function TaskModal(props: Props) {
       ...taskData,
       name: taskData.name.trim(),
       description: taskData.description.trim(),
-    } as Task);
+    });
   }
 
   function onChangeTaskName(name: string) {

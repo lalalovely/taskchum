@@ -15,12 +15,8 @@ async function getTasksByUserId(userId: string): Promise<Task[]> {
   return data;
 }
 
-async function createTask({ name, description, userId }: TaskInterface): Promise<Task> {
-  const { data } = await ApiClient.post<Task>(url, {
-    name,
-    description,
-    userId,
-  });
+async function createTask(params: Partial<Task>): Promise<Task> {
+  const { data } = await ApiClient.post<Task>(url, params);
   return data;
 }
 
