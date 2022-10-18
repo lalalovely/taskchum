@@ -10,6 +10,7 @@
     "@mui/material": "^5.8.6",
     "@mui/styled-engine-sc": "^5.8.0",
     "@mui/x-date-pickers": "^5.0.0-beta.1",
+    "@reduxjs/toolkit": "^1.8.5",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
@@ -54,7 +55,10 @@
     "server:dev": "cd src/server && cross-env TZ=utc HTTPS=false ts-node-dev --no-deps --ignore-watch node_modules --debug -r tsconfig-paths/register index.ts",
     "lint": "npm run lint:ts --fix",
     "lint:ts": "eslint --ext .ts,.tsx .",
-    "format": "prettier --write 'src/**/*.{ts,tsx}'"
+    "format": "prettier --write \"src/**/*.{ts,tsx}\""
+  },
+  "engines": {
+    "node": "16.17.1"
   },
   "eslintConfig": {
     "extends": [
