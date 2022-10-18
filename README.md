@@ -1,15 +1,19 @@
 # Taskchum
 
-A simple task manager app. Live: https://taskchum.vercel.app
+A simple task manager app.
+
+## Site
+https://taskchum.vercel.app
 
 ## Tech
-- Firebase auth
-- Firestore
-- Typescript
 - React
 - React Query
+- Typescript
+- Styled Components
 - NodeJs
 - Express
+- Firebase Authentication
+- Firestore
 
 ## Features
 - Authentication
