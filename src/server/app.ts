@@ -17,13 +17,12 @@ import NotFoundError from './errors/NotFoundError';
 import router from './routes';
 import swaggerDoc from './swagger.json';
 import { applicationDefault } from 'firebase-admin/app';
-import config from './config/config';
 
 async function main() {
   admin.initializeApp({
-    projectId: config.FIRESTORE_CREDS.project_id,
+    projectId: process.env.FIREBASE_PROJECT_ID,
     credential: applicationDefault(),
-    databaseURL: 'https://task-manager-ec6a7-default-rtdb.firebaseio.com',
+    databaseURL: process.env.FIREBASE_DATABASE_URL,
   });
 
   const app = express();

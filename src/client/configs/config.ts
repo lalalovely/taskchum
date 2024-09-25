@@ -8,7 +8,7 @@ const firebaseCredentials = {
   measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 
-const apiUrl = process.env.REACT_APP_API_URL;
+const apiUrl = process.env.REACT_APP_API_URL || '';
 
 const config = { firebaseCredentials, apiUrl };
 
