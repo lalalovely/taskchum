@@ -20,14 +20,10 @@ import BaseError from './errors/BaseError';
 import NotFoundError from './errors/NotFoundError';
 import router from './routes';
 import swaggerDoc from './swagger.json';
-import { applicationDefault } from 'firebase-admin/app';
 
 async function main() {
-  const serviceAccount = JSON.parse(
-    process.env.FIREBASE_SERVICE_ACCOUNT as string
-  );
   admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
+    credential: admin.credential.applicationDefault(),
     databaseURL: process.env.FIREBASE_DATABASE_URL,
   });
 
