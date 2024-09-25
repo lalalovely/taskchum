@@ -1,6 +1,10 @@
 import fs from 'fs';
 
 import path from 'path';
+import { resolve } from 'path';
+import dotenv from 'dotenv';
+
+dotenv.config({ path: resolve(__dirname, '../.env') });
 
 import bodyParser from 'body-parser';
 import cors from 'cors';
@@ -19,9 +23,11 @@ import swaggerDoc from './swagger.json';
 import { applicationDefault } from 'firebase-admin/app';
 
 async function main() {
+  const serviceAccount = JSON.parse(
+    process.env.FIREBASE_SERVICE_ACCOUNT as string
+  );
   admin.initializeApp({
-    projectId: process.env.FIREBASE_PROJECT_ID,
-    credential: applicationDefault(),
+    credential: admin.credential.cert(serviceAccount),
     databaseURL: process.env.FIREBASE_DATABASE_URL,
   });
 
