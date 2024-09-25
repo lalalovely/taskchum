@@ -5,6 +5,11 @@ A simple task manager app.
 ## Site
 [https://taskchum-34eeb0429ca8.herokuapp.com](https://taskchum-34eeb0429ca8.herokuapp.com/)
 
+## Features
+- Authentication
+- CRUD tasks
+- Dark mode
+
 ## Tech
 - React
 - React Query
@@ -14,8 +19,3 @@ A simple task manager app.
 - Express
 - Firebase Authentication
 - Firestore
-
-## Features
-- Authentication
-- CRUD tasks
-- Dark mode
